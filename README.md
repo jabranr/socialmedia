@@ -37,7 +37,7 @@
 		&lt;/script&gt;
 	</code>
 <p>
-	Almost all of the Facebook available plugins [https://developers.facebook.com/docs/plugins/] work fine using above basic settings and initialization.
+	Almost all of the <a href="https://developers.facebook.com/docs/plugins/" target="_blank">Facebook available plugins</a> work fine using above basic settings and initialization.
 </p>
 
 <li><h3>Use advance Facebook API actions:</h3></li>
@@ -51,12 +51,12 @@
 <ul>
 	<li>
 		<em>
-			appid: Facebook application ID
+			<strong>appid:</strong> Facebook application ID
 		</em>
 	</li>
 	<li>
 		<em>
-			channelurl: Facebook channel file URL
+			<strong>channelurl:</strong> Facebook channel file URL
 		</em>
 	</li>
 </ul>
@@ -72,164 +72,161 @@
 <ul>
 	<li>
 		<em>
-			appid: Facebook application ID
+			<strong>appid:</strong> Facebook application ID
 		</em>
 	</li>
 	<li>
 		<em>
-			channelurl: Facebook channel file URL
+			<strong>channelurl:</strong> Facebook channel file URL
 		</em>
 	</li>
 	<li>
 		<em>
-			width: Facebook Canvas width as integer in pixels
+			<strong>width:</strong> Facebook Canvas width as integer in pixels
 		</em>
 	</li>
 	<li>
 		<em>
-			height: Facebook Canvas height as integer in pixels
+			<strong>height:</strong> Facebook Canvas height as integer in pixels
 		</em>
 	</li>
 	<li>
 		<em>
-			autogrow: true|false|interval (integer) – Set Facebook Canvas autogrow 
+			<strong>autogrow:</strong> true|false|interval (integer) – Set Facebook Canvas autogrow 
 		</em>
 	</li>
 	<li>
 		<em>
-			x: Set Facebook Canvas horizontal scroll position as integer in pixels
+			<strong>x:</strong> Set Facebook Canvas horizontal scroll position as integer in pixels
 		</em>
 	</li>
 	<li>
 		<em>
-			y: Set Facebook Canvas vertical scroll position as integer in pixels
+			<strong>y:</strong> Set Facebook Canvas vertical scroll position as integer in pixels
 		</em>
 	</li>
 </ul>
 
-All settings are optional. In absence of all settings, application will use the basic Facebook API actions.
+<p>All settings are optional. In absence of all settings, application will use the basic Facebook API actions.</p>
 
-Facebook Like action
-Add following code snippet to display like button anywhere in the application.
-<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"></div>
+<h2>Facebook Like action</h2>
 
-Facebook Share action
-Apply Facebook share action at any object in application to display share dialog using following method:
+<p>
+	Add following code snippet to display like button anywhere in the application.
+</p>
 
-facebook.share({ options, callback, callback });
+<code>
+	<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"></div>
+</code>
 
-Options:
-title:  title of application
-url: url of application
-picture: image URL to display in share dialog
-caption: caption to display in share dialog
-description: brief description of application
-Callback: 
-Callback function to return in result of successful share dialog action.
-Callback: 
-Callback function to return in result of failure/cancelation of share dialog.
+<h2>Facebook Share action</h2>
 
-Facebook Invite action
-Apply Facebook invite action at any object in application to display invite dialog using following method:
+<p>Apply Facebook share action at any object in application to display share dialog using following method:</p>
 
-facebook.invite({ options, callback });
+<code>
+	facebook.share({ options, callback, callback });
+</code>
 
-Options:
-message:  Invite message to be displayed in invite dialog.
-Callback: 
-Callback function to return in result of successful invite dialog action.
+<strong>Options:</strong>
 
-Twitter Tweet action
-Apply Twitter tweet action at any object in application to post tweet using following method:
+<ul>
+	<li>
+		<em>
+			<strong>title:</strong>  title of application
+		</em>
+	</li>
+	<li>
+		<em>
+			<strong>url:</strong> url of application
+		</em>
+	</li>
+	<li>
+		<em>
+			<strong>picture:</strong> image URL to display in share dialog
+		</em>
+	</li>
+	<li>
+		<em>
+			<strong>caption:</strong> caption to display in share dialog
+		</em>
+	</li>
+	<li>
+		<em>
+			<strong>description:</strong> brief description of application
+		</em>
+	</li>
+</ul>
 
-twitter.tweet({ options });
+	<strong>Callback:</strong>
+	<code>
+		Callback function to return in result of successful share dialog action.
+	</code>
+	
+	<strong>Callback:</strong>
+	<code>
+		Callback function to return in result of failure/cancelation of share dialog.
+	</code>
 
-Options:
-tweet:  Invite message to be displayed in invite dialog.
-handler: twitter handler
-url: URL to post in tweet
-All options are optional. A final tweet will be formed based upon whichever options are provided with values and will be URL encoded.
-License:
-MIT License – http://opensource.org/licenses/MIT
-socialmedia.js
-Introduction
-socialmedia.js is a small library containing collection of various methods that are used in social media interaction. This library is built to lessen the clutter of code from various social media platforms and by using the minimal and easy approach as well as:
-•	Easy to use with convenient name functions
-•	Do more and write less i.e. inclusion of one facebook init method enables like, share, invite, send, like box, streams and many more functions.
-•	Helps avoid repeating the code from social media prepared APIs
-•	Uses the same usual core functions of social media platforms with minimum input
-•	Minimized version is 2kb that provides quick website load.
-•	Auto creates the required div elements in dom and keep them at appropriate positions
-Using the socialmedia.js library
-Download the project using ZIP option at http://github.com/jabranr/socialmedia.js
-Unzip the project and copy the socialmedia.min.js to your website/application project.
-Include socialmedia.min.js and have it loaded using async method in your web document.
-<script src=” socialmedia.min.js” onload=”facebook.init({appid:’123456789’, channelurl:’//yourdomain.com/channel.php’});” ></script>
-[* Script path must be according to your directory structure]
-List of available functions
-Use basic Facebook API actions:
-<script src=” socialmedia.min.js” onload=”facebook.init({appid:’123456789’, channelurl:’//yourdomain.com/channel.php’});”></script>
-Almost all of the Facebook available plugins [https://developers.facebook.com/docs/plugins/] work fine using above basic settings and initialization.
 
-Use advance Facebook API actions:
-facebook.init({ settings });
-Settings:
-appid: Facebook application ID
-channelurl: Facebook channel file URL
+<h2>Facebook Invite action</h2>
 
-Advance Facebook Canvas options:
+<p>
+	Apply Facebook invite action at any object in application to display invite dialog using following method:
+</p>
 
-facebook.init({ settings });
-Settings:
-appid: Facebook application ID
-channelurl: Facebook channel file URL
-width: Facebook Canvas width as integer in pixels
-height: Facebook Canvas height as integer in pixels
-autogrow: true|false|interval (integer) – Set Facebook Canvas autogrow 
-x: Set Facebook Canvas horizontal scroll position as integer in pixels
-y: Set Facebook Canvas vertical scroll position as integer in pixels
+<code>
+	facebook.invite({ options, callback });
+</code>
 
-All settings are optional. In absence of all settings, application will use the basic Facebook API actions.
+<strong>Options:</strong>
+<ul>
+	<li>
+		<em>
+			<strong>message:</strong>  Invite message to be displayed in invite dialog.
+		</em>
+	</li>
+</ul>
 
-Facebook Like action
-Add following code snippet to display like button anywhere in the application.
-<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"></div>
+<strong>Callback:</strong>
+<p>
+	Callback function to return in result of successful invite dialog action.
+</p>
 
-Facebook Share action
-Apply Facebook share action at any object in application to display share dialog using following method:
+<h2>Twitter Tweet action</h2>
 
-facebook.share({ options, callback, callback });
+<p>
+	Apply Twitter tweet action at any object in application to post tweet using following method:
+</p>
 
-Options:
-title:  title of application
-url: url of application
-picture: image URL to display in share dialog
-caption: caption to display in share dialog
-description: brief description of application
-Callback: 
-Callback function to return in result of successful share dialog action.
-Callback: 
-Callback function to return in result of failure/cancelation of share dialog.
+<code>
+	twitter.tweet({ options });
+</code>
 
-Facebook Invite action
-Apply Facebook invite action at any object in application to display invite dialog using following method:
+<strong>Options:</strong>
 
-facebook.invite({ options, callback });
+<ul>
+	<li>
+		<em>
+			<strong>tweet:</strong>  Invite message to be displayed in invite dialog.
+		</em>
+	</li>
+	<li>
+		<em>
+			<strong>handler:</strong> twitter handler
+		</em>
+	</li>
+	<li>
+		<em>
+			<strong>url:</strong> URL to post in tweet
+		</em>
+	</li>
+</ul>
 
-Options:
-message:  Invite message to be displayed in invite dialog.
-Callback: 
-Callback function to return in result of successful invite dialog action.
+<p>
+	All options are optional. A final tweet will be formed based upon whichever options are provided with values and will be URL encoded.
+</p>
 
-Twitter Tweet action
-Apply Twitter tweet action at any object in application to post tweet using following method:
-
-twitter.tweet({ options });
-
-Options:
-tweet:  Invite message to be displayed in invite dialog.
-handler: twitter handler
-url: URL to post in tweet
-All options are optional. A final tweet will be formed based upon whichever options are provided with values and will be URL encoded.
-License:
-MIT License – http://opensource.org/licenses/MIT
+<h2>License:</h2>
+<p>
+	<a target="_blank" href="http://opensource.org/licenses/MIT">MIT License – http://opensource.org/licenses/MIT</a>
+</p>
