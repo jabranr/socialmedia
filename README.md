@@ -116,7 +116,7 @@
 </p>
 
 <code>
-	<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"></div>
+	&lt;div class="fb-like" data-send="true" data-width="450" data-show-faces="true"&gt;&lt;/div&gt;
 </code>
 
 <h2>Facebook Share action</h2>
