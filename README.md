@@ -22,8 +22,8 @@
 </ol>
 
 <code>
-	<script src=” socialmedia.min.js” onload=”facebook.init({appid:’123456789’, channelurl:’//yourdomain.com/channel.php’});” >
-	</script>
+	&lt;script src="socialmedia.min.js" onload="facebook.init({appid:'123456789', channelurl:'//yourdomain.com/channel.php'});" &gt;
+	&lt;/script&gt;
 </code>
 
 <strong><em>[* Script path must be according to your directory structure]</em></strong>
@@ -33,8 +33,8 @@
 <ol>
 	<li><h3>Use basic Facebook API actions:</h3></li>
 	<code>
-		<script src=” socialmedia.min.js” onload=”facebook.init({appid:’123456789’, channelurl:’//yourdomain.com/channel.php’});”>
-		</script>
+		&lt; script src="socialmedia.min.js" onload="facebook.init({appid:'123456789', channelurl:'//yourdomain.com/channel.php'});" &gt;
+		&lt;/script&gt;
 	</code>
 <p>
 	Almost all of the Facebook available plugins [https://developers.facebook.com/docs/plugins/] work fine using above basic settings and initialization.
@@ -49,21 +49,63 @@
 <strong>Settings:</strong>
 
 <ul>
-	<li>appid: Facebook application ID</li>
-	<li>channelurl: Facebook channel file URL</li>
+	<li>
+		<em>
+			appid: Facebook application ID
+		</em>
+	</li>
+	<li>
+		<em>
+			channelurl: Facebook channel file URL
+		</em>
+	</li>
 </ul>
 
 <li><h3>Advance Facebook Canvas options:</h3></li>
 
-facebook.init({ settings });
-Settings:
-appid: Facebook application ID
-channelurl: Facebook channel file URL
-width: Facebook Canvas width as integer in pixels
-height: Facebook Canvas height as integer in pixels
-autogrow: true|false|interval (integer) – Set Facebook Canvas autogrow 
-x: Set Facebook Canvas horizontal scroll position as integer in pixels
-y: Set Facebook Canvas vertical scroll position as integer in pixels
+<code>
+	facebook.init({ settings });
+</code>
+
+<strong>Settings:</strong>
+
+<ul>
+	<li>
+		<em>
+			appid: Facebook application ID
+		</em>
+	</li>
+	<li>
+		<em>
+			channelurl: Facebook channel file URL
+		</em>
+	</li>
+	<li>
+		<em>
+			width: Facebook Canvas width as integer in pixels
+		</em>
+	</li>
+	<li>
+		<em>
+			height: Facebook Canvas height as integer in pixels
+		</em>
+	</li>
+	<li>
+		<em>
+			autogrow: true|false|interval (integer) – Set Facebook Canvas autogrow 
+		</em>
+	</li>
+	<li>
+		<em>
+			x: Set Facebook Canvas horizontal scroll position as integer in pixels
+		</em>
+	</li>
+	<li>
+		<em>
+			y: Set Facebook Canvas vertical scroll position as integer in pixels
+		</em>
+	</li>
+</ul>
 
 All settings are optional. In absence of all settings, application will use the basic Facebook API actions.
 
