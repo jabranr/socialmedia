@@ -158,14 +158,14 @@
 </ul>
 
 	<strong>Callback:</strong>
-	<code>
+	<p>
 		Callback function to return in result of successful share dialog action.
-	</code>
+	</p>
 	
 	<strong>Callback:</strong>
-	<code>
+	<p>
 		Callback function to return in result of failure/cancelation of share dialog.
-	</code>
+	</p>
 
 
 <h2>Facebook Invite action</h2>
