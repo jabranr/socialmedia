@@ -26,7 +26,11 @@
 	&lt;/script&gt;
 </code>
 
-<strong><em>[* Script path must be according to your directory structure]</em></strong>
+<strong>
+	<em>
+		[* Script path must be according to your directory structure]
+	</em>
+</strong>
 
 <h2>List of available functions</h2>
 
