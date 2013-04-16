@@ -48,7 +48,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="../src/socialmedia.js"></script>
-	<script>/*
+	<script>
 		var _gaq = _gaq || [];
 		_gaq.push(['_setAccount', 'UA-9809111-15']);
 		_gaq.push(['_setDomainName', 'jabran.me']);
@@ -63,7 +63,7 @@
 		facebook.init({
 			appid:'142530249248955',
 			channelurl:'//jabran.me/channel.php'
-		});*/
+		});
 	</script>
 	
 </head>
