@@ -27,9 +27,7 @@
 </code>
 
 <strong>
-	<em>
-		[* Script path must be according to your directory structure]
-	</em>
+	[* Script path must be according to your directory structure]
 </strong>
 
 <h2>List of available functions</h2>
@@ -146,7 +144,7 @@
 	</li>
 	<li>
 		<em>
-			<strong>picture:</strong> image URL to display in share dialog
+			<strong>image:</strong> image URL to display in share dialog
 		</em>
 	</li>
 	<li>
