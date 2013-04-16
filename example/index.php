@@ -73,28 +73,29 @@
 
 		<h1>socialmedia.js</h1>
 
-		<p>
-			The document for this library is being updated. Please refer to changelog at <a href="http://github.com/jabranr/socialmedia.js" target="_blank">Github</a>.
-		</P>
-
-		<p class="code">
-			<code>
-				facebook.init({
-					appid:'1234567890',
-					channelurl:'//yourwebsite.com/channel.php'
-				});
-			</code>
-	</p>
-
 		<ul>
-			<li><button class="fbshare btn btn-info">Share on Facebook</button></li>
-			<li><button class="fbinvite btn btn-info">Invite Facebook friends</button></li>
-			<li><button class="tweet btn btn-info">Tweet the story</button></li>
+			<li><button class="bttn fbshare">Facebook Share dialog example</button></li>
+			<li><button class="bttn fbinvite">Facebook Invite dialog example</button></li>
+			<li><button class="bttn tweet">Tweet example</button></li>
 		</ul>
+		
+		<br>
+		
+		<ul>
+			<li><a href="https://github.com/jabranr/socialmedia.js#readme" class="bttn bttn-primary">Read Documentation</a></li>
+			<li><a href="https://github.com/jabranr/socialmedia.js/archive/master.zip" class="bttn bttn-info">Download socialmedia.js</a></li>
+			<li><a href="https://github.com/jabranr/socialmedia.js" class="bttn bttn-primary">Fork on Github</a></li>
+		</ul>
+
+		<br>
+
+		<code>
+			git://github.com/jabranr/socialmedia.js.git
+		</code>
 
 		<div class="footer">
 			<ul>
-				<li><a href="http://jabran.me" target="_parent" title="Folio">Jabran Rafique</a></li>
+				<li><a href="http://jabran.me" target="_parent" title="Folio">&copy; <?php echo date('Y'); ?> Jabran Rafique</a></li>
 				<li><a href="http://github.com/jabranr/socialmedia.js" target="_blank" title="Fork at Github">Fork at Github</a></li>
 				<li><a href="http://opensource.org/licenses/MIT" target="_blank" title="MIT License">MIT License</a></li>
 			</ul>
