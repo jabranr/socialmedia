@@ -44,12 +44,12 @@ var facebook = {
 			
 			window.fbAsyncInit = function() {
 				FB.init({
-					'appId'					: settings.appid,
-					'channelUrl'			: settings.channelurl,
-					'status'				: false, // Intentionally set false to avoid the early calls to FB.getLoginStatus()
-					'cookie'				: true,
-					'xfbml'					: true,
-					'frictionlessRequests'	: false // Intentionally set false to avoid the early calls to FB.getLoginStatus()
+					'appId' : settings.appid,
+					'channelUrl' : settings.channelurl,
+					'status' : false, // Intentionally set false to avoid the early calls to FB.getLoginStatus()
+					'cookie' : true,
+					'xfbml'	: true,
+					'frictionlessRequests' : false // Intentionally set false to avoid the early calls to FB.getLoginStatus()
 				});
 
 				// Once Facebook completes initizialing, set our fbinit to true for trackback.
@@ -112,9 +112,9 @@ var facebook = {
 		if ( this.fbinit )	{ // Making sure that Facebook API is ready
 			FB.ui({
 				'method': 'feed',
-				'title': options.title,
-				'url': options.url,
-				'image': options.image,
+				'name': options.title,
+				'link': options.url,
+				'picture': options.image,
 				'caption': options.caption,
 				'description': options.description
 			},	
