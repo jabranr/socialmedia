@@ -40,7 +40,7 @@ var facebook = {
 		};
 
 		// Setup Facebook init with user provided settings for appId and ChannelUrl
-		if ( settings !== undefined )	{
+		if ( typeof(settings) !== "undefined" )	{
 			
 			window.fbAsyncInit = function() {
 				FB.init({
@@ -68,7 +68,7 @@ var facebook = {
 				 * When possible please pass the explicit dimensions as properties of an object
 				 */
 
-				if ( typeof( settings.width ) !== undefined && typeof( settings.height ) !== undefined )
+				if ( typeof( settings.width ) !== "undefined" && typeof( settings.height ) !== "undefined" )
 					FB.Canvas.setSize({
 						width: parseInt( settings.width ),
 						height: parseInt( settings.height )
@@ -85,7 +85,7 @@ var facebook = {
 				 * This method is only enabled when Canvas Height is set to "Fixed at (800)px" in the App Dashboard.
 				 */
 
-				if ( typeof( settings.autogrow !== undefined ) )
+				if ( typeof( settings.autogrow !== "undefined" ) )
 					FB.Canvas.setAutoGrow( settings.autogrow );
 				else
 					FB.Canvas.setAutoGrow();
@@ -97,7 +97,7 @@ var facebook = {
 				 * This method is only enabled when Canvas Height is set to "Settable (Default: 800px)" in the App Dashboard.
 				 */
 
-				if ( typeof( settings.x ) !== undefined && typeof( settings.y ) !== undefined )
+				if ( typeof( settings.x ) !== "undefined" && typeof( settings.y ) !== "undefined" )
 					FB.Canvas.scrollTo( parseInt( settings.x ), parseInt( settings.y ));
 			};
 		}
@@ -120,9 +120,9 @@ var facebook = {
 			},	
 				function( response )	{
 					if ( response && response.post_id )
-						return typeof( success ) === 'function' ? success() : false; // User provided callback functions in result of successful post to timeline
+						return typeof( success ) === "function" ? success() : false; // User provided callback functions in result of successful post to timeline
 					else
-						return typeof( fail ) === 'function' ? fail() : false; // User provided callback function in result of a dialog cancel or failure
+						return typeof( fail ) === "function" ? fail() : false; // User provided callback function in result of a dialog cancel or failure
 				}
 			);
 		}
@@ -138,7 +138,7 @@ var facebook = {
 			},
 				function( response )	{
 					if ( response && response.to )
-						return typeof( callback ) === 'function' ? callback() : false;
+						return typeof( callback ) === "function" ? callback() : false;
 					return false;
 				}
 			);
@@ -153,11 +153,11 @@ twitter = {
 
 		if ( options )	{
 			var t, i = '//twitter.com/intent/tweet?';
-			if ( typeof( options.tweet ) !== undefined ) 
+			if ( typeof( options.tweet ) !== "undefined" ) 
 				t = 'text=' + encodeURIComponent( options.tweet );
-			if ( typeof( options.handler ) !== undefined ) 
+			if ( typeof( options.handler ) !== "undefined" ) 
 				t = t + '&via=' + encodeURIComponent( options.handler );
-			if ( typeof( options.url ) !== undefined ) 
+			if ( typeof( options.url ) !== "undefined" ) 
 				t = t + '&url=' + encodeURIComponent( options.url );
 		}
 		return window.open( i + t, '_blank' );
