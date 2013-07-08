@@ -12,11 +12,18 @@
 <ol>
   <li>Download the project using ZIP option at <a href="https://github.com/jabranr/socialmedia.js/archive/master.zip">https://github.com/jabranr/socialmedia.js/archive/master.zip</a></li>
   <li>Unzip the project and copy the socialmedia.min.js to your website/application project.</li>
-  <li>Include socialmedia.min.js and have it loaded using async method in your web document.</li>
+  <li>Include socialmedia.min.js between HEAD tags.</li>
 </ol>
-<p><code>&lt;script src="socialmedia.min.js" onload="facebook.init({appid:'123456789', channelurl:'//yourdomain.com/channel.php'});" &gt;
-  &lt;/script&gt;</code></p>
+<p><code>&lt;script src="socialmedia.min.js"&gt;&lt;/script&gt;</code></p>
 <p><em>* Script path must reflect your directory structure</em></p>
+<p>Then add this line between HEAD tags to load the library and that's all about the setup.</p>
+<p><pre>
+&lt;script&gt;
+facebook.init({
+  appid:'123456789', 
+  channelurl:'//yourdomain.com/channel.php'
+});
+&lt;/script&gt;</pre></p>
 <h2>List of available functions </h2>
 <p>Following are currently available functions through this library. Every function comes with its options and callback functions as explained below.</p>
 <h2> Use basic Facebook API actions: </h2>
