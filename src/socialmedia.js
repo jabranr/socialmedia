@@ -2,7 +2,7 @@
  *
  * JavaScript library for Social media actions.
  *
- * @version: 0.9 beta
+ * @version: 1.0
  * @author: hello@jabran.me
  * @url: http://github.com/jabranr
  * @website: http://jabran.me
