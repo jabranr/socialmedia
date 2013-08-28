@@ -1,5 +1,6 @@
 <h1>socialmedia.js</h1>
-<p>Introductionsocialmedia.js is a small library containing collection of various methods that are used in social media interaction. This library is built to lessen the clutter of code from various social media platforms and by using the minimal and easy approach as well as: </p>
+<h2>Introduction</h2>
+<p>socialmedia.js is a small library containing collection of various methods that are used in social media interaction. This library is built to lessen the clutter of code from various social media platforms and by using the minimal and easy approach as well as: </p>
 <ul>
   <li>Easy to use with convenient name functions</li>
   <li>Do more and write less i.e. inclusion of one facebook init method enables like, share, invite, send, like box, streams and many more functions.</li>
