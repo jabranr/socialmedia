@@ -2,7 +2,7 @@
  *
  * JavaScript library for Social media actions.
  *
- * @version: 1.0
+ * @version: 1.1
  * @author: hello@jabran.me
  * @url: http://github.com/jabranr
  * @website: http://jabran.me
@@ -25,7 +25,7 @@
 
 
 // Setup the socialmedia.js facebook object
-var facebook = {
+var	facebook = {
 
 	// Set the Facebook initialize status (FB.init) false
 	fbinit: false,
@@ -55,6 +55,9 @@ var facebook = {
 				// Once Facebook completes initizialing, set our fbinit to true for trackback.
 				facebook.fbinit = true;
 
+				// Update the Facecbook SDK URL with application id
+				var js = document.getElementById('facebook-jssdk');
+				js.src += '#xfbml=1&appid=' + settings.appid;
 
 				// Setup Canvas options based on user provided settings
 				
@@ -175,4 +178,3 @@ twitter = {
 		ref.parentNode.insertBefore(fbdiv, ref);
 		ref.parentNode.insertBefore(js, ref);
 }(document, false));
-
