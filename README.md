@@ -11,11 +11,11 @@
 </ul>
 <h2> Downloading &amp; Installing socialmedia.js library </h2>
 <ol>
-  <li>Download the project using ZIP option at <a href="https://github.com/jabranr/socialmedia.js/archive/master.zip">https://github.com/jabranr/socialmedia.js/archive/master.zip</a></li>
+  <li><a href="https://github.com/jabranr/socialmedia.js/archive/master.zip?utm_source=github&utm_medium=readme&utm_campaign=downloads">Download complete project as ZIP</a></li>
   <li>Unzip the project and copy the socialmedia.min.js to your website/application project.</li>
-  <li>Include socialmedia.min.js between HEAD tags.</li>
+  <li>Include socialmedia.min.js in HTML document.</li>
 </ol>
-<p><code>&lt;script src="socialmedia.min.js"&gt;&lt;/script&gt;</code></p>
+<p><code>&lt;script src="js/socialmedia.min.js"&gt;&lt;/script&gt;</code></p>
 <p><em>* Script path must reflect your directory structure</em></p>
 <p>Then add this line between HEAD tags to load the library and that's all about the setup.</p>
 <p><pre>
