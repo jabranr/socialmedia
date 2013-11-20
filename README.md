@@ -6,7 +6,7 @@
   <li>Do more and write less i.e. inclusion of one facebook init method enables like, share, invite, send, like box, streams and many more functions.</li>
   <li>Helps avoid repeating the code from social media prepared APIs</li>
   <li>Uses the same usual core functions of social media platforms with minimum input</li>
-  <li>Minimized version is 2kb that provides quick website load.</li>
+  <li>Minimized version is 4kb that provides quick load.</li>
   <li>Auto creates the required div elements in dom and keep them at appropriate positions</li>
 </ul>
 <h2> Downloading &amp; Installing socialmedia.js library </h2>
@@ -19,8 +19,8 @@
 <p><em>* Script path must reflect your directory structure</em></p>
 <p>Then add this line between HEAD tags to load the library and that's all about the setup.</p>
 <p><pre>
-&lt;script&gt;
-facebook.init({
+  &lt;script&gt;
+  facebook.init({
   appid:'123456789', 
   channelurl:'//yourdomain.com/channel.php'
 });
@@ -90,6 +90,14 @@ facebook.init({
   <li><em> tweet: Invite message to be displayed in invite dialog. </em> </li>
   <li><em> handler: twitter handler </em> </li>
   <li><em> url: URL to post in tweet </em> </li>
+</ul>
+<p> All options are optional. A final tweet will be formed based upon whichever options are provided with values and will be URL encoded.</p>
+<h2>Google Plus action:</h2>
+<p>Apply Google Plus action at any object in application to post it to Google Plus using following method:</p>
+<p><code>gplus.plus({ options });</code></p>
+<p><strong><em>Options:</em></strong></p>
+<ul>
+  <li><em> url: URL to post to Google Plus </em> </li>
 </ul>
 <p> All options are optional. A final tweet will be formed based upon whichever options are provided with values and will be URL encoded.</p>
 <h2>License:</h2>

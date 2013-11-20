@@ -2,7 +2,7 @@
  *
  * JavaScript library for Social media actions.
  *
- * @version: 1.1
+ * @version: 1.2
  * @author: hello@jabran.me
  * @url: http://github.com/jabranr
  * @website: http://jabran.me
@@ -46,10 +46,10 @@ var	facebook = {
 				FB.init({
 					'appId' : settings.appid,
 					'channelUrl' : settings.channelurl,
-					'status' : false, // Intentionally set false to avoid the early calls to FB.getLoginStatus()
+					'status' : settings.status || false, // Intentionally set false to avoid the early calls to FB.getLoginStatus()
 					'cookie' : true,
 					'xfbml'	: true,
-					'frictionlessRequests' : false // Intentionally set false to avoid the early calls to FB.getLoginStatus()
+					'frictionlessRequests' : settings.flrequests || false // Intentionally set false to avoid the early calls to FB.getLoginStatus()
 				});
 
 				// Once Facebook completes initizialing, set our fbinit to true for trackback.
@@ -123,9 +123,9 @@ var	facebook = {
 			},	
 				function( response )	{
 					if ( response && response.post_id )
-						return typeof( success ) === "function" ? success() : false; // User provided callback functions in result of successful post to timeline
+						return typeof( success ) === "function" ? success.call(this, response) : false; // User provided callback functions in result of successful post to timeline
 					else
-						return typeof( fail ) === "function" ? fail() : false; // User provided callback function in result of a dialog cancel or failure
+						return typeof( fail ) === "function" ? fail.call(this) : false; // User provided callback function in result of a dialog cancel or failure
 				}
 			);
 		}
@@ -137,11 +137,16 @@ var	facebook = {
 		if ( this.fbinit ) { // Making sure that Facebook API is ready
 			FB.ui({
 				'method': 'apprequests',
-				'message': options.msg
+				'title': options.title,
+				'message': options.msg,
+				'to': options.to,
+				'exclude_ids': options.exclude_ids,
+				'max_recipients': options.max_to,
+				'data': options.data
 			},
 				function( response )	{
 					if ( response && response.to )
-						return typeof( callback ) === "function" ? callback() : false;
+						return typeof( callback ) === "function" ? callback.call(this, response) : false;
 					return false;
 				}
 			);
@@ -166,6 +171,19 @@ twitter = {
 		return window.open( i + t, '_blank' );
 	}
 	
+},
+
+gplus = {
+	plus: function( options )	{
+
+		if ( options )	{
+			var gp, u = '//plus.google.com/share';
+			if ( typeof( options.url ) !== "undefined" )	{
+				gp = u + '?url=' + encodeURIComponent( options.url );
+			}
+		}
+		return window.open( gp, '_blank' );
+	}
 };
 
 (function(d, debug)	{

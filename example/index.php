@@ -4,7 +4,7 @@
  *
  * JavaScript library for Social media actions.
  *
- * @version: 0.9 beta
+ * @version: 1.2
  * @author: hello@jabran.me
  * @link: http://github.com/jabranr / http://jabran.me
  * @package: SocialMediaDotjs
@@ -24,7 +24,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
- $version = '0.9 beta';
+ $version = '1.2';
 
 ?>
 <!doctype HTML>
@@ -44,10 +44,10 @@
 	<link rel="canonical" href="http://jabran.me/sandbox/socialmediadotjs/">
 	<meta name="robots" content="noodp">
 	<link rel="shortcut icon" href="http://jabran.me/wp-content/themes/jabrandotme/images/favicon.ico">
-	<link rel="stylesheet" href="src/style.css?v=<?php echo $version; ?>">
+	<link rel="stylesheet" href="style.css?v=<?php echo $version; ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="src/socialmedia.min.js"></script>
+	<script src="../src/socialmedia.min.js"></script>
 	<script>
 		var _gaq = _gaq || [];
 		_gaq.push(['_setAccount', 'UA-9809111-15']);
@@ -62,7 +62,9 @@
 
 		facebook.init({
 			appid:'142530249248955',
-			channelurl:'//jabran.me/channel.php'
+			channelurl:'//jabran.me/channel.php',
+			status: true,
+			flrequests: true
 		});
 	</script>
 	
@@ -74,9 +76,10 @@
 		<h1>socialmedia.js</h1>
 
 		<ul>
-			<li><button class="bttn fbshare">Facebook Share dialog example</button></li>
-			<li><button class="bttn fbinvite">Facebook Invite dialog example</button></li>
-			<li><button class="bttn tweet">Tweet example</button></li>
+			<li><button class="bttn fbshare">Facebook Share on Timeline</button></li>
+			<li><button class="bttn fbinvite">Facebook Invite Friends</button></li>
+			<li><button class="bttn tweet">Tweet</button></li>
+			<li><button class="bttn gplus">Google +</button></li>
 		</ul>
 		
 		<br>
@@ -95,7 +98,7 @@
 
 		<div class="footer">
 			<ul>
-				<li><a href="http://jabran.me" target="_parent" title="Folio">&copy; <?php echo date('Y'); ?> Jabran Rafique</a></li>
+				<li><a href="http://jabran.me" target="_parent" title="Folio">&copy; <?php echo gmdate('Y'); ?> Jabran Rafique</a></li>
 				<li><a href="http://github.com/jabranr/socialmedia.js" target="_blank" title="Fork at Github">Fork at Github</a></li>
 				<li><a href="http://opensource.org/licenses/MIT" target="_blank" title="MIT License">MIT License</a></li>
 			</ul>
@@ -106,7 +109,13 @@
 	<script>
 	$(document).ready(function()	{
 
-		$('button.fbshare').on('click', function()	{
+		var click = ('ontouchstart' in window) ? 'touchstart': 'click',
+			fbsharebtn = $('button.fbshare'),
+			fbinvitebtn = $('button.fbinvite'),
+			tweetbtn = $('button.tweet'),
+			gplusbtn = $('button.gplus');
+
+		fbsharebtn.on(click, function()	{
 			facebook.share({
 				title: 'socialmedia.js by Jabran Rafique',
 				url	: 'http://jabran.me/sandbox/socialmediadotjs',
@@ -116,21 +125,18 @@
 			});
 		});
 
-		$('button.fbinvite').on('click', function()	{
+		fbinvitebtn.on(click, function()	{
 			facebook.invite({
 				msg: 'Check this convenient JavaScript library to add social media interactions to your web application.'
-			});
+			}, successCallback);
 		});
 
-		function success()	{
-			alert('Example message: Successfully posted.');
+		function successCallback(response)	{
+			console.log('Example: Response object returned on success');
+			console.log(response);
 		}
 
-		function failed()	{
-			alert('Example message: Execution failed.');
-		}
-
-		$('button.tweet').on('click', function()	{
+		tweetbtn.on(click, function()	{
 			twitter.tweet({
 				handler: 'jabranr',
 				tweet: 'socialmedia.js is convenient #JavaScript library for clutter free social media interactions',
@@ -138,6 +144,11 @@
 			});
 		});
 
+		gplusbtn.on(click, function()	{
+			gplus.plus({
+				url: 'http://jabran.me/sandbox/socialmediadotjs'
+			});
+		});
 	});
 	</script>
 
