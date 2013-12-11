@@ -4,7 +4,7 @@
  *
  * JavaScript library for Social media actions.
  *
- * @version: 1.2
+ * @version: 1.3
  * @author: hello@jabran.me
  * @link: http://github.com/jabranr / http://jabran.me
  * @package: SocialMediaDotjs
@@ -24,7 +24,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
- $version = '1.2';
+ $version = '1.3';
 
 ?>
 <!doctype HTML>
@@ -65,6 +65,10 @@
 			channelurl:'//jabran.me/channel.php',
 			status: true,
 			flrequests: true
+		}, function(FB)	{
+			FB.getLoginStatus(function(response)	{
+				console.log(response);
+			});
 		});
 	</script>
 	

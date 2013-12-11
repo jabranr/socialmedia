@@ -2,7 +2,7 @@
  *
  * JavaScript library for Social media actions.
  *
- * @version: 1.2
+ * @version: 1.3
  * @author: hello@jabran.me
  * @url: http://github.com/jabranr
  * @website: http://jabran.me
@@ -31,7 +31,7 @@ var	facebook = {
 	fbinit: false,
 
 	// Overriding init function to accept user provided settings / constructor
-	init: function( settings )	{
+	init: function( settings, callback )	{
 
 		// Move the dynamically created "<div id=fb-root></div>" into body of document
 		window.onload = function()	{
@@ -102,6 +102,9 @@ var	facebook = {
 
 				if ( typeof( settings.x ) !== "undefined" && typeof( settings.y ) !== "undefined" )
 					FB.Canvas.scrollTo( parseInt( settings.x ), parseInt( settings.y ));
+
+				// Run user defined callback function or return FB object
+				return (callback && typeof(callback) === 'function') ? callback.call(this, window.FB) : window.FB;
 			};
 		}
 		else 	{
