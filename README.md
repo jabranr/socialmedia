@@ -2,21 +2,21 @@
 
 ##Introduction
 
-socialmedia.js is a small library containing collection of various methods that are used in social media interaction. This library is built to lessen the clutter of code from various social media platforms and by using the minimal and easy approach as well as:
+socialmedia.js is a small JavaScript library containing collection of various methods that are used for social media interactions. This library is built to lessen the clutter of code from various social media platforms and by using the minimal and easy setup. Other features include:
 
-+ Easy to use with convenient name functions.
-+ Do more and write less i.e. inclusion of one facebook init method enables like, share, invite, send, like box, streams and many more functions..
-+ Helps avoid repeating the code from social media prepared APIs.
-+ Uses the same usual core functions of social media platforms with minimum input.
-+ Minimized version is 4kb that provides quick load..
-+ Auto creates the required div elements in dom and keep them at appropriate positions.
++ Easy to use with convenient callbacks and friendly naming.
++ Do more and write less i.e. inclusion of one facebook `init` method enables Facebook Like, Share, Invite, Send, Streams and many more defalt Facebook plugins.
++ Helps avoid repeating the same code in application.
++ Uses the same default core functions of social media platforms but with minimum input and setup.
++ Minified version is ~5kb that provides quick page load.
++ Auto creates the required div elements in `DOM` and keep them at appropriate levels in code.
 
 ##Installation &amp; Setup
 
 1. [Download the latest release](https://github.com/jabranr/socialmedia.js/releases/)
 2. A release includes the source code and ready to use example.
-3. Minified source code located in ```src/``` is recommended.
-4. Load and initialize the async Facebook SDKs using following code block in ```HEAD``` section of ```HTML``` document.
+3. Minified source code located in `src/` is recommended.
+4. Load and initialize the async Facebook SDKs using following code block in `<HEAD>` section of HTML document.
 
 ``` javascript
 <script src="src/socialmedia.min.js">
@@ -46,7 +46,7 @@ Or a Like Button with Share Button..
 
 
 ###Using advance Facebook API actions
-To use the advance features of Facebook's API and social actions, you can pass set of options as an object in above ```facebook.init``` function as illustrated in following example:
+To use the advance features of Facebook's API and social actions, you can pass set of options as an object in above `facebook.init` function as illustrated in following example:
 
 **Settings:**
 
