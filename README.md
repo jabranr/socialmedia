@@ -1,5 +1,7 @@
 # socialmedia.js
 
+<blockquote>This branch is in continuous development. NOT ready for production use!</blockquote>
+
 JavaScript library to embed social media functions in web apps.
 
 ## License:
