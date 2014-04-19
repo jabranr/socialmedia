@@ -117,7 +117,7 @@ Socialmedia.Facebook.prototype.scroll = function( settings ) {
 };
 
 // Facebook share function
-Socialmedia.Facebook.prototype.share = function( options ) {
+Socialmedia.Facebook.prototype.Share = function( options ) {
 	return FB.ui({
 		'method': 'feed',
 		'name': options && options.title || '',
@@ -127,13 +127,13 @@ Socialmedia.Facebook.prototype.share = function( options ) {
 		'description': options && options.description || ''
 	}, function( response )	{
 		return ( response && response.post_id ) ?
-			(typeof( options.success ) === "function" ? options.success.call(this, response) : false) :
-				(typeof( options.fail ) === "function" ? options.fail.call(this) : false);
+			(options.onSuccess && typeof( options.onSuccess ) === "function" ? options.onSuccess.call(this, response) : false) :
+				(options.onFail && typeof( options.onFail ) === "function" ? options.onFail.call(this) : false);
 	});
 };
 
 // Facebook invite function
-Socialmedia.Facebook.prototype.invite = function( options ) {
+Socialmedia.Facebook.prototype.Invite = function( options ) {
 	return FB.ui({
 		'method': 'apprequests',
 		'title': options && options.title || '',
@@ -144,10 +144,37 @@ Socialmedia.Facebook.prototype.invite = function( options ) {
 		'data': options && options.data || {}
 	}, function( response )	{
 		return ( response && response.to ) ?
-			(typeof( options.callback ) === "function" ? options.callback.call(this, response) : false) :
+			(options.callback && typeof( options.callback ) === "function" ? options.callback.call(this, response) : false) :
 				false;
 	});
 };
+
+// Facebook add to page tab function
+Socialmedia.Facebook.prototype.AddToPage = function() {
+	return FB.ui({
+	  method: 'pagetab'
+	}, function(response){ });
+};
+
+// Facebook add friend function
+Socialmedia.Facebook.prototype.AddFriend = function( friend_id, callback ) {
+	return FB.ui({
+	  method: 'friends',
+	  id: (typeof(id) !== 'undefined') && friend_id || 'jabranr'
+	}, function(response){
+		return (callback && typeof(callback) === 'function') ? callback.call(this, response.action === true) : false; 
+	});
+};
+
+// Facebook send function
+Socialmedia.Facebook.prototype.Send = function( options ) {
+	return FB.ui({
+	  method: 'send',
+	  link: options && typeof(options.link) !== 'undefined' && options.link || 'https://github.com/jabranr/socialmedia.js'
+	});
+};
+
+
 
 /**
  * Twitter functions
