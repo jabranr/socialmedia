@@ -1,7 +1,7 @@
 /**!
  * SocialMedia.js - Javascript library to embed socialmedia functions in a web app
  * @author: Jabran Rafique
- * @version: 1.4.1
+ * @version: 1.4.2
  * @license: MIT License
  */
 
