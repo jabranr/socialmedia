@@ -2,7 +2,7 @@ module.exports = function(grunt)	{
 	grunt.initConfig({
 		
 		pkg: grunt.file.readJSON('package.json'),
-		
+
 		concat: {
 			dist: {
 				src: [
@@ -17,6 +17,9 @@ module.exports = function(grunt)	{
 			build: {
 				src: 'src/socialmedia.js',
 				dest: 'src/socialmedia.min.js'
+			},
+			options: {
+				preserveComments: 'some'
 			}
 		},
 

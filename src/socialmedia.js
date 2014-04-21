@@ -1,8 +1,9 @@
-/**!
- * SocialMedia.js - Javascript library to embed socialmedia functions in a web app
- * @author: Jabran Rafique
- * @version: 1.4.2
- * @license: MIT License
+/*! SocialMedia.js | v1.4.2 | Jabran Rafique | MIT License (2014) **/
+
+/* SocialMedia.js - Javascript library to embed socialmedia functions in a web app
+ * author: Jabran Rafique
+ * version: 1.4.2
+ * license: MIT License
  */
 
 // Global object
@@ -137,15 +138,17 @@ Socialmedia.Facebook.prototype.Invite = function( options ) {
 	return FB.ui({
 		'method': 'apprequests',
 		'title': options && options.title || '',
-		'message': options && options.msg || '',
+		'message': options && options.message || '',
 		'to': options && options.to || [],
 		'exclude_ids': options && options.exclude_ids || [],
 		'max_recipients': options && options.max_to || 100,
 		'data': options && options.data || {}
 	}, function( response )	{
 		return ( response && response.to ) ?
-			(options.callback && typeof( options.callback ) === "function" ? options.callback.call(this, response) : false) :
-				false;
+			(options && options.callback && typeof( options.callback ) === "function" ? 
+				options.callback.call(this, response) : 
+					false) :
+			false;
 	});
 };
 
@@ -157,12 +160,14 @@ Socialmedia.Facebook.prototype.AddToPage = function() {
 };
 
 // Facebook add friend function
-Socialmedia.Facebook.prototype.AddFriend = function( friend_id, callback ) {
+Socialmedia.Facebook.prototype.AddFriend = function( options ) {
 	return FB.ui({
 	  method: 'friends',
-	  id: (typeof(id) !== 'undefined') && friend_id || 'jabranr'
+	  id: options && (typeof(options.id) !== 'undefined') && options.id || 'jabranr'
 	}, function(response){
-		return (callback && typeof(callback) === 'function') ? callback.call(this, response.action === true) : false; 
+		return (options && options.callback && typeof(options.callback) === 'function') ? 
+			options.callback.call(this, typeof(response) !== 'undefined' && response.action && response.action === true) : 
+				false; 
 	});
 };
 
@@ -170,11 +175,20 @@ Socialmedia.Facebook.prototype.AddFriend = function( friend_id, callback ) {
 Socialmedia.Facebook.prototype.Send = function( options ) {
 	return FB.ui({
 	  method: 'send',
-	  link: options && typeof(options.link) !== 'undefined' && options.link || 'https://github.com/jabranr/socialmedia.js'
+	  link: options && typeof(options.link) !== 'undefined' && options.link || window.location.href
 	});
 };
 
-
+// Facebook pay function
+Socialmedia.Facebook.prototype.Pay = function( options ) {
+	return FB.ui({
+	  method: 'pay',
+	  action: 'purchaseitem',
+	  product: options && typeof(options.link) !== 'undefined' && options.link || window.location.href
+	}, function(data)	{
+		return (data && options && typeof(options.callback) === 'function') ? options.callback.call(this, data) : false;
+	});
+};
 
 /**
  * Twitter functions
