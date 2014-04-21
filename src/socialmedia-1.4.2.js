@@ -1,9 +1,7 @@
-/*! SocialMedia.js | v1.4.2 | Jabran Rafique | MIT License (2014) **/
+/*! socialmedia | v1.4.2 | Jabran Rafique | MIT */
 
-/* SocialMedia.js - Javascript library to embed socialmedia functions in a web app
- * author: Jabran Rafique
- * version: 1.4.2
- * license: MIT License
+/**
+ * Javascript library to embed socialmedia functions in a web app
  */
 
 // Global object
@@ -43,9 +41,7 @@ Socialmedia.Github = function( settings ) {
 };
 
 
-/* ! 
- * Facebook functions 
- */
+/*! Facebook functions */
 
 // Facebook init function
 Socialmedia.Facebook.prototype.init = function() {
@@ -190,8 +186,6 @@ Socialmedia.Facebook.prototype.Pay = function( options ) {
 	});
 };
 
-/**
- * Twitter functions
- */
+/*! Twitter functions */
 
 Socialmedia.Twitter.init = function(options) {}

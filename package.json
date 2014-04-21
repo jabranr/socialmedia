@@ -2,6 +2,8 @@
   "name": "socialmedia",
   "author": "Jabran Rafique",
   "version": "1.4.2",
+  "copyright": "2014",
+  "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-contrib-concat": "~0.4.0",
