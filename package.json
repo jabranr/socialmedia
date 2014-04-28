@@ -1,13 +1,14 @@
 {
   "name": "socialmedia",
   "author": "Jabran Rafique",
-  "version": "1.4.2",
+  "version": "1.4.1",
   "copyright": "2014",
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-contrib-concat": "~0.4.0",
     "grunt-contrib-uglify": "~0.4.0",
-    "grunt-contrib-watch": "~0.6.1"
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-coffee": "~0.10.1"
   }
 }

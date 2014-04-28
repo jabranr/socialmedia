@@ -3,6 +3,17 @@ module.exports = function(grunt)	{
 		
 		pkg: grunt.file.readJSON('package.json'),
 
+		coffee: {
+			options: {
+				bare: true
+			},
+			compile: {
+				files: { 
+					'dev/socialmedia-coffee.js' : ['dev/coffee/socialmedia.coffee', 'dev/coffee/*.coffee']
+				}
+			}
+		},
+
 		concat: {
 			options: {
 				banner: "/*! <%= pkg.name %> | v<%= pkg.version %> | <%= pkg.author %> | <%= pkg.license %> */"
@@ -28,8 +39,8 @@ module.exports = function(grunt)	{
 
 		watch: {
 			scripts: {
-				files: ['dev/*.js'],
-				tasks: ['concat', 'uglify'],
+				files: ['dev/*.js', 'dev/coffee/*.coffee'],
+				tasks: ['coffee', 'concat', 'uglify'],
 				options: {
 					spawn: false
 				}
@@ -40,6 +51,7 @@ module.exports = function(grunt)	{
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-coffee');
 
-	grunt.registerTask('default', ['concat', 'uglify', 'watch']);
+	grunt.registerTask('default', ['coffee', 'concat', 'uglify', 'watch']);
 };
