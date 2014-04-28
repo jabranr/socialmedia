@@ -7,10 +7,13 @@ module.exports = function(grunt)	{
 			options: {
 				bare: true
 			},
-			compile: {
-				files: { 
-					'dev/socialmedia-coffee.js' : ['dev/coffee/socialmedia.coffee', 'dev/coffee/*.coffee']
-				}
+			glob_to_multiple: {
+				expand: true,
+				flatten: true,
+				cwd: 'dev/coffee',
+				src: ['*.coffee'],
+				dest: 'dev/js',
+				ext: '.js'
 			}
 		},
 
@@ -20,8 +23,8 @@ module.exports = function(grunt)	{
 			},
 			dist: {
 				src: [
-					'dev/socialmedia.js',
-					'dev/*.js'
+					'dev/js/socialmedia.js',
+					'dev/js/*.js'
 				],
 				dest: 'src/<%= pkg.name %>-<%= pkg.version %>.js'
 			}
@@ -39,7 +42,7 @@ module.exports = function(grunt)	{
 
 		watch: {
 			scripts: {
-				files: ['dev/*.js', 'dev/coffee/*.coffee'],
+				files: ['dev/coffee/*.coffee', 'dev/js/*.js'],
 				tasks: ['coffee', 'concat', 'uglify'],
 				options: {
 					spawn: false
