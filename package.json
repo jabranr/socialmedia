@@ -4,6 +4,7 @@
   "version": "1.4.1",
   "copyright": "2014",
   "license": "MIT",
+  "repo": "https://github.com/jabranr/socialmedia.js",
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-contrib-concat": "~0.4.0",

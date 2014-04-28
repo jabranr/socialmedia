@@ -19,7 +19,7 @@ module.exports = function(grunt)	{
 
 		concat: {
 			options: {
-				banner: "/*! <%= pkg.name %> | v<%= pkg.version %> | <%= pkg.author %> | <%= pkg.license %> */"
+				banner: "/*! <%= pkg.name %> | v<%= pkg.version %> | <%= pkg.author %> | <%= pkg.license %> | <%= pkg.repo %> */"
 			},
 			dist: {
 				src: [

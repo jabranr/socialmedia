@@ -1,12 +1,43 @@
-/*! socialmedia | v1.4.1 | Jabran Rafique | MIT */
-/* Javascript library to embed socialmedia functions in a web app */
+/*! socialmedia | v1.4.1 | Jabran Rafique | MIT | https://github.com/jabranr/socialmedia.js */
+/* Global object with unique identifier */
+var __mehfil;
 
-/* Global object */
 window.Socialmedia = window.Socialmedia || {};
+
+__mehfil = window.Socialmedia;
+
+__mehfil.SDK = {
+  facebook: '//connect.facebook.net/en_US/all.js',
+  facebook_debug: '//connect.facebook.net/en_US/debug/all.js',
+  twitter: '//platform.twitter.com/widgets.js'
+};
+
+__mehfil.Popup = function(url, settings) {
+  var options;
+  if (url == null) {
+    url = 'about:blank';
+  }
+  if (settings == null) {
+    settings = {};
+  }
+  options = {
+    width: (settings.width != null) && settings.width || 600,
+    height: (settings.height != null) && settings.height || 300,
+    features: (settings.features != null) && settings.features || ['dialog', 'location', 'dependent'],
+    getString: function() {
+      var s;
+      s = "width=" + this.width + ",height=" + this.height;
+      s += ",left=" + ((window.outerWidth / 2) - (this.width / 2));
+      s += ",top=" + ((window.outerHeight / 2) - (this.height / 2));
+      return s += "," + (this.features.join(','));
+    }
+  };
+  return window.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getString());
+};
 
 
 /* Facebook object */
-Socialmedia.Facebook = function(settings) {
+__mehfil.Facebook = function(settings) {
   this.appid = (settings.appid != null) && settings.appid || '';
   this.status = (settings.status != null) && settings.status || false;
   this.requests = (settings.requests != null) && settings.requests || false;
@@ -14,16 +45,16 @@ Socialmedia.Facebook = function(settings) {
   this.init();
 };
 
-Socialmedia.Facebook.prototype.init = function() {
+__mehfil.Facebook.prototype.init = function() {
   var _this;
   _this = this;
   window.fbAsyncInit = function() {
     FB.init({
-      'appId': this.appid,
-      'status': this.status,
-      'cookie': true,
-      'xfbml': true,
-      'frictionlessRequests': this.requests
+      appId: _this.appid,
+      status: _this.status,
+      cookie: true,
+      xfbml: true,
+      frictionlessRequests: _this.requests
     });
 
     /* Setup FB SDK script source */
@@ -58,7 +89,7 @@ Socialmedia.Facebook.prototype.init = function() {
     js = d.createElement('script');
     js.id = id;
     js.async = true;
-    js.src = '//connect.facebook.net/en_US/all' + (debug ? '/debug' : '') + '.js';
+    js.src = debug ? __mehfil.SDK.facebook_debug : __mehfil.SDK.facebook;
     fbdiv = d.createElement('div');
     fbdiv.id = 'fb-root';
     ref.parentNode.insertBefore(fbdiv, ref);
@@ -69,11 +100,11 @@ Socialmedia.Facebook.prototype.init = function() {
 
 /* Facebook canvas setsize function */
 
-Socialmedia.Facebook.prototype.setSize = function(settings) {
+__mehfil.Facebook.prototype.setSize = function(settings) {
   if ((settings != null) && settings.width || settings.height) {
     return FB.Canvas.setSize({
-      'width': parseInt(settings.width) || 810,
-      'height': parseInt(settings.height) || 800
+      width: parseInt(settings.width) || 810,
+      height: parseInt(settings.height) || 800
     });
   } else {
     return FB.Canvas.setSize();
@@ -83,7 +114,7 @@ Socialmedia.Facebook.prototype.setSize = function(settings) {
 
 /* Facebook canvas autogrow function */
 
-Socialmedia.Facebook.prototype.autogrow = function(settings) {
+__mehfil.Facebook.prototype.autogrow = function(settings) {
   if (settings == null) {
     settings = true;
   }
@@ -93,7 +124,7 @@ Socialmedia.Facebook.prototype.autogrow = function(settings) {
 
 /* Facebook canvas scroll function */
 
-Socialmedia.Facebook.prototype.scroll = function(settings) {
+__mehfil.Facebook.prototype.scroll = function(settings) {
   var x, y;
   x = (settings != null) && (settings.x != null) ? settings.x || 0 : void 0;
   y = (settings != null) && (settings.y != null) ? settings.y || 0 : void 0;
@@ -107,14 +138,14 @@ Socialmedia.Facebook.prototype.scroll = function(settings) {
 
 /* Facebook share function */
 
-Socialmedia.Facebook.prototype.Share = function(options) {
+__mehfil.Facebook.prototype.Share = function(options) {
   return FB.ui({
-    'method': 'feed',
-    'name': options && (options.title != null) && options.title || '',
-    'link': options && (options.url != null) && options.url || '',
-    'picture': options && (options.image != null) && options.image || '',
-    'caption': options && (options.caption != null) && options.caption || '',
-    'description': options && (options.description != null) && options.description || ''
+    method: 'feed',
+    name: options && (options.title != null) && options.title || '',
+    link: options && (options.url != null) && options.url || '',
+    picture: options && (options.image != null) && options.image || '',
+    caption: options && (options.caption != null) && options.caption || '',
+    description: options && (options.description != null) && options.description || ''
   }, function(response) {
     var _ref, _ref1;
     if (response != null) {
@@ -132,15 +163,15 @@ Socialmedia.Facebook.prototype.Share = function(options) {
 
 /* Facebook invite function */
 
-Socialmedia.Facebook.prototype.Invite = function(options) {
+__mehfil.Facebook.prototype.Invite = function(options) {
   return FB.ui({
-    'method': 'apprequests',
-    'title': options && (options.title != null) && options.title || '',
-    'message': options && (options.message != null) && options.message || '',
-    'to': options && (options.to != null) && options.to || [],
-    'exclude_ids': options && (options.exclude_ids != null) && options.exclude_ids || [],
-    'max_recipients': options && (options.max_to != null) && options.max_to || 100,
-    'data': options && (options.data != null) && options.data || {}
+    method: 'apprequests',
+    title: options && (options.title != null) && options.title || '',
+    message: options && (options.message != null) && options.message || '',
+    to: options && (options.to != null) && options.to || [],
+    exclude_ids: options && (options.exclude_ids != null) && options.exclude_ids || [],
+    max_recipients: options && (options.max_to != null) && options.max_to || 100,
+    data: options && (options.data != null) && options.data || {}
   }, function(response) {
     var _ref;
     if (response != null) {
@@ -154,19 +185,19 @@ Socialmedia.Facebook.prototype.Invite = function(options) {
 
 /* Facebook add to page tab function */
 
-Socialmedia.Facebook.prototype.AddToPage = function() {
+__mehfil.Facebook.prototype.AddToPage = function() {
   return FB.ui({
-    'method': 'pagetab'
+    method: 'pagetab'
   }, function() {});
 };
 
 
 /* Facebook add friend function */
 
-Socialmedia.Facebook.prototype.AddFriend = function(options) {
+__mehfil.Facebook.prototype.AddFriend = function(options) {
   return FB.ui({
-    'method': 'friends',
-    'id': options && (options.id != null) && options.id || 'jabranr'
+    method: 'friends',
+    id: options && (options.id != null) && options.id || 'jabranr'
   }, function(response) {
     var _ref;
     if (response != null) {
@@ -180,26 +211,65 @@ Socialmedia.Facebook.prototype.AddFriend = function(options) {
 
 /* Facebook send function */
 
-Socialmedia.Facebook.prototype.Send = function(options) {
+__mehfil.Facebook.prototype.Send = function(options) {
   return FB.ui({
-    'method': 'send',
-    'link': (options != null) && (options.link != null) && options.link || window.location.href
+    method: 'send',
+    link: (options != null) && (options.link != null) && options.link || window.location.href
   });
 };
 
 
 /* Facebook pay function */
 
-Socialmedia.Facebook.prototype.Pay = function(options) {
+__mehfil.Facebook.prototype.Pay = function(options) {
   return FB.ui({
-    'method': 'pay',
-    'action': 'purchaseitem',
-    'product': (options != null) && (options.link != null) && options.link || window.location.href
+    method: 'pay',
+    action: 'purchaseitem',
+    product: (options != null) && (options.link != null) && options.link || window.location.href
   }, function(data) {
+    var _ref;
     if (data != null) {
-      return typeof options.callback === "function" ? options.callback(this, data) : void 0;
+      return (options != null) && ((_ref = options.callback) != null ? _ref.call(this, data) : void 0);
     } else {
       return false;
     }
   });
 };
+
+
+/* Twitter object */
+__mehfil.Twitter = function() {
+  this.init();
+};
+
+
+/* Twitter init method */
+
+__mehfil.Twitter.prototype.init = function() {
+  (function(a, b, c) {
+    var d;
+    d = a.getElementsByTagName(b)[0];
+    a = a.createElement(b);
+    a.id = c;
+    a.src = __mehfil.SDK.twitter;
+    return d.parentNode.insertBefore(a, d);
+  })(document, 'script', 'twitter-wjs');
+};
+
+
+/* Twitter share link method */
+
+__mehfil.Twitter.prototype.Tweet = function(options) {
+  var data, intentShareUrl;
+  if (options == null) {
+    options = {};
+  }
+  intentShareUrl = '//twitter.com/intent/tweet?';
+  data = (options.tweet != null) && "text=" + encodeURIComponent(options.tweet || '');
+  data += (options.via != null) && "&via=" + encodeURIComponent(options.via || '');
+  data += (options.link != null) && "&url=" + encodeURIComponent(options.link || encodeURIComponent(window.location.href));
+  return __mehfil.Popup(intentShareUrl + data);
+};
+
+
+/* ref: https://about.twitter.com/resources/buttons#tweet */
