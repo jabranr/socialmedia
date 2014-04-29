@@ -1,18 +1,14 @@
 /*! socialmedia | v1.4.1 | Jabran Rafique | MIT | https://github.com/jabranr/socialmedia.js */
 /* Global object with unique identifier */
-var __mehfil;
-
 window.Socialmedia = window.Socialmedia || {};
 
-__mehfil = window.Socialmedia;
-
-__mehfil.SDK = {
+Socialmedia.SDK = {
   facebook: '//connect.facebook.net/en_US/all.js',
   facebook_debug: '//connect.facebook.net/en_US/debug/all.js',
   twitter: '//platform.twitter.com/widgets.js'
 };
 
-__mehfil.Popup = function(url, settings) {
+Socialmedia.Popup = function(url, settings) {
   var options;
   if (url == null) {
     url = 'about:blank';
@@ -37,7 +33,7 @@ __mehfil.Popup = function(url, settings) {
 
 
 /* Facebook object */
-__mehfil.Facebook = function(settings) {
+Socialmedia.Facebook = function(settings) {
   this.appid = (settings.appid != null) && settings.appid || '';
   this.status = (settings.status != null) && settings.status || false;
   this.requests = (settings.requests != null) && settings.requests || false;
@@ -45,7 +41,7 @@ __mehfil.Facebook = function(settings) {
   this.init();
 };
 
-__mehfil.Facebook.prototype.init = function() {
+Socialmedia.Facebook.prototype.init = function() {
   var _this;
   _this = this;
   window.fbAsyncInit = function() {
@@ -89,7 +85,7 @@ __mehfil.Facebook.prototype.init = function() {
     js = d.createElement('script');
     js.id = id;
     js.async = true;
-    js.src = debug ? __mehfil.SDK.facebook_debug : __mehfil.SDK.facebook;
+    js.src = debug ? Socialmedia.SDK.facebook_debug : Socialmedia.SDK.facebook;
     fbdiv = d.createElement('div');
     fbdiv.id = 'fb-root';
     ref.parentNode.insertBefore(fbdiv, ref);
@@ -100,7 +96,7 @@ __mehfil.Facebook.prototype.init = function() {
 
 /* Facebook canvas setsize function */
 
-__mehfil.Facebook.prototype.setSize = function(settings) {
+Socialmedia.Facebook.prototype.setSize = function(settings) {
   if ((settings != null) && settings.width || settings.height) {
     return FB.Canvas.setSize({
       width: parseInt(settings.width) || 810,
@@ -114,7 +110,7 @@ __mehfil.Facebook.prototype.setSize = function(settings) {
 
 /* Facebook canvas autogrow function */
 
-__mehfil.Facebook.prototype.autogrow = function(settings) {
+Socialmedia.Facebook.prototype.autogrow = function(settings) {
   if (settings == null) {
     settings = true;
   }
@@ -124,7 +120,7 @@ __mehfil.Facebook.prototype.autogrow = function(settings) {
 
 /* Facebook canvas scroll function */
 
-__mehfil.Facebook.prototype.scroll = function(settings) {
+Socialmedia.Facebook.prototype.scroll = function(settings) {
   var x, y;
   x = (settings != null) && (settings.x != null) ? settings.x || 0 : void 0;
   y = (settings != null) && (settings.y != null) ? settings.y || 0 : void 0;
@@ -138,7 +134,7 @@ __mehfil.Facebook.prototype.scroll = function(settings) {
 
 /* Facebook share function */
 
-__mehfil.Facebook.prototype.Share = function(options) {
+Socialmedia.Facebook.prototype.Share = function(options) {
   return FB.ui({
     method: 'feed',
     name: options && (options.title != null) && options.title || '',
@@ -163,7 +159,7 @@ __mehfil.Facebook.prototype.Share = function(options) {
 
 /* Facebook invite function */
 
-__mehfil.Facebook.prototype.Invite = function(options) {
+Socialmedia.Facebook.prototype.Invite = function(options) {
   return FB.ui({
     method: 'apprequests',
     title: options && (options.title != null) && options.title || '',
@@ -185,7 +181,7 @@ __mehfil.Facebook.prototype.Invite = function(options) {
 
 /* Facebook add to page tab function */
 
-__mehfil.Facebook.prototype.AddToPage = function() {
+Socialmedia.Facebook.prototype.AddToPage = function() {
   return FB.ui({
     method: 'pagetab'
   }, function() {});
@@ -194,7 +190,7 @@ __mehfil.Facebook.prototype.AddToPage = function() {
 
 /* Facebook add friend function */
 
-__mehfil.Facebook.prototype.AddFriend = function(options) {
+Socialmedia.Facebook.prototype.AddFriend = function(options) {
   return FB.ui({
     method: 'friends',
     id: options && (options.id != null) && options.id || 'jabranr'
@@ -211,7 +207,7 @@ __mehfil.Facebook.prototype.AddFriend = function(options) {
 
 /* Facebook send function */
 
-__mehfil.Facebook.prototype.Send = function(options) {
+Socialmedia.Facebook.prototype.Send = function(options) {
   return FB.ui({
     method: 'send',
     link: (options != null) && (options.link != null) && options.link || window.location.href
@@ -221,7 +217,7 @@ __mehfil.Facebook.prototype.Send = function(options) {
 
 /* Facebook pay function */
 
-__mehfil.Facebook.prototype.Pay = function(options) {
+Socialmedia.Facebook.prototype.Pay = function(options) {
   return FB.ui({
     method: 'pay',
     action: 'purchaseitem',
@@ -238,20 +234,20 @@ __mehfil.Facebook.prototype.Pay = function(options) {
 
 
 /* Twitter object */
-__mehfil.Twitter = function() {
+Socialmedia.Twitter = function() {
   this.init();
 };
 
 
 /* Twitter init method */
 
-__mehfil.Twitter.prototype.init = function() {
+Socialmedia.Twitter.prototype.init = function() {
   (function(a, b, c) {
     var d;
     d = a.getElementsByTagName(b)[0];
     a = a.createElement(b);
     a.id = c;
-    a.src = __mehfil.SDK.twitter;
+    Socialmedia.SDK.twitter;
     return d.parentNode.insertBefore(a, d);
   })(document, 'script', 'twitter-wjs');
 };
@@ -259,16 +255,58 @@ __mehfil.Twitter.prototype.init = function() {
 
 /* Twitter share link method */
 
-__mehfil.Twitter.prototype.Tweet = function(options) {
+Socialmedia.Twitter.prototype.Tweet = function(options) {
   var data, intentShareUrl;
   if (options == null) {
     options = {};
   }
   intentShareUrl = '//twitter.com/intent/tweet?';
-  data = (options.tweet != null) && "text=" + encodeURIComponent(options.tweet || '');
-  data += (options.via != null) && "&via=" + encodeURIComponent(options.via || '');
-  data += (options.link != null) && "&url=" + encodeURIComponent(options.link || encodeURIComponent(window.location.href));
-  return __mehfil.Popup(intentShareUrl + data);
+  data = (options.tweet != null) && ("text=" + (encodeURIComponent(options.tweet)) + " ") || ' ';
+  data += (options.link != null) && ("&url=" + (encodeURIComponent(options.link)) + " ") || encodeURIComponent(window.location.href);
+  data += (options.via != null) && ("&via=" + (encodeURIComponent(options.via)) + " ") || ' ';
+  return Socialmedia.Popup(intentShareUrl + data);
+};
+
+
+/* Twitter Follow method */
+
+Socialmedia.Twitter.prototype.Follow = function(username) {
+  var intentFollowUrl;
+  if (username == null) {
+    username = 'jabranr';
+  }
+  username.replace(/@/, '');
+  intentFollowUrl = '//twitter.com/intent/follow?';
+  return Socialmedia.Popup(intentFollowUrl + ("screen_name=" + username), {
+    width: 750,
+    height: 465
+  });
+};
+
+
+/* Twitter Mention method */
+
+Socialmedia.Twitter.prototype.Mention = function(username) {
+  var intentMentionUrl;
+  if (username == null) {
+    username = 'jabranr';
+  }
+  username.replace(/@/, '');
+  intentMentionUrl = '//twitter.com/intent/tweet?';
+  return Socialmedia.Popup(intentMentionUrl + ("screen_name=" + username));
+};
+
+
+/* Twitter Hashtag method */
+
+Socialmedia.Twitter.prototype.Hashtag = function(hashtag) {
+  var intentHashtagUrl;
+  if (hashtag == null) {
+    hashtag = 'socialmedia';
+  }
+  hashtag.replace(/#/, '');
+  intentHashtagUrl = '//twitter.com/intent/tweet?';
+  return Socialmedia.Popup(intentHashtagUrl + ("button_hashtag=" + hashtag));
 };
 
 

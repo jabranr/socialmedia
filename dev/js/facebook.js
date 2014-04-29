@@ -1,6 +1,6 @@
 
 /* Facebook object */
-__mehfil.Facebook = function(settings) {
+Socialmedia.Facebook = function(settings) {
   this.appid = (settings.appid != null) && settings.appid || '';
   this.status = (settings.status != null) && settings.status || false;
   this.requests = (settings.requests != null) && settings.requests || false;
@@ -8,7 +8,7 @@ __mehfil.Facebook = function(settings) {
   this.init();
 };
 
-__mehfil.Facebook.prototype.init = function() {
+Socialmedia.Facebook.prototype.init = function() {
   var _this;
   _this = this;
   window.fbAsyncInit = function() {
@@ -52,7 +52,7 @@ __mehfil.Facebook.prototype.init = function() {
     js = d.createElement('script');
     js.id = id;
     js.async = true;
-    js.src = debug ? __mehfil.SDK.facebook_debug : __mehfil.SDK.facebook;
+    js.src = debug ? Socialmedia.SDK.facebook_debug : Socialmedia.SDK.facebook;
     fbdiv = d.createElement('div');
     fbdiv.id = 'fb-root';
     ref.parentNode.insertBefore(fbdiv, ref);
@@ -63,7 +63,7 @@ __mehfil.Facebook.prototype.init = function() {
 
 /* Facebook canvas setsize function */
 
-__mehfil.Facebook.prototype.setSize = function(settings) {
+Socialmedia.Facebook.prototype.setSize = function(settings) {
   if ((settings != null) && settings.width || settings.height) {
     return FB.Canvas.setSize({
       width: parseInt(settings.width) || 810,
@@ -77,7 +77,7 @@ __mehfil.Facebook.prototype.setSize = function(settings) {
 
 /* Facebook canvas autogrow function */
 
-__mehfil.Facebook.prototype.autogrow = function(settings) {
+Socialmedia.Facebook.prototype.autogrow = function(settings) {
   if (settings == null) {
     settings = true;
   }
@@ -87,7 +87,7 @@ __mehfil.Facebook.prototype.autogrow = function(settings) {
 
 /* Facebook canvas scroll function */
 
-__mehfil.Facebook.prototype.scroll = function(settings) {
+Socialmedia.Facebook.prototype.scroll = function(settings) {
   var x, y;
   x = (settings != null) && (settings.x != null) ? settings.x || 0 : void 0;
   y = (settings != null) && (settings.y != null) ? settings.y || 0 : void 0;
@@ -101,7 +101,7 @@ __mehfil.Facebook.prototype.scroll = function(settings) {
 
 /* Facebook share function */
 
-__mehfil.Facebook.prototype.Share = function(options) {
+Socialmedia.Facebook.prototype.Share = function(options) {
   return FB.ui({
     method: 'feed',
     name: options && (options.title != null) && options.title || '',
@@ -126,7 +126,7 @@ __mehfil.Facebook.prototype.Share = function(options) {
 
 /* Facebook invite function */
 
-__mehfil.Facebook.prototype.Invite = function(options) {
+Socialmedia.Facebook.prototype.Invite = function(options) {
   return FB.ui({
     method: 'apprequests',
     title: options && (options.title != null) && options.title || '',
@@ -148,7 +148,7 @@ __mehfil.Facebook.prototype.Invite = function(options) {
 
 /* Facebook add to page tab function */
 
-__mehfil.Facebook.prototype.AddToPage = function() {
+Socialmedia.Facebook.prototype.AddToPage = function() {
   return FB.ui({
     method: 'pagetab'
   }, function() {});
@@ -157,7 +157,7 @@ __mehfil.Facebook.prototype.AddToPage = function() {
 
 /* Facebook add friend function */
 
-__mehfil.Facebook.prototype.AddFriend = function(options) {
+Socialmedia.Facebook.prototype.AddFriend = function(options) {
   return FB.ui({
     method: 'friends',
     id: options && (options.id != null) && options.id || 'jabranr'
@@ -174,7 +174,7 @@ __mehfil.Facebook.prototype.AddFriend = function(options) {
 
 /* Facebook send function */
 
-__mehfil.Facebook.prototype.Send = function(options) {
+Socialmedia.Facebook.prototype.Send = function(options) {
   return FB.ui({
     method: 'send',
     link: (options != null) && (options.link != null) && options.link || window.location.href
@@ -184,7 +184,7 @@ __mehfil.Facebook.prototype.Send = function(options) {
 
 /* Facebook pay function */
 
-__mehfil.Facebook.prototype.Pay = function(options) {
+Socialmedia.Facebook.prototype.Pay = function(options) {
   return FB.ui({
     method: 'pay',
     action: 'purchaseitem',

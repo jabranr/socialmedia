@@ -1,14 +1,12 @@
 ### Global object with unique identifier ###
 window.Socialmedia = window.Socialmedia || {}
 
-__mehfil = window.Socialmedia
-
-__mehfil.SDK =
+Socialmedia.SDK =
 	facebook: '//connect.facebook.net/en_US/all.js'
 	facebook_debug: '//connect.facebook.net/en_US/debug/all.js'
 	twitter: '//platform.twitter.com/widgets.js'
 
-__mehfil.Popup = (url = 'about:blank', settings = {}) ->
+Socialmedia.Popup = (url = 'about:blank', settings = {}) ->
 	options =
 		width: settings.width? and settings.width or 600
 		height: settings.height? and settings.height or 300

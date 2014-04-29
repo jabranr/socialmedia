@@ -1,18 +1,14 @@
 
 /* Global object with unique identifier */
-var __mehfil;
-
 window.Socialmedia = window.Socialmedia || {};
 
-__mehfil = window.Socialmedia;
-
-__mehfil.SDK = {
+Socialmedia.SDK = {
   facebook: '//connect.facebook.net/en_US/all.js',
   facebook_debug: '//connect.facebook.net/en_US/debug/all.js',
   twitter: '//platform.twitter.com/widgets.js'
 };
 
-__mehfil.Popup = function(url, settings) {
+Socialmedia.Popup = function(url, settings) {
   var options;
   if (url == null) {
     url = 'about:blank';

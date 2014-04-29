@@ -1,6 +1,6 @@
 ### Facebook object ###
 
-__mehfil.Facebook = (settings)->
+Socialmedia.Facebook = (settings)->
 	this.appid = settings.appid? and settings.appid or ''
 	this.status = settings.status? and settings.status or false
 	this.requests = settings.requests? and settings.requests or false
@@ -8,7 +8,7 @@ __mehfil.Facebook = (settings)->
 	this.init()
 	return
 
-__mehfil.Facebook.prototype.init = ->
+Socialmedia.Facebook.prototype.init = ->
 	_this = this
 	window.fbAsyncInit = ->
 		FB.init
@@ -43,7 +43,7 @@ __mehfil.Facebook.prototype.init = ->
 		js = d.createElement 'script'
 		js.id = id
 		js.async = true
-		js.src = if debug then __mehfil.SDK.facebook_debug else __mehfil.SDK.facebook
+		js.src = if debug then Socialmedia.SDK.facebook_debug else Socialmedia.SDK.facebook
 		fbdiv = d.createElement 'div'
 		fbdiv.id = 'fb-root'
 		ref.parentNode.insertBefore fbdiv, ref
@@ -53,7 +53,7 @@ __mehfil.Facebook.prototype.init = ->
 	return
 
 ### Facebook canvas setsize function ###
-__mehfil.Facebook.prototype.setSize = (settings) ->
+Socialmedia.Facebook.prototype.setSize = (settings) ->
 	if settings? and settings.width or settings.height
 		FB.Canvas.setSize
 			width: parseInt(settings.width) or 810
@@ -61,17 +61,17 @@ __mehfil.Facebook.prototype.setSize = (settings) ->
 	else FB.Canvas.setSize()
 
 ### Facebook canvas autogrow function ###
-__mehfil.Facebook.prototype.autogrow = (settings = true) ->
+Socialmedia.Facebook.prototype.autogrow = (settings = true) ->
 	FB.Canvas.setAutoGrow settings
 
 ### Facebook canvas scroll function ###
-__mehfil.Facebook.prototype.scroll = (settings) ->
+Socialmedia.Facebook.prototype.scroll = (settings) ->
 	x = if settings? and settings.x? then settings.x or 0
 	y = if settings? and settings.y? then settings.y or 0
 	if x and y then FB.Canvas.scrollTo x, y else false
 
 ### Facebook share function ###
-__mehfil.Facebook.prototype.Share = (options) ->
+Socialmedia.Facebook.prototype.Share = (options) ->
 	FB.ui
 		method: 'feed'
 		name: options and options.title? and options.title or ''
@@ -89,7 +89,7 @@ __mehfil.Facebook.prototype.Share = (options) ->
 		else false
 
 ### Facebook invite function ###
-__mehfil.Facebook.prototype.Invite = (options) ->
+Socialmedia.Facebook.prototype.Invite = (options) ->
 	FB.ui
 		method: 'apprequests',
 		title: options and options.title? and options.title or ''
@@ -105,11 +105,11 @@ __mehfil.Facebook.prototype.Invite = (options) ->
 		else false
 
 ### Facebook add to page tab function ###
-__mehfil.Facebook.prototype.AddToPage = () ->
+Socialmedia.Facebook.prototype.AddToPage = () ->
 	FB.ui method: 'pagetab', ->
 
 ### Facebook add friend function ###
-__mehfil.Facebook.prototype.AddFriend = (options) ->
+Socialmedia.Facebook.prototype.AddFriend = (options) ->
 	FB.ui
 	  method: 'friends'
 	  id: options and options.id? and options.id || 'jabranr'
@@ -120,13 +120,13 @@ __mehfil.Facebook.prototype.AddFriend = (options) ->
 		else false
 
 ### Facebook send function ###
-__mehfil.Facebook.prototype.Send = (options) ->
+Socialmedia.Facebook.prototype.Send = (options) ->
 	FB.ui
 	  method: 'send'
 	  link: options? and options.link? and options.link or window.location.href
 
 ### Facebook pay function ###
-__mehfil.Facebook.prototype.Pay = (options) ->
+Socialmedia.Facebook.prototype.Pay = (options) ->
 	FB.ui
 	  method: 'pay'
 	  action: 'purchaseitem'
