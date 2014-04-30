@@ -9,7 +9,7 @@ Socialmedia.SDK = {
 };
 
 Socialmedia.Popup = function(url, settings) {
-  var options;
+  var options, _popup;
   if (url == null) {
     url = 'about:blank';
   }
@@ -28,5 +28,6 @@ Socialmedia.Popup = function(url, settings) {
       return s += "," + (this.features.join(','));
     }
   };
-  return window.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getString());
+  _popup = window.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getString());
+  return _popup.focus();
 };

@@ -13,7 +13,7 @@ Socialmedia.Twitter.prototype.init = function() {
     d = a.getElementsByTagName(b)[0];
     a = a.createElement(b);
     a.id = c;
-    Socialmedia.SDK.twitter;
+    a.src = Socialmedia.SDK.twitter;
     return d.parentNode.insertBefore(a, d);
   })(document, 'script', 'twitter-wjs');
 };
@@ -23,14 +23,13 @@ Socialmedia.Twitter.prototype.init = function() {
 
 Socialmedia.Twitter.prototype.Tweet = function(options) {
   var data, intentShareUrl;
-  if (options == null) {
-    options = {};
-  }
   intentShareUrl = '//twitter.com/intent/tweet?';
-  data = (options.tweet != null) && ("text=" + (encodeURIComponent(options.tweet)) + " ") || ' ';
-  data += (options.link != null) && ("&url=" + (encodeURIComponent(options.link)) + " ") || encodeURIComponent(window.location.href);
-  data += (options.via != null) && ("&via=" + (encodeURIComponent(options.via)) + " ") || ' ';
-  return Socialmedia.Popup(intentShareUrl + data);
+  data = (options != null) && options.tweet ? "text=" + (encodeURIComponent(options.tweet)) + " " : "text=" + (encodeURIComponent(document.title)) + " ";
+  data += (options != null) && options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag)) + " " : ' ';
+  data += (options != null) && options.recommend ? "&related=" + (encodeURIComponent(options.recommend)) + " " : ' ';
+  data += (options != null) && options.via ? "&via=" + (encodeURIComponent(options.via)) + " " : ' ';
+  data += (options != null) && options.link ? "&url=" + (encodeURIComponent(options.link)) + " " : "&url=" + (encodeURIComponent(window.location.href)) + " ";
+  return Socialmedia.Popup.apply(this, [intentShareUrl + data]);
 };
 
 
@@ -43,10 +42,12 @@ Socialmedia.Twitter.prototype.Follow = function(username) {
   }
   username.replace(/@/, '');
   intentFollowUrl = '//twitter.com/intent/follow?';
-  return Socialmedia.Popup(intentFollowUrl + ("screen_name=" + username), {
-    width: 750,
-    height: 465
-  });
+  return Socialmedia.Popup.apply(this, [
+    intentFollowUrl + ("screen_name=" + username), {
+      width: 700,
+      height: 485
+    }
+  ]);
 };
 
 
@@ -59,7 +60,7 @@ Socialmedia.Twitter.prototype.Mention = function(username) {
   }
   username.replace(/@/, '');
   intentMentionUrl = '//twitter.com/intent/tweet?';
-  return Socialmedia.Popup(intentMentionUrl + ("screen_name=" + username));
+  return Socialmedia.Popup.apply(this, [intentMentionUrl + ("screen_name=" + username)]);
 };
 
 
@@ -72,7 +73,7 @@ Socialmedia.Twitter.prototype.Hashtag = function(hashtag) {
   }
   hashtag.replace(/#/, '');
   intentHashtagUrl = '//twitter.com/intent/tweet?';
-  return Socialmedia.Popup(intentHashtagUrl + ("button_hashtag=" + hashtag));
+  return Socialmedia.Popup.apply(this, [intentHashtagUrl + ("button_hashtag=" + hashtag)]);
 };
 
 

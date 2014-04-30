@@ -20,4 +20,5 @@ Socialmedia.Popup = (url = 'about:blank', settings = {}) ->
 			s += ",left=#{(window.outerWidth / 2) - (this.width / 2)}"
 			s += ",top=#{(window.outerHeight / 2) - (this.height / 2)}"
 			s += ",#{this.features.join ','}"
-	window.open url, '_w_' + new Date().getUTCMilliseconds(), options.getString()
+	_popup = window.open url, '_w_' + new Date().getUTCMilliseconds(), options.getString()
+	return _popup.focus();
