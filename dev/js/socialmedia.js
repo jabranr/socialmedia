@@ -2,12 +2,18 @@
 /* Global object with unique identifier */
 window.Socialmedia = window.Socialmedia || {};
 
+
+/* Setup SDK sources */
+
 Socialmedia.SDK = {
   facebook: '//connect.facebook.net/en_US/all.js',
   facebook_debug: '//connect.facebook.net/en_US/debug/all.js',
   twitter: '//platform.twitter.com/widgets.js',
   googleplus: '//apis.google.com/js/platform.js'
 };
+
+
+/* Default popup method */
 
 Socialmedia.Popup = function(url, settings) {
   var options, _popup;
@@ -31,4 +37,23 @@ Socialmedia.Popup = function(url, settings) {
   };
   _popup = window.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getString());
   return _popup.focus();
+};
+
+
+/* Global init method */
+
+Socialmedia.init = function(services, id) {
+  var defaultServices;
+  if (services == null) {
+    services = [];
+  }
+  if (id == null) {
+    id = '';
+  }
+  return defaultServices = {
+    'facebook': 'Facebook',
+    'twitter': 'Twitter',
+    'googleplus': 'GooglePlus',
+    'pinterest': 'Pinterest'
+  };
 };
