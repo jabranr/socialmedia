@@ -5,7 +5,8 @@ window.Socialmedia = window.Socialmedia || {};
 Socialmedia.SDK = {
   facebook: '//connect.facebook.net/en_US/all.js',
   facebook_debug: '//connect.facebook.net/en_US/debug/all.js',
-  twitter: '//platform.twitter.com/widgets.js'
+  twitter: '//platform.twitter.com/widgets.js',
+  googleplus: '//apis.google.com/js/platform.js'
 };
 
 Socialmedia.Popup = function(url, settings) {

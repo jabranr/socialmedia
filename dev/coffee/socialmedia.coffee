@@ -5,6 +5,7 @@ Socialmedia.SDK =
 	facebook: '//connect.facebook.net/en_US/all.js'
 	facebook_debug: '//connect.facebook.net/en_US/debug/all.js'
 	twitter: '//platform.twitter.com/widgets.js'
+	googleplus: '//apis.google.com/js/platform.js'
 
 Socialmedia.Popup = (url = 'about:blank', settings = {}) ->
 	options =

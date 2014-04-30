@@ -5,7 +5,8 @@ window.Socialmedia = window.Socialmedia || {};
 Socialmedia.SDK = {
   facebook: '//connect.facebook.net/en_US/all.js',
   facebook_debug: '//connect.facebook.net/en_US/debug/all.js',
-  twitter: '//platform.twitter.com/widgets.js'
+  twitter: '//platform.twitter.com/widgets.js',
+  googleplus: '//apis.google.com/js/platform.js'
 };
 
 Socialmedia.Popup = function(url, settings) {
@@ -172,7 +173,7 @@ Socialmedia.Facebook.prototype.Invite = function(options) {
   }, function(response) {
     var _ref;
     if (response != null) {
-      return (options.callback != null) && ((_ref = options.callback) != null ? _ref.call(this, response) : void 0);
+      return (_ref = options.callback) != null ? _ref.call(this, response) : void 0;
     } else {
       return false;
     }
@@ -198,7 +199,7 @@ Socialmedia.Facebook.prototype.AddFriend = function(options) {
   }, function(response) {
     var _ref;
     if (response != null) {
-      return (options.callback != null) && ((_ref = options.callback) != null ? _ref.call(this, response.action) : void 0);
+      return (_ref = options.callback) != null ? _ref.call(this, response.action) : void 0;
     } else {
       return false;
     }
@@ -234,6 +235,36 @@ Socialmedia.Facebook.prototype.Pay = function(options) {
 };
 
 
+/* Google+ object */
+Socialmedia.GooglePlus = function() {
+  this.init();
+};
+
+
+/* Google+ init method */
+
+Socialmedia.GooglePlus.prototype.init = function() {
+  var po, s;
+  po = document.createElement('script');
+  po.type = 'text/javascript';
+  po.async = true;
+  po.src = '//apis.google.com/js/platform.js';
+  s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(po, s);
+};
+
+
+/* Google+ share method */
+
+Socialmedia.GooglePlus.prototype.Share = function(options) {
+  var data, platformUrl;
+  platformUrl = '//plus.google.com/share?';
+  data = (options != null) && (options.link != null) && ("url=" + (encodeURIComponent(options.link))) || ("url=" + (encodeURIComponent(window.location.href)));
+  data += (options != null) && (options.lang != null) && ("&hl=" + (encodeURIComponent(options.lang))) || "&hl=en";
+  return Socialmedia.Popup.apply(this, [platformUrl + data]);
+};
+
+
 /* Twitter object */
 Socialmedia.Twitter = function() {
   this.init();
@@ -260,9 +291,9 @@ Socialmedia.Twitter.prototype.Tweet = function(options) {
   var data, intentShareUrl;
   intentShareUrl = '//twitter.com/intent/tweet?';
   data = (options != null) && options.tweet ? "text=" + (encodeURIComponent(options.tweet)) + " " : "text=" + (encodeURIComponent(document.title)) + " ";
-  data += (options != null) && options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag)) + " " : ' ';
-  data += (options != null) && options.recommend ? "&related=" + (encodeURIComponent(options.recommend)) + " " : ' ';
-  data += (options != null) && options.via ? "&via=" + (encodeURIComponent(options.via)) + " " : ' ';
+  data += (options != null) && options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag)) + " " : '';
+  data += (options != null) && options.recommend ? "&related=" + (encodeURIComponent(options.recommend)) + " " : '';
+  data += (options != null) && options.via ? "&via=" + (encodeURIComponent(options.via)) + " " : '';
   data += (options != null) && options.link ? "&url=" + (encodeURIComponent(options.link)) + " " : "&url=" + (encodeURIComponent(window.location.href)) + " ";
   return Socialmedia.Popup.apply(this, [intentShareUrl + data]);
 };
@@ -286,30 +317,32 @@ Socialmedia.Twitter.prototype.Follow = function(username) {
 };
 
 
-/* Twitter Mention method */
+/*
+ * Twitter Mention method
+ * Supports multiple recommendations separated by commas
+ */
 
-Socialmedia.Twitter.prototype.Mention = function(username) {
-  var intentMentionUrl;
-  if (username == null) {
-    username = 'jabranr';
-  }
-  username.replace(/@/, '');
+Socialmedia.Twitter.prototype.Mention = function(options) {
+  var data, intentMentionUrl;
   intentMentionUrl = '//twitter.com/intent/tweet?';
-  return Socialmedia.Popup.apply(this, [intentMentionUrl + ("screen_name=" + username)]);
+  data = (options != null) && options.username && ("screen_name=" + (encodeURIComponent(options.username.replace(/@/, '')))) || '';
+  data += (options != null) && options.recommend && ("&related=" + (encodeURIComponent(options.recommend))) || '';
+  data += (options != null) && options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
+  return Socialmedia.Popup.apply(this, [intentMentionUrl + data]);
 };
 
 
-/* Twitter Hashtag method */
+/*
+ * Twitter Hashtag method
+ * Supports multiple recommendations separated by commas
+ */
 
-Socialmedia.Twitter.prototype.Hashtag = function(hashtag) {
-  var intentHashtagUrl;
-  if (hashtag == null) {
-    hashtag = 'socialmedia';
-  }
-  hashtag.replace(/#/, '');
+Socialmedia.Twitter.prototype.Hashtag = function(options) {
+  var data, intentHashtagUrl;
   intentHashtagUrl = '//twitter.com/intent/tweet?';
-  return Socialmedia.Popup.apply(this, [intentHashtagUrl + ("button_hashtag=" + hashtag)]);
+  data = (options != null) && options.hashtag && ("button_hashtag=" + (encodeURIComponent(options.hashtag.replace(/#/, '')))) || '';
+  data += (options != null) && options.recommend && ("&related=" + (encodeURIComponent(options.recommend))) || '';
+  data += (options != null) && options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
+  data += (options != null) && options.link && ("&url=" + (encodeURIComponent(options.link))) || '';
+  return Socialmedia.Popup.apply(this, [intentHashtagUrl + data]);
 };
-
-
-/* ref: https://about.twitter.com/resources/buttons#tweet */

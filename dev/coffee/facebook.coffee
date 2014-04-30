@@ -101,7 +101,7 @@ Socialmedia.Facebook.prototype.Invite = (options) ->
 	, 
 	(response) ->
 		if response?
-			options.callback? and options.callback?.call this, response
+			options.callback?.call this, response
 		else false
 
 ### Facebook add to page tab function ###
@@ -116,7 +116,7 @@ Socialmedia.Facebook.prototype.AddFriend = (options) ->
 	,
 	(response) ->
 		if response?
-			options.callback? and options.callback?.call this, response.action
+			options.callback?.call this, response.action
 		else false
 
 ### Facebook send function ###

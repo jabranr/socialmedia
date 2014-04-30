@@ -138,7 +138,7 @@ Socialmedia.Facebook.prototype.Invite = function(options) {
   }, function(response) {
     var _ref;
     if (response != null) {
-      return (options.callback != null) && ((_ref = options.callback) != null ? _ref.call(this, response) : void 0);
+      return (_ref = options.callback) != null ? _ref.call(this, response) : void 0;
     } else {
       return false;
     }
@@ -164,7 +164,7 @@ Socialmedia.Facebook.prototype.AddFriend = function(options) {
   }, function(response) {
     var _ref;
     if (response != null) {
-      return (options.callback != null) && ((_ref = options.callback) != null ? _ref.call(this, response.action) : void 0);
+      return (_ref = options.callback) != null ? _ref.call(this, response.action) : void 0;
     } else {
       return false;
     }
