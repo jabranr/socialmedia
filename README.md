@@ -1,149 +1,238 @@
-#socialmedia.js
+# socialmedia.js
 
-##Introduction
+<blockquote>This branch is in continuous development. NOT ready for production use!</blockquote>
 
-socialmedia.js is a small JavaScript library containing collection of various methods that are used for social media interactions. This library is built to lessen the clutter of code from various social media platforms and by using the minimal and easy setup. Other features include:
+Enable JavaScript SDKs and embed social sharing functions for various social media services. Download the latest release from [Releases](http://git.io/sm-release).
 
-+ Easy to use with convenient callbacks and friendly naming.
-+ Do more and write less i.e. inclusion of one facebook `init` method enables Facebook Like, Share, Invite, Send, Streams and many more defalt Facebook plugins.
-+ Helps avoid repeating the same code in application.
-+ Uses the same default core functions of social media platforms but with minimum input and setup.
-+ Minified version is ~5kb that provides quick page load.
-+ Auto creates the required div elements in `DOM` and keep them at appropriate levels in code.
 
-##Installation &amp; Setup
+## Documentation
 
-1. [Download the latest release](https://github.com/jabranr/socialmedia.js/releases/)
-2. A release includes the source code and ready to use example.
-3. Minified source code located in `src/` is recommended.
-4. Load and initialize the async Facebook SDKs using following code block in `<HEAD>` section of HTML document.
+The library supports following services:
 
-``` javascript
-<script src="src/socialmedia.min.js">
-  facebook.init({
-    appid: 'YOUR_FACEBOOK_APP_ID',
-    channelurl: '//yourdomain.com/channel.php'
-  });
-</script>
-```
-##List of Social Functions
-Following are currently available functions through this library. Every function comes with its options and callback functions as explained below.
+* [Facebook](#facebook)
+* [Twitter](#twitter)
+* [Google Plus](#google)
+* [Pinterest](#pinterest)
 
-All of the [Facebook plugins](https://developers.facebook.com/docs/plugins/) work fine using above basic settings and initialization.
+### Facebook
 
-**Facebook Like Button Usage Example**
-
-Adding following code snippet (normally found at [Facebook Like Button Plugin Page](https://developers.facebook.com/docs/plugins/like-button/)) will display an integrated Like Button in web page.
+Initialize the Facebook object using following scheme:
 
 ``` javascript
-<div class="fb-like" data-href="YOUR_WEBSITE_URL_HERE" data-layout="standard" data-action="like" data-show-faces="false" data-share="false"></div>
-```
-Or a Like Button with Share Button..
-
-``` javascript
-<div class="fb-like" data-href="YOUR_WEBSITE_URL_HERE" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+var facebook = new Socialmedia.Facebook( Object settings );
 ```
 
+The `Settings` parameter takes following combination of key and values:
 
-###Using advance Facebook API actions
-To use the advance features of Facebook's API and social actions, you can pass set of options as an object in above `facebook.init` function as illustrated in following example:
-
-**Settings:**
+**Required parameters:**
 
 ``` javascript
+appid: Your Facebook app ID in numeric string format.
+```
 
-facebook.init({ settings });
+**Optional parameters:**
 
+``` javascript
+status: Boolean True or False. Whether SDK to check login status.
+(Default is false)
+```
+``` javascript
+xfbml: Boolean True or False. Whether to enable XFBML parse.
+(Default is true)
+```
+``` javascript
+requests: Boolean True or False. Whether to enable Frictionless Requests.
+(Default is false)
+```
+``` javascript
+debug: Boolean True or False. Get uncompressed SDK source
+(Default is false)
+```
+``` javascript
+version: String Facebook SDK version
+(Default is 'v2.0')
+```
 
-facebook.init({
-  appid: 'YOUR_FACEBOOK_APP_ID',
-  channelurl: '//yourdomain.com/channel.php',
-  status: false|true, //Optional & false by default
-  flrequests: false|true, //Optional & false by default
-  width: integer, //Optional - Default is automatic setSize()
-  height: integer, //Optional - Default is automatic setSize()
-  autogrow: true|false, //Default true
-  x: integer, //Scroll canvas horizontally
-  y: integer //Scroll canvas horizontally
+#### Methods:
+
+**Add a friend on Facebook.**
+
+``` javascript
+facebook.AddFriend({ 
+	String id, 
+	Function callback 
 });
-
 ```
 
-###Facebook Share action
-
-Apply Facebook share action at any object in application to display share dialog using following method:
+**Add the app to Facebook page.**
 
 ``` javascript
-facebook.share({ options, callback, callback });
+facebook.AddToPage();
 ```
 
-**Options:**
 
-Following options can be set for Share action.
-
-+ title: title of application
-+ url: url of application
-+ image: image URL to display in share dialog
-+ caption: caption to display in share dialog
-+ description: brief description of application
-
-**Callback:**
-
-First callback function to return in result of share dialog's successful action.
-
-**Secondary Callback:**
-
-Secondary callback function to return in result of failure/cancelation of share dialog.
-
-###Facebook Invite action:
-
-Apply Facebook invite action at any object in application to display invite dialog using following method:
-``` javascript
-facebook.invite({ options, callback });
-```
-
-**Options:**
-
-Following options can be set for Facebook Invite action.
-
-+ message: Invite message to be displayed in invite dialog.
-
-**Callback:**
-
-Callback function to return in result of successful invite dialog action. Callback carries the Facebook response object.
-
-###Twitter Tweet action:
-
-Apply Twitter tweet action at any object in application to post tweet using following method:
+**Invite friends to the app/web page.**
 
 ``` javascript
-twitter.tweet({ options });
+facebook.Invite({
+	String title,
+	String message,
+	Array to,
+	Array exclude_ids,
+	int max_to,
+	Object data
+});
 ```
-**Options:**
 
-Following options can be set for Tweet action.
 
-+ tweet: Invite message to be displayed in invite dialog
-+ handler: twitter handler
-+ url: URL to post in tweet
-
-All options are optional. A final tweet will be formed based upon whichever options are provided with values and will be URL encoded.
-
-###Google Plus action:
-
-Apply Google Plus action at any object in application to post it to Google Plus using following method:
+**Pay with Facebook.**
 
 ``` javascript
-gplus.plus({ options });
+facebook.Pay({
+	String link,
+	Function callback
+});
 ```
 
-**Options:**
 
-Following options can be set for Google Plus action.
+**Send a link.**
 
-+ url: URL to post to Google Plus
+``` javascript
+facebook.Send({
+	String link
+});
+```
 
-All options are optional. A final tweet will be formed based upon whichever options are provided with values and will be URL encoded.
 
-##License:
-[MIT License – http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT)
+**Share a link to Facebook Timeline.**
+
+``` javascript
+facebook.Share({
+	String title,
+	String link,
+	String image,
+	String caption,
+	String description
+});
+```
+
+
+**Facebook Canvas autogrow on content update. Default is true.**
+
+``` javascript
+facebook.autogrow( Boolen );
+```
+
+
+**Scroll the Facebook Canvas.**
+
+``` javascript
+facebook.scroll({
+	int x, int y
+});
+```
+
+
+**Set Facebook Canvas size. Default size 810x800.**
+
+``` javascript
+facebook.setSize({ 
+	int width,
+	int height
+});
+```
+
+### Twitter
+
+Initialize the Twitter object using following scheme:
+
+``` javascript
+var twitter = new Socialmedia.Twitter();
+```
+
+#### Methods:
+
+``` javascript
+twitter.Follow( String username );
+```
+``` javascript
+twitter.Hashtag({
+	String hashtag,
+	String recommend,
+	String tweet,
+	String link
+});
+```
+``` javascript
+twitter.Mention({
+	String username,
+	String recommend,
+	String tweet
+});
+```
+``` javascript
+twitter.Tweet({
+	String tweet,
+	String hashtag,
+	String recommend,
+	String via,
+	String link
+});
+```
+
+### Google+
+
+Initialize the Facebook object using following scheme:
+
+``` javascript
+var gplus = new Socialmedia.GooglePlus();
+```
+
+#### Methods:
+
+``` javascript
+gplus.Share({
+	String link,
+	String lang
+});
+```
+
+### Pinterest
+
+Initialize the Pinterest object using following scheme:
+
+``` javascript
+var pin = new Socialmedia.Pinterest();
+```
+
+#### Methods:
+
+``` javascript
+pin.Pinit({
+	String link,
+	String image,
+	String description
+});
+```
+
+### Examples:
+
+``` javascript
+// Initialize Facebook SDK
+var facebook = new Socialmedia.Facebook({ appid: '1234567890' });
+
+// Initialize Twitter SDK
+var twitter = new Socialmedia.Twitter();
+
+// Initialize GooglePlus SDK
+var gplus = new Socialmedia.GooglePlus();
+
+// Initialize Pinterest SDK
+var pin = new Socialmedia.Pinterest();
+```
+
+### References:
+1: [Read more about frictionlessRequests](https://developers.facebook.com/docs/games/requests/v2.0#frictionless-requests)
+
+## License:
+MIT License – [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT)
