@@ -2,16 +2,16 @@
 
 <blockquote>This branch is in continuous development. NOT ready for production use!</blockquote>
 
-JavaScript library to embed social media functions in web apps.
+JavaScript library to enable SDKs and embed social media functions in web apps. Download the latest release from [Releases](http://git.io/sm-release).
 
 ## Documentation
 
 This is official complete documentation for this library. The library supports following services:
 
-[Facebook](#facebook)
-[Twitter](#twitter)
-[Google Plus](#googleplus)
-[Pinterest](#pinterest)
+* [Facebook](#facebook)
+* [Twitter](#twitter)
+* [Google Plus](#googleplus)
+* [Pinterest](#pinterest)
 
 ### Facebook
 
@@ -32,19 +32,24 @@ appid: Your Facebook app ID in numeric string format.
 **Optional parameters:**
 
 ``` javascript
-status: Boolean True or False. Whether SDK to check login status. (Default is false)
+status: Boolean True or False. Whether SDK to check login status.
+(Default is false)
 ```
 ``` javascript
-xfbml: Boolean True or False. Whether to enable XFBML parse. (Default is true)
+xfbml: Boolean True or False. Whether to enable XFBML parse.
+(Default is true)
 ```
 ``` javascript
-requests: Boolean True or False. Whether to enable Frictionless Requests<sup>1</sup> (Default is false)
+requests: Boolean True or False. Whether to enable Frictionless Requests.
+(Default is false)
 ```
 ``` javascript
-debug: Boolean True or False. Get uncompressed SDK source (Default is false)
+debug: Boolean True or False. Get uncompressed SDK source
+(Default is false)
 ```
 ``` javascript
-version: String Facebook SDK version (Default is 'v2.0')
+version: String Facebook SDK version
+(Default is 'v2.0')
 ```
 
 #### Methods:
@@ -73,7 +78,7 @@ facebook.Invite({
 	String message,
 	Array to,
 	Array exclude_ids,
-	Int max_to,
+	Integer max_to,
 	Object data
 });
 ```
@@ -122,7 +127,7 @@ facebook.autogrow( Boolen );
 
 ``` javascript
 facebook.scroll({
-	Int x, Int y
+	Integer x, Integer y
 });
 ```
 
@@ -131,8 +136,8 @@ facebook.scroll({
 
 ``` javascript
 facebook.setSize({ 
-	Int width,
-	Int height
+	Integer width,
+	Integer height
 });
 ```
 
@@ -209,8 +214,24 @@ pin.Pinit({
 });
 ```
 
+### Examples:
+
+``` javascript
+// Initialize Facebook SDK
+var facebook = new Socialmedia.Facebook({ appid: '1234567890' });
+
+// Initialize Twitter SDK
+var twitter = new Socialmedia.Twitter();
+
+// Initialize GooglePlus SDK
+var gplus = new Socialmedia.GooglePlus();
+
+// Initialize Pinterest SDK
+var pin = new Socialmedia.Pinterest();
+```
+
 ### References:
 1: [Read more about frictionlessRequests](https://developers.facebook.com/docs/games/requests/v2.0#frictionless-requests)
 
 ## License:
-[MIT License – http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT)
+MIT License – [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT)
