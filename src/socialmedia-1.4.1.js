@@ -42,22 +42,6 @@ Socialmedia.Popup = function(url, settings) {
 
 /* Global init method */
 
-Socialmedia.init = function(services, id) {
-  var defaultServices;
-  if (services == null) {
-    services = [];
-  }
-  if (id == null) {
-    id = '';
-  }
-  return defaultServices = {
-    'facebook': 'Facebook',
-    'twitter': 'Twitter',
-    'googleplus': 'GooglePlus',
-    'pinterest': 'Pinterest'
-  };
-};
-
 
 /* Facebook object */
 Socialmedia.Facebook = function(settings) {

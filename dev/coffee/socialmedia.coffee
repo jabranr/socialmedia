@@ -27,31 +27,25 @@ Socialmedia.Popup = (url = 'about:blank', settings = {}) ->
 	return _popup.focus();
 
 ### Global init method ###
-Socialmedia.init = (services = [], id = '') ->
+# Socialmedia.init = (options) ->
 
-	defaultServices =
-		'facebook': 'Facebook'
-		'twitter': 'Twitter'
-		'googleplus': 'GooglePlus'
-		'pinterest': 'Pinterest'
+# 	if options? and typeof options isnt 'undefined'
+# 		options = 
+# 			services: [
+# 				'facebook'
+# 				'twitter'
+# 				'googleplus'
+# 				'pinterest'
+# 			] 
+# 			appid: ''
 
-	# if services.length
-	# 	for i in services
-	# 		if services[i] of defaultServices
-	# 			new Socialmedia.defaultServices[services[i]]
-	# else
-	# 	for x of defaultServices
-	# 		new Socialmedia.defaultServices[x]
-	# return
-
-	# for i in defaultServices
-	# 	if services.indexOf defaultServices[i] isnt -1
-	# 		if defaultServices[i] === 'facebook'
-
-	# if services.indexOf 'twitter' isnt -1
-	# 	__twitter = new Socialmedia.Twitter
-	# else if services.indexOf 'googleplus' isnt -1
-	# 	__googleplus = new Socialmedia.GooglePlus
-
-	# else if services.indexOf 'facebook' isnt -1
-	# 	__facebook = new Socialmedia.Facebook id
+# 	if options.services.indexOf 'twitter' isnt -1
+# 		__sm_twitter = new Socialmedia.Twitter
+# 	else if options.services.indexOf 'googleplus' isnt -1
+# 		__sm_googleplus = new Socialmedia.GooglePlus
+# 	else if options.services.indexOf 'facebook' isnt -1 and options.app_id?
+# 		__sm_facebook = new Socialmedia.Facebook appid: options.app_id
+# 	else if options.services.indexOf 'pinterest' isnt -1
+# 		__sm_pinterest = new Socialmedia.Pinterest
+# 	else
+# 		return false
