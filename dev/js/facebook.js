@@ -105,7 +105,7 @@ Socialmedia.Facebook.prototype.Share = function(options) {
   return FB.ui({
     method: 'feed',
     name: options && (options.title != null) && options.title || '',
-    link: options && (options.url != null) && options.url || '',
+    link: options && (options.link != null) && options.link || '',
     picture: options && (options.image != null) && options.image || '',
     caption: options && (options.caption != null) && options.caption || '',
     description: options && (options.description != null) && options.description || ''
