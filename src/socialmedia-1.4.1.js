@@ -9,7 +9,8 @@ Socialmedia.SDK = {
   facebook: '//connect.facebook.net/en_US/all.js',
   facebook_debug: '//connect.facebook.net/en_US/debug/all.js',
   twitter: '//platform.twitter.com/widgets.js',
-  googleplus: '//apis.google.com/js/platform.js'
+  googleplus: '//apis.google.com/js/platform.js',
+  pinterest: '//assets.pinterest.com/js/pinit.js'
 };
 
 
@@ -68,10 +69,7 @@ Socialmedia.Facebook.prototype.init = function() {
     _this.fbsdk = document.querySelector('#facebook-jssdk');
 
     /* Append app_id to fbsdk source */
-    _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
-
-    /* Setup FB ready status */
-    return _this.sdkLoaded = true;
+    return _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
   };
 
   /* Move the auto-generated fb-root DOM element to appropriate position */
@@ -86,22 +84,21 @@ Socialmedia.Facebook.prototype.init = function() {
   }
 
   /* Load the Facebook JavaScript SDK */
-  (function(d, debug) {
-    var fbdiv, id, js, ref;
-    id = 'facebook-jssdk';
-    ref = d.getElementsByTagName('script')[0];
-    if (d.getElementById(id)) {
+  return (function(doc, dev, tag, id) {
+    var fbdiv, ref, sdk;
+    if (doc.getElementById(id)) {
       return;
     }
-    js = d.createElement('script');
-    js.id = id;
-    js.async = true;
-    js.src = debug ? Socialmedia.SDK.facebook_debug : Socialmedia.SDK.facebook;
-    fbdiv = d.createElement('div');
+    sdk = doc.createElement(tag);
+    sdk.id = id;
+    sdk.async = true;
+    sdk.src = dev ? Socialmedia.SDK.facebook_debug : Socialmedia.SDK.facebook;
+    fbdiv = doc.createElement('div');
     fbdiv.id = 'fb-root';
+    ref = doc.getElementsByTagName(tag)[0];
     ref.parentNode.insertBefore(fbdiv, ref);
-    return ref.parentNode.insertBefore(js, ref);
-  })(document, _this.debug);
+    ref.parentNode.insertBefore(sdk, ref);
+  })(document, _this.debug, 'script', 'facebook-jssdk');
 };
 
 
@@ -253,13 +250,21 @@ Socialmedia.GooglePlus = function() {
 /* Google+ init method */
 
 Socialmedia.GooglePlus.prototype.init = function() {
-  var po, s;
-  po = document.createElement('script');
-  po.type = 'text/javascript';
-  po.async = true;
-  po.src = '//apis.google.com/js/platform.js';
-  s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(po, s);
+  var _this;
+  _this = this;
+  return (function(doc, tag, id) {
+    var ref, sdk;
+    if (doc.getElementById(id)) {
+      return;
+    }
+    sdk = doc.createElement(tag);
+    sdk.async = true;
+    sdk.src = Socialmedia.SDK.googleplus;
+    sdk.id = id;
+    ref = doc.getElementsByTagName(tag)[0];
+    ref.parentNode.insertBefore(sdk, ref);
+    _this.gpsdk = doc.querySelector('#' + id);
+  })(document, 'script', 'gplus-jssdk');
 };
 
 
@@ -274,6 +279,50 @@ Socialmedia.GooglePlus.prototype.Share = function(options) {
 };
 
 
+/* Pinterest object */
+Socialmedia.Pinterest = function() {
+  return this.init();
+};
+
+
+/* Pinterest init method */
+
+Socialmedia.Pinterest.prototype.init = function() {
+  var _this;
+  _this = this;
+  return (function(doc, tag, id) {
+    var ref, sdk;
+    if (doc.getElementById(id)) {
+      return;
+    }
+    sdk = doc.createElement(tag);
+    sdk.id = id;
+    sdk.async = true;
+    sdk.src = Socialmedia.SDK.pinterest;
+    ref = doc.getElementsByTagName(tag)[0];
+    ref.parentNode.insertBefore(sdk, ref);
+    _this.pinsdk = doc.querySelector('#' + id);
+  })(document, 'script', 'pinterest-jssdk');
+};
+
+
+/* Pinterest share method */
+
+Socialmedia.Pinterest.prototype.Pinit = function(options) {
+  var data, platformUrl;
+  platformUrl = '//pinterest.com/pin/create/button/?';
+  data = (options != null) && (options.link != null) && ("url=" + (encodeURIComponent(options.link))) || ("url=" + (encodeURIComponent(window.location.href)));
+  data += (options != null) && (options.image != null) && ("media=" + (encodeURIComponent(options.image))) || "";
+  data += (options != null) && (options.description != null) && ("description=" + (encodeURIComponent(options.description))) || ("description=" + (encodeURIComponent(document.title)));
+  return Socialmedia.Popup.apply(this, [
+    platformUrl + data, {
+      width: 765,
+      height: 325
+    }
+  ]);
+};
+
+
 /* Twitter object */
 Socialmedia.Twitter = function() {
   this.init();
@@ -283,13 +332,20 @@ Socialmedia.Twitter = function() {
 /* Twitter init method */
 
 Socialmedia.Twitter.prototype.init = function() {
-  (function(a, b, c) {
-    var d;
-    d = a.getElementsByTagName(b)[0];
-    a = a.createElement(b);
-    a.id = c;
-    a.src = Socialmedia.SDK.twitter;
-    return d.parentNode.insertBefore(a, d);
+  var _this;
+  _this = this;
+  return (function(doc, tag, id) {
+    var ref, sdk;
+    if (doc.getElementById(id)) {
+      return;
+    }
+    sdk = doc.createElement(tag);
+    sdk.id = id;
+    sdk.async = true;
+    sdk.src = Socialmedia.SDK.twitter;
+    ref = doc.getElementsByTagName(tag)[0];
+    ref.parentNode.insertBefore(sdk, ref);
+    _this.twttrsdk = doc.querySelector('#' + id);
   })(document, 'script', 'twitter-wjs');
 };
 

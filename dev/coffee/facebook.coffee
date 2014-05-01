@@ -24,9 +24,6 @@ Socialmedia.Facebook.prototype.init = ->
 		### Append app_id to fbsdk source ###
 		_this.fbsdk.src += '#xfbml=1&appId=' + _this.appid
 		
-		### Setup FB ready status ###
-		_this.sdkLoaded = true
-
 	### Move the auto-generated fb-root DOM element to appropriate position ###
 	if addEventListener?
 		window.addEventListener 'load', ->
@@ -36,21 +33,19 @@ Socialmedia.Facebook.prototype.init = ->
 			document.body.appendChild document.getElementById 'fb-root'
 
 	### Load the Facebook JavaScript SDK ###
-	((d, debug) ->
-		id = 'facebook-jssdk'
-		ref = d.getElementsByTagName('script')[0]
-		return if d.getElementById(id)
-		js = d.createElement 'script'
-		js.id = id
-		js.async = true
-		js.src = if debug then Socialmedia.SDK.facebook_debug else Socialmedia.SDK.facebook
-		fbdiv = d.createElement 'div'
+	((doc, dev, tag, id) ->
+		return if doc.getElementById id
+		sdk = doc.createElement tag
+		sdk.id = id
+		sdk.async = true
+		sdk.src = if dev then Socialmedia.SDK.facebook_debug else Socialmedia.SDK.facebook
+		fbdiv = doc.createElement 'div'
 		fbdiv.id = 'fb-root'
+		ref = doc.getElementsByTagName(tag)[0]
 		ref.parentNode.insertBefore fbdiv, ref
-		ref.parentNode.insertBefore js, ref
-	)(document, _this.debug)
-
-	return
+		ref.parentNode.insertBefore sdk, ref
+		return
+	)(document, _this.debug, 'script','facebook-jssdk')
 
 ### Facebook canvas setsize function ###
 Socialmedia.Facebook.prototype.setSize = (settings) ->

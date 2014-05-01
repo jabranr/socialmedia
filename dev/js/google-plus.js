@@ -8,13 +8,21 @@ Socialmedia.GooglePlus = function() {
 /* Google+ init method */
 
 Socialmedia.GooglePlus.prototype.init = function() {
-  var po, s;
-  po = document.createElement('script');
-  po.type = 'text/javascript';
-  po.async = true;
-  po.src = '//apis.google.com/js/platform.js';
-  s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(po, s);
+  var _this;
+  _this = this;
+  return (function(doc, tag, id) {
+    var ref, sdk;
+    if (doc.getElementById(id)) {
+      return;
+    }
+    sdk = doc.createElement(tag);
+    sdk.async = true;
+    sdk.src = Socialmedia.SDK.googleplus;
+    sdk.id = id;
+    ref = doc.getElementsByTagName(tag)[0];
+    ref.parentNode.insertBefore(sdk, ref);
+    _this.gpsdk = doc.querySelector('#' + id);
+  })(document, 'script', 'gplus-jssdk');
 };
 
 

@@ -24,10 +24,7 @@ Socialmedia.Facebook.prototype.init = function() {
     _this.fbsdk = document.querySelector('#facebook-jssdk');
 
     /* Append app_id to fbsdk source */
-    _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
-
-    /* Setup FB ready status */
-    return _this.sdkLoaded = true;
+    return _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
   };
 
   /* Move the auto-generated fb-root DOM element to appropriate position */
@@ -42,22 +39,21 @@ Socialmedia.Facebook.prototype.init = function() {
   }
 
   /* Load the Facebook JavaScript SDK */
-  (function(d, debug) {
-    var fbdiv, id, js, ref;
-    id = 'facebook-jssdk';
-    ref = d.getElementsByTagName('script')[0];
-    if (d.getElementById(id)) {
+  return (function(doc, dev, tag, id) {
+    var fbdiv, ref, sdk;
+    if (doc.getElementById(id)) {
       return;
     }
-    js = d.createElement('script');
-    js.id = id;
-    js.async = true;
-    js.src = debug ? Socialmedia.SDK.facebook_debug : Socialmedia.SDK.facebook;
-    fbdiv = d.createElement('div');
+    sdk = doc.createElement(tag);
+    sdk.id = id;
+    sdk.async = true;
+    sdk.src = dev ? Socialmedia.SDK.facebook_debug : Socialmedia.SDK.facebook;
+    fbdiv = doc.createElement('div');
     fbdiv.id = 'fb-root';
+    ref = doc.getElementsByTagName(tag)[0];
     ref.parentNode.insertBefore(fbdiv, ref);
-    return ref.parentNode.insertBefore(js, ref);
-  })(document, _this.debug);
+    ref.parentNode.insertBefore(sdk, ref);
+  })(document, _this.debug, 'script', 'facebook-jssdk');
 };
 
 

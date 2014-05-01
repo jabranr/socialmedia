@@ -8,13 +8,20 @@ Socialmedia.Twitter = function() {
 /* Twitter init method */
 
 Socialmedia.Twitter.prototype.init = function() {
-  (function(a, b, c) {
-    var d;
-    d = a.getElementsByTagName(b)[0];
-    a = a.createElement(b);
-    a.id = c;
-    a.src = Socialmedia.SDK.twitter;
-    return d.parentNode.insertBefore(a, d);
+  var _this;
+  _this = this;
+  return (function(doc, tag, id) {
+    var ref, sdk;
+    if (doc.getElementById(id)) {
+      return;
+    }
+    sdk = doc.createElement(tag);
+    sdk.id = id;
+    sdk.async = true;
+    sdk.src = Socialmedia.SDK.twitter;
+    ref = doc.getElementsByTagName(tag)[0];
+    ref.parentNode.insertBefore(sdk, ref);
+    _this.twttrsdk = doc.querySelector('#' + id);
   })(document, 'script', 'twitter-wjs');
 };
 
