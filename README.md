@@ -2,7 +2,7 @@
 
 <blockquote>This branch is in continuous development. NOT ready for production use!</blockquote>
 
-JavaScript library to enable SDKs and embed social sharing functions for various social media services. Download the latest release from [Releases](http://git.io/sm-release).
+Enable JavaScript SDKs and embed social sharing functions for various social media services. Download the latest release from [Releases](http://git.io/sm-release).
 
 
 ## Documentation
