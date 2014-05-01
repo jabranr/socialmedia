@@ -6,11 +6,11 @@ JavaScript library to enable SDKs and embed social media functions in web apps. 
 
 ## Documentation
 
-This is official complete documentation for this library. The library supports following services:
+The library supports following services:
 
 * [Facebook](#facebook)
 * [Twitter](#twitter)
-* [Google Plus](#googleplus)
+* [Google Plus](#google)
 * [Pinterest](#pinterest)
 
 ### Facebook
@@ -78,7 +78,7 @@ facebook.Invite({
 	String message,
 	Array to,
 	Array exclude_ids,
-	Integer max_to,
+	int max_to,
 	Object data
 });
 ```
@@ -127,7 +127,7 @@ facebook.autogrow( Boolen );
 
 ``` javascript
 facebook.scroll({
-	Integer x, Integer y
+	int x, int y
 });
 ```
 
@@ -136,8 +136,8 @@ facebook.scroll({
 
 ``` javascript
 facebook.setSize({ 
-	Integer width,
-	Integer height
+	int width,
+	int height
 });
 ```
 
