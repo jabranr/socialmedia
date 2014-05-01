@@ -3,7 +3,10 @@
 Socialmedia.Facebook = function(settings) {
   this.appid = (settings.appid != null) && settings.appid || '';
   this.status = (settings.status != null) && settings.status || false;
+  this.xfbml = (settings.xfbml != null) && settings.xfbml || true;
+  this.cookie = (settings.cookie != null) && settings.cookie || true;
   this.requests = (settings.requests != null) && settings.requests || false;
+  this.version = (settings.version != null) && settings.version || 'v2.0';
   this.debug = (settings.debug != null) && settings.debug || false;
   this.init();
 };
@@ -15,8 +18,9 @@ Socialmedia.Facebook.prototype.init = function() {
     FB.init({
       appId: _this.appid,
       status: _this.status,
-      cookie: true,
-      xfbml: true,
+      cookie: _this.cookie,
+      xfbml: _this.xfbml,
+      version: _this.version,
       frictionlessRequests: _this.requests
     });
 

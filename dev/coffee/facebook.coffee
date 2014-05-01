@@ -3,7 +3,10 @@
 Socialmedia.Facebook = (settings)->
 	this.appid = settings.appid? and settings.appid or ''
 	this.status = settings.status? and settings.status or false
+	this.xfbml = settings.xfbml? and settings.xfbml or true
+	this.cookie = settings.cookie? and settings.cookie or true
 	this.requests = settings.requests? and settings.requests or false
+	this.version = settings.version? and settings.version or 'v2.0'
 	this.debug = settings.debug? and settings.debug or false
 	this.init()
 	return
@@ -14,8 +17,9 @@ Socialmedia.Facebook.prototype.init = ->
 		FB.init
 			appId: _this.appid
 			status: _this.status
-			cookie: true
-			xfbml: true
+			cookie: _this.cookie
+			xfbml: _this.xfbml
+			version: _this.version
 			frictionlessRequests: _this.requests
 		
 		### Setup FB SDK script source ###
@@ -70,7 +74,7 @@ Socialmedia.Facebook.prototype.Share = (options) ->
 	FB.ui
 		method: 'feed'
 		name: options and options.title? and options.title or ''
-		link: options and options.url? and options.url or ''
+		link: options and options.link? and options.link or ''
 		picture: options and options.image? and options.image or ''
 		caption: options and options.caption? and options.caption or ''
 		description: options and options.description? and options.description or ''
