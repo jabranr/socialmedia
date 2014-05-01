@@ -1,9 +1,23 @@
 # socialmedia.js
 
-<blockquote>This branch is in continuous development. NOT ready for production use!</blockquote>
+<blockquote>If you are using version 1.4.0 or less then you will need to update the code as methods in this library are not compatible with older versions.</blockquote>
 
 Enable JavaScript SDKs and embed social sharing functions for various social media services. Download the latest release from [Releases](http://git.io/sm-release).
 
+
+## Contribute / Feedback / Issues
+
+To contribute, fork, clone, use following URLs
+
+HTTP: `https://github.com/jabranr/socialmedia.js.git`
+
+SSH: `git@github.com:jabranr/socialmedia.js.git`
+
+SVN: `https://github.com/jabranr/socialmedia.js`
+
+**Report an issue, bug or enhancement:**
+
+[https://github.com/jabranr/socialmedia.js/issues](https://github.com/jabranr/socialmedia.js/issues)
 
 ## Documentation
 
