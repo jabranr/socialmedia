@@ -20,6 +20,12 @@ Socialmedia.js enables JavaScript SDKs and their associated social sharing funct
 // Initialize Facebook SDK
 var facebook = new Socialmedia.Facebook({ appid: '1234567890' });
 
+// Initialize Facebook SDK in debug mode
+var facebook = new Socialmedia.Facebook({ appid: '1234567890', debug: true });
+
+// Initialize Facebook SDK version 2.0
+var facebook = new Socialmedia.Facebook({ appid: '1234567890', version: 'v2.0' });
+
 // Initialize Twitter SDK
 var twitter = new Socialmedia.Twitter();
 
@@ -285,11 +291,14 @@ pin.Pinit({
 ```
 
 ### References:
-1: [Read more about frictionlessRequests](https://developers.facebook.com/docs/games/requests/v2.0#frictionless-requests)
-2: [Facebook JavaScript SDK](https://developers.facebook.com/docs/javascript/)
-3: [Twitter JavaScript SDK](https://about.twitter.com/resources/buttons)
-4: [Google+ JavaScript SDK](https://developers.google.com/+/web/share/)
-5: [Pinterest JavaScript SDK](https://developers.pinterest.com/pin_it/)
+
+1. [Read more about frictionlessRequests](https://developers.facebook.com/docs/games/requests/v2.0#frictionless-requests)
+2. [Facebook JavaScript SDK](https://developers.facebook.com/docs/javascript/)
+3. [Twitter JavaScript SDK](https://about.twitter.com/resources/buttons)
+4. [Google+ JavaScript SDK](https://developers.google.com/+/web/share/)
+5. [Pinterest JavaScript SDK](https://developers.pinterest.com/pin_it/)
+
 
 ## License:
-MIT License – [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT)
+
+&copy; Jabran Rafique ([@jabranr](https://twitter.com/jabranr)) | 2014 | MIT License – [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT)
