@@ -6,8 +6,10 @@ window.Socialmedia = window.Socialmedia || {};
 /* Setup SDK sources */
 
 Socialmedia.SDK = {
-  facebook: '//connect.facebook.net/en_US/sdk.js',
-  facebook_debug: '//connect.facebook.net/en_US/debug/sdk.js',
+  facebook: '//connect.facebook.net/en_US/all.js',
+  facebook_debug: '//connect.facebook.net/en_US/all/debug.js',
+  facebookv2: '//connect.facebook.net/en_US/sdk.js',
+  facebook_debugv2: '//connect.facebook.net/en_US/sdk/debug.js',
   twitter: '//platform.twitter.com/widgets.js',
   googleplus: '//apis.google.com/js/platform.js',
   pinterest: '//assets.pinterest.com/js/pinit.js'
