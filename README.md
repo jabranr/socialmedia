@@ -1,19 +1,46 @@
-# socialmedia.js
+# Socialmedia.js
 
 <blockquote>If you are using version 1.4.0 or less then you will need to update the code as methods in this library are not compatible with older versions.</blockquote>
 
-Enable JavaScript SDKs and embed social sharing functions for various social media services. Download the latest release from [Releases](http://git.io/sm-release).
+Socialmedia.js enables JavaScript SDKs and their associated social sharing functions for various social media services. At the moment, Socialmedia.js supports following social media services:
 
+* [Facebook](#facebook)
+* [Twitter](#twitter)
+* [Google Plus](#google)
+* [Pinterest](#pinterest)
 
-## Contribute / Feedback / Issues
+### Usage:
 
-To contribute, fork, clone, use following URLs
+* Download the latest release from [Releases](http://git.io/sm-release).
+* The zipped package contains complete source code. The `src/` folder contains the uncompressed and minified versions.
+* Include the source file `src/socialmedia-1.4.1.min.js` into your HTML document.
+* Use following classes to enable various SDKs and their associated methods:
 
-HTTP: `https://github.com/jabranr/socialmedia.js.git`
+``` javascript
+// Initialize Facebook SDK
+var facebook = new Socialmedia.Facebook({ appid: '1234567890' });
 
-SSH: `git@github.com:jabranr/socialmedia.js.git`
+// Initialize Twitter SDK
+var twitter = new Socialmedia.Twitter();
 
-SVN: `https://github.com/jabranr/socialmedia.js`
+// Initialize GooglePlus SDK
+var gplus = new Socialmedia.GooglePlus();
+
+// Initialize Pinterest SDK
+var pin = new Socialmedia.Pinterest();
+```
+
+For complete list of methods associated with each class, see the [detailed documentation](#documentation).
+
+### Contribute / Feedback / Issues
+
+**To contribute, fork or clone, use following URLs:**
+
+``` html
+HTTP: [https://github.com/jabranr/socialmedia.js.git](https://github.com/jabranr/socialmedia.js.git)
+SSH: [git@github.com:jabranr/socialmedia.js.git](git@github.com:jabranr/socialmedia.js.git)
+SVN: [https://github.com/jabranr/socialmedia.js](https://github.com/jabranr/socialmedia.js)
+```
 
 **Report an issue, bug or enhancement:**
 
@@ -21,7 +48,7 @@ SVN: `https://github.com/jabranr/socialmedia.js`
 
 ## Documentation
 
-The library supports following services:
+The library supports following social media services:
 
 * [Facebook](#facebook)
 * [Twitter](#twitter)
@@ -227,22 +254,6 @@ pin.Pinit({
 	String image,
 	String description
 });
-```
-
-### Examples:
-
-``` javascript
-// Initialize Facebook SDK
-var facebook = new Socialmedia.Facebook({ appid: '1234567890' });
-
-// Initialize Twitter SDK
-var twitter = new Socialmedia.Twitter();
-
-// Initialize GooglePlus SDK
-var gplus = new Socialmedia.GooglePlus();
-
-// Initialize Pinterest SDK
-var pin = new Socialmedia.Pinterest();
 ```
 
 ### References:

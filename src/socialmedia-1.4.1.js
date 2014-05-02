@@ -6,8 +6,10 @@ window.Socialmedia = window.Socialmedia || {};
 /* Setup SDK sources */
 
 Socialmedia.SDK = {
-  facebook: '//connect.facebook.net/en_US/sdk.js',
-  facebook_debug: '//connect.facebook.net/en_US/debug/sdk.js',
+  facebook: '//connect.facebook.net/en_US/all.js',
+  facebook_debug: '//connect.facebook.net/en_US/all/debug.js',
+  facebookv2: '//connect.facebook.net/en_US/sdk.js',
+  facebook_debugv2: '//connect.facebook.net/en_US/sdk/debug.js',
   twitter: '//platform.twitter.com/widgets.js',
   googleplus: '//apis.google.com/js/platform.js',
   pinterest: '//assets.pinterest.com/js/pinit.js'
@@ -51,7 +53,7 @@ Socialmedia.Facebook = function(settings) {
   this.xfbml = (settings.xfbml != null) && settings.xfbml || true;
   this.cookie = (settings.cookie != null) && settings.cookie || true;
   this.requests = (settings.requests != null) && settings.requests || false;
-  this.version = (settings.version != null) && settings.version || 'v2.0';
+  this.version = (settings.version != null) && settings.version || '';
   this.debug = (settings.debug != null) && settings.debug || false;
   this.init();
 };
@@ -88,7 +90,7 @@ Socialmedia.Facebook.prototype.init = function() {
   }
 
   /* Load the Facebook JavaScript SDK */
-  return (function(doc, dev, tag, id) {
+  return (function(doc, dev, tag, id, ver) {
     var fbdiv, ref, sdk;
     if (doc.getElementById(id)) {
       return;
@@ -96,13 +98,25 @@ Socialmedia.Facebook.prototype.init = function() {
     sdk = doc.createElement(tag);
     sdk.id = id;
     sdk.async = true;
-    sdk.src = dev ? Socialmedia.SDK.facebook_debug : Socialmedia.SDK.facebook;
+    if (dev) {
+      if ((ver != null) && ver === 'v2.0') {
+        sdk.src = Socialmedia.SDK.facebook_debugv2;
+      } else {
+        sdk.src = Socialmedia.SDK.facebook_debug;
+      }
+    } else {
+      if ((ver != null) && ver === 'v2.0') {
+        sdk.src = Socialmedia.SDK.facebookv2;
+      } else {
+        sdk.src = Socialmedia.SDK.facebook;
+      }
+    }
     fbdiv = doc.createElement('div');
     fbdiv.id = 'fb-root';
     ref = doc.getElementsByTagName(tag)[0];
     ref.parentNode.insertBefore(fbdiv, ref);
     ref.parentNode.insertBefore(sdk, ref);
-  })(document, _this.debug, 'script', 'facebook-jssdk');
+  })(document, _this.debug, 'script', 'facebook-jssdk', _this.version);
 };
 
 
