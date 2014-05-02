@@ -57,7 +57,7 @@ The library supports following social media services:
 
 ### Facebook
 
-Initialize the Facebook object using following scheme:
+Initialize the Facebook class using following scheme:
 
 ``` javascript
 var facebook = new Socialmedia.Facebook( Object settings );
@@ -198,7 +198,7 @@ facebook.setSize({
 
 ### Twitter
 
-Initialize the Twitter object using following scheme:
+Initialize the Twitter class using following scheme:
 
 ``` javascript
 var twitter = new Socialmedia.Twitter();
@@ -206,24 +206,8 @@ var twitter = new Socialmedia.Twitter();
 
 #### Methods:
 
-``` javascript
-twitter.Follow( String username );
-```
-``` javascript
-twitter.Hashtag({
-	String hashtag,
-	String recommend,
-	String tweet,
-	String link
-});
-```
-``` javascript
-twitter.Mention({
-	String username,
-	String recommend,
-	String tweet
-});
-```
+Simple Tweet
+
 ``` javascript
 twitter.Tweet({
 	String tweet,
@@ -234,15 +218,44 @@ twitter.Tweet({
 });
 ```
 
+Follow another Twitter user
+
+``` javascript
+twitter.Follow( String username );
+```
+
+Post a Tweet with custom Hashtag, recommendations and link
+
+``` javascript
+twitter.Hashtag({
+	String hashtag,
+	String recommend,
+	String tweet,
+	String link
+});
+```
+
+Tweet to another Twitter user directly by using Twitter Mention
+
+``` javascript
+twitter.Mention({
+	String username,
+	String recommend,
+	String tweet
+});
+```
+
 ### Google+
 
-Initialize the Facebook object using following scheme:
+Initialize the GooglePlus class using following scheme:
 
 ``` javascript
 var gplus = new Socialmedia.GooglePlus();
 ```
 
 #### Methods:
+
+Share to Google+
 
 ``` javascript
 gplus.Share({
@@ -253,13 +266,15 @@ gplus.Share({
 
 ### Pinterest
 
-Initialize the Pinterest object using following scheme:
+Initialize the Pinterest class using following scheme:
 
 ``` javascript
 var pin = new Socialmedia.Pinterest();
 ```
 
 #### Methods:
+
+Pin a link to Pinterest boards
 
 ``` javascript
 pin.Pinit({
@@ -271,6 +286,10 @@ pin.Pinit({
 
 ### References:
 1: [Read more about frictionlessRequests](https://developers.facebook.com/docs/games/requests/v2.0#frictionless-requests)
+2: [Facebook JavaScript SDK](https://developers.facebook.com/docs/javascript/)
+3: [Twitter JavaScript SDK](https://about.twitter.com/resources/buttons)
+4: [Google+ JavaScript SDK](https://developers.google.com/+/web/share/)
+5: [Pinterest JavaScript SDK](https://developers.pinterest.com/pin_it/)
 
 ## License:
 MIT License – [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT)
