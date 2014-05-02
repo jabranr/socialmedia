@@ -37,9 +37,9 @@ For complete list of methods associated with each class, see the [detailed docum
 **To contribute, fork or clone, use following URLs:**
 
 ``` html
-HTTP: [https://github.com/jabranr/socialmedia.js.git](https://github.com/jabranr/socialmedia.js.git)
-SSH: [git@github.com:jabranr/socialmedia.js.git](git@github.com:jabranr/socialmedia.js.git)
-SVN: [https://github.com/jabranr/socialmedia.js](https://github.com/jabranr/socialmedia.js)
+HTTP: https://github.com/jabranr/socialmedia.js.git
+SSH: git@github.com:jabranr/socialmedia.js.git
+SVN: https://github.com/jabranr/socialmedia.js
 ```
 
 **Report an issue, bug or enhancement:**
@@ -74,24 +74,24 @@ appid: Your Facebook app ID in numeric string format.
 **Optional parameters:**
 
 ``` javascript
-status: Boolean True or False. Whether SDK to check login status.
-(Default is false)
+// Whether SDK to check login status.
+status: Boolean True or False. (Default is false)
 ```
 ``` javascript
-xfbml: Boolean True or False. Whether to enable XFBML parse.
-(Default is true)
+// Whether to enable XFBML parse.
+xfbml: Boolean True or False. (Default is true)
 ```
 ``` javascript
-requests: Boolean True or False. Whether to enable Frictionless Requests.
-(Default is false)
+// Whether to enable Frictionless Requests.
+requests: Boolean True or False. (Default is false)
 ```
 ``` javascript
-debug: Boolean True or False. Get uncompressed SDK source
-(Default is false)
+// Get uncompressed Facebook SDK source for debugging
+debug: Boolean True or False. (Default is false)
 ```
 ``` javascript
-version: String Facebook SDK version
-(Default is 'v2.0')
+// Get new v2.0 Facebook SDK
+version: String Facebook SDK version (Default is null)
 ```
 
 #### Methods:
@@ -103,6 +103,9 @@ facebook.AddFriend({
 	String id, 
 	Function callback 
 });
+
+// callback response returns true or false
+
 ```
 
 **Add the app to Facebook page.**
@@ -121,8 +124,11 @@ facebook.Invite({
 	Array to,
 	Array exclude_ids,
 	int max_to,
-	Object data
+	Object data,
+	Function callback
 });
+
+// callback response contains successful request data
 ```
 
 
@@ -133,6 +139,8 @@ facebook.Pay({
 	String link,
 	Function callback
 });
+
+// callback response contains successful transaction data
 ```
 
 
@@ -153,8 +161,13 @@ facebook.Share({
 	String link,
 	String image,
 	String caption,
-	String description
+	String description,
+	Function onSuccess,
+	Function onFail
 });
+
+// onSuccess response contains successful request data
+// onFail response contains failed request data
 ```
 
 
