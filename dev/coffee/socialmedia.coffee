@@ -27,6 +27,6 @@ Socialmedia.Popup = (url = 'about:blank', settings = {}) ->
 			s += ",top=#{(window.outerHeight / 2) - (this.height / 2)}"
 			s += ",#{this.features.join ','}"
 	_popup = window.open url, '_w_' + new Date().getUTCMilliseconds(), options.getString()
-	return _popup.focus();
+	if _popup then _popup.focus();
 
 ### Global init method ###
