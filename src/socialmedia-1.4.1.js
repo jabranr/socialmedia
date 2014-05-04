@@ -39,7 +39,9 @@ Socialmedia.Popup = function(url, settings) {
     }
   };
   _popup = window.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getString());
-  return _popup.focus();
+  if (_popup) {
+    return _popup.focus();
+  }
 };
 
 
