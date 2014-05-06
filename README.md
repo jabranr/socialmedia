@@ -1,4 +1,4 @@
-# Socialmedia.js
+# Socialmedia.js [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/Socialmedia.js/Master)](https://github.com/igrigorik/ga-beacon)
 
 <blockquote>If you are using version 1.4.0 or less then you will need to update the code as methods in this library are not compatible with older versions.</blockquote>
 
