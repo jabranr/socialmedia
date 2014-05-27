@@ -1,10 +1,10 @@
 {
   "name": "socialmedia",
   "author": "Jabran Rafique",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "copyright": "2014",
   "license": "MIT",
-  "repo": "https://github.com/jabranr/socialmedia.js",
+  "repo": "https://github.com/jabranr/Socialmedia.js",
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-contrib-concat": "~0.4.0",

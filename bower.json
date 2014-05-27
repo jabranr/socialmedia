@@ -1,6 +1,6 @@
 {
-	"name":  "Socialmedia.js",
-	"version": "1.4.1",
+	"name":  "Socialmedia",
+	"version": "1.4.2",
 	"ignore": [
 		"dev",
 		".gitignore",

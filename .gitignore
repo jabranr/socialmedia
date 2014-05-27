@@ -1,8 +1,3 @@
 .DS_Store
-examples
 tests
 node_modules
-.sass-cache
-_js
-_sass
-_site

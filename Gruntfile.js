@@ -26,14 +26,14 @@ module.exports = function(grunt)	{
 					'dev/js/socialmedia.js',
 					'dev/js/*.js'
 				],
-				dest: 'src/<%= pkg.name %>-<%= pkg.version %>.js'
+				dest: 'src/<%= pkg.name %>.js'
 			}
 		},
 
 		uglify: {
 			build: {
-				src: 'src/<%= pkg.name %>-<%= pkg.version %>.js',
-				dest: 'src/<%= pkg.name %>-<%= pkg.version %>.min.js'
+				src: 'src/<%= pkg.name %>.js',
+				dest: 'src/<%= pkg.name %>.min.js'
 			},
 			options: {
 				preserveComments: 'some'

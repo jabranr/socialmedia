@@ -13,7 +13,7 @@ Socialmedia.js enables JavaScript SDKs and their associated social sharing funct
 
 * Download the latest release from [Releases](http://git.io/sm-release).
 * The zipped package contains complete source code. The `src/` folder contains the uncompressed and minified versions.
-* Include the source file `src/socialmedia-1.4.1.min.js` into your HTML document.
+* Include the source file `src/socialmedia.min.js` into your HTML document.
 * Use following classes to enable various SDKs and their associated methods:
 
 ``` javascript

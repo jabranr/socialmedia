@@ -1,4 +1,4 @@
-/*! socialmedia | v1.4.1 | Jabran Rafique | MIT | https://github.com/jabranr/socialmedia.js */
+/*! socialmedia | v1.4.2 | Jabran Rafique | MIT | https://github.com/jabranr/Socialmedia.js */
 /* Global object with unique identifier */
 window.Socialmedia = window.Socialmedia || {};
 
