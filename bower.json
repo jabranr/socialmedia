@@ -1,0 +1,11 @@
+{
+	"name":  "Socialmedia.js",
+	"version": "1.4.1",
+	"ignore": [
+		"dev",
+		".gitignore",
+		"Gruntfile.js",
+		"README.md",
+		"package.json"
+	]
+}
