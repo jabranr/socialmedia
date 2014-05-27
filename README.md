@@ -38,6 +38,14 @@ var pin = new Socialmedia.Pinterest();
 
 For complete list of methods associated with each class, see the [detailed documentation](#documentation).
 
+### Install with Bower
+
+Use following to install the package from Bower.
+
+```
+bower install socialmedia
+```
+
 ### Contribute / Feedback / Issues
 
 **To contribute, fork or clone, use following URLs:**
