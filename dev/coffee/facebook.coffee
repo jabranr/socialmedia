@@ -33,7 +33,7 @@ Socialmedia.Facebook.prototype.init = ->
 		### Async callback function ###
 		FB.getLoginStatus = (response)->
 			if response?
-				options.callback?.call this, response
+				_this.callback?.call this, response
 			else false
 			return
 		return

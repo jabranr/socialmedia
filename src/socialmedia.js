@@ -1,4 +1,4 @@
-/*! socialmedia | v1.4.3 | Jabran Rafique | MIT | https://github.com/jabranr/Socialmedia.js */
+/*! socialmedia | v1.4.4 | Jabran Rafique | MIT | https://github.com/jabranr/Socialmedia.js */
 /* Global object with unique identifier */
 window.Socialmedia = window.Socialmedia || {};
 
@@ -84,7 +84,7 @@ Socialmedia.Facebook.prototype.init = function() {
     FB.getLoginStatus = function(response) {
       var _ref;
       if (response != null) {
-        if ((_ref = options.callback) != null) {
+        if ((_ref = _this.callback) != null) {
           _ref.call(this, response);
         }
       } else {
