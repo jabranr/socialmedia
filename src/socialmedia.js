@@ -1,4 +1,4 @@
-/*! socialmedia | v1.4.2 | Jabran Rafique | MIT | https://github.com/jabranr/Socialmedia.js */
+/*! socialmedia | v1.4.3 | Jabran Rafique | MIT | https://github.com/jabranr/Socialmedia.js */
 /* Global object with unique identifier */
 window.Socialmedia = window.Socialmedia || {};
 
@@ -57,6 +57,7 @@ Socialmedia.Facebook = function(settings) {
   this.requests = (settings.requests != null) && settings.requests || false;
   this.version = (settings.version != null) && settings.version || '';
   this.debug = (settings.debug != null) && settings.debug || false;
+  this.callback = (settings.callback != null) && settings.callback || function() {};
   this.init();
 };
 
@@ -77,17 +78,29 @@ Socialmedia.Facebook.prototype.init = function() {
     _this.fbsdk = document.querySelector('#facebook-jssdk');
 
     /* Append app_id to fbsdk source */
-    return _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
+    _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
+
+    /* Async callback function */
+    FB.getLoginStatus = function(response) {
+      var _ref;
+      if (response != null) {
+        if ((_ref = options.callback) != null) {
+          _ref.call(this, response);
+        }
+      } else {
+        false;
+      }
+    };
   };
 
   /* Move the auto-generated fb-root DOM element to appropriate position */
   if (typeof addEventListener !== "undefined" && addEventListener !== null) {
     window.addEventListener('load', function() {
-      return document.body.appendChild(document.getElementById('fb-root'));
+      document.body.appendChild(document.getElementById('fb-root'));
     });
   } else if (typeof attachEvent !== "undefined" && attachEvent !== null) {
-    window.attachEvent('load', function() {
-      return document.body.appendChild(document.getElementById('fb-root'));
+    window.attachEvent('onload', function() {
+      document.body.appendChild(document.getElementById('fb-root'));
     });
   }
 

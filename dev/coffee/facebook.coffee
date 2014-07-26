@@ -8,6 +8,7 @@ Socialmedia.Facebook = (settings)->
 	this.requests = settings.requests? and settings.requests or false
 	this.version = settings.version? and settings.version or ''
 	this.debug = settings.debug? and settings.debug or false
+	this.callback = settings.callback? and settings.callback or ->
 	this.init()
 	return
 
@@ -27,14 +28,26 @@ Socialmedia.Facebook.prototype.init = ->
 		
 		### Append app_id to fbsdk source ###
 		_this.fbsdk.src += '#xfbml=1&appId=' + _this.appid
+
+
+		### Async callback function ###
+		FB.getLoginStatus = (response)->
+			if response?
+				options.callback?.call this, response
+			else false
+			return
+		return
 		
 	### Move the auto-generated fb-root DOM element to appropriate position ###
 	if addEventListener?
 		window.addEventListener 'load', ->
 			document.body.appendChild document.getElementById 'fb-root'
+			return
+
 	else if attachEvent?
-		window.attachEvent 'load', ->
+		window.attachEvent 'onload', ->
 			document.body.appendChild document.getElementById 'fb-root'
+			return
 
 	### Load the Facebook JavaScript SDK ###
 	((doc, dev, tag, id, ver) ->
