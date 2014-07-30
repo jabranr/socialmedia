@@ -31,7 +31,7 @@ Socialmedia.Twitter.prototype.init = function() {
 Socialmedia.Twitter.prototype.Tweet = function(options) {
   var data, intentShareUrl;
   intentShareUrl = '//twitter.com/intent/tweet?';
-  data = (options != null) && options.tweet ? "text=" + (encodeURIComponent(options.tweet)) + " " : "text=" + (encodeURIComponent(document.title)) + " ";
+  data = (options != null) && options.tweet ? "text=" + (encodeURIComponent(options.tweet)) : "text=" + (encodeURIComponent(document.title)) + " ";
   data += (options != null) && options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag)) + " " : '';
   data += (options != null) && options.recommend ? "&related=" + (encodeURIComponent(options.recommend)) + " " : '';
   data += (options != null) && options.via ? "&via=" + (encodeURIComponent(options.via)) + " " : '';

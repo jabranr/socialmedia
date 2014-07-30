@@ -21,7 +21,7 @@ Socialmedia.Twitter.prototype.init = ->
 ### Twitter share link method ###
 Socialmedia.Twitter.prototype.Tweet = (options) ->
 	intentShareUrl = '//twitter.com/intent/tweet?'
-	data = if options? and options.tweet then "text=#{encodeURIComponent options.tweet} " else "text=#{encodeURIComponent document.title} "
+	data = if options? and options.tweet then "text=#{encodeURIComponent options.tweet}" else "text=#{encodeURIComponent document.title} "
 	data += if options? and options.hashtag then "&hashtags=#{encodeURIComponent options.hashtag} " else ''
 	data += if options? and options.recommend then "&related=#{encodeURIComponent options.recommend} " else ''
 	data += if options? and options.via then "&via=#{encodeURIComponent options.via} " else ''
