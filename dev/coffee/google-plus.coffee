@@ -19,8 +19,8 @@ Socialmedia.GooglePlus.prototype.init = ->
     )(document, 'script', 'gplus-jssdk')
 
 ### Google+ share method ###
-Socialmedia.GooglePlus.prototype.Share = (options) ->
+Socialmedia.GooglePlus.prototype.Share = (options = {}) ->
 	platformUrl = '//plus.google.com/share?'
-	data = options? and options.link? and "url=#{encodeURIComponent options.link}" or "url=#{encodeURIComponent window.location.href}"
-	data += options? and options.lang? and "&hl=#{encodeURIComponent options.lang}" or "&hl=en"
+	data = options.link? and "url=#{encodeURIComponent options.link}" or "url=#{encodeURIComponent window.location.href}"
+	data += options.lang? and "&hl=#{encodeURIComponent options.lang}" or "&hl=en"
 	Socialmedia.Popup.apply this, [platformUrl + data]

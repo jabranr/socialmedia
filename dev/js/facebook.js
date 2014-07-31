@@ -1,14 +1,14 @@
 
 /* Facebook object */
 Socialmedia.Facebook = function(settings) {
-  this.appid = (settings.appid != null) && settings.appid || '';
-  this.status = (settings.status != null) && settings.status || false;
-  this.xfbml = (settings.xfbml != null) && settings.xfbml || true;
-  this.cookie = (settings.cookie != null) && settings.cookie || true;
-  this.requests = (settings.requests != null) && settings.requests || false;
-  this.version = (settings.version != null) && settings.version || '';
-  this.debug = (settings.debug != null) && settings.debug || false;
-  this.callback = (settings.callback != null) && settings.callback || function() {};
+  this.appid = settings.appid || '';
+  this.status = settings.status || false;
+  this.xfbml = settings.xfbml || true;
+  this.cookie = settings.cookie || true;
+  this.requests = settings.requests || false;
+  this.version = settings.version || '';
+  this.debug = settings.debug || false;
+  this.callback = settings.callback || function() {};
   this.init();
 };
 
@@ -109,8 +109,11 @@ Socialmedia.Facebook.prototype.autogrow = function(settings) {
 
 Socialmedia.Facebook.prototype.scroll = function(settings) {
   var x, y;
-  x = (settings != null) && (settings.x != null) ? settings.x || 0 : void 0;
-  y = (settings != null) && (settings.y != null) ? settings.y || 0 : void 0;
+  if (settings == null) {
+    settings = {};
+  }
+  x = settings.x || 0;
+  y = settings.y || 0;
   if (x && y) {
     return FB.Canvas.scrollTo(x, y);
   } else {
@@ -122,13 +125,16 @@ Socialmedia.Facebook.prototype.scroll = function(settings) {
 /* Facebook share function */
 
 Socialmedia.Facebook.prototype.Share = function(options) {
+  if (options == null) {
+    options = {};
+  }
   return FB.ui({
     method: 'feed',
-    name: options && (options.title != null) && options.title || '',
-    link: options && (options.link != null) && options.link || '',
-    picture: options && (options.image != null) && options.image || '',
-    caption: options && (options.caption != null) && options.caption || '',
-    description: options && (options.description != null) && options.description || ''
+    name: options.title || '',
+    link: options.link || '',
+    picture: options.image || '',
+    caption: options.caption || '',
+    description: options.description || ''
   }, function(response) {
     var _ref, _ref1;
     if (response != null) {
@@ -147,14 +153,17 @@ Socialmedia.Facebook.prototype.Share = function(options) {
 /* Facebook invite function */
 
 Socialmedia.Facebook.prototype.Invite = function(options) {
+  if (options == null) {
+    options = {};
+  }
   return FB.ui({
     method: 'apprequests',
-    title: options && (options.title != null) && options.title || '',
-    message: options && (options.message != null) && options.message || '',
-    to: options && (options.to != null) && options.to || [],
-    exclude_ids: options && (options.exclude_ids != null) && options.exclude_ids || [],
-    max_recipients: options && (options.max_to != null) && options.max_to || 100,
-    data: options && (options.data != null) && options.data || {}
+    title: options.title || '',
+    message: options.message || '',
+    to: options.to || [],
+    exclude_ids: options.exclude_ids || [],
+    max_recipients: options.max_to || 100,
+    data: options.data || {}
   }, function(response) {
     var _ref;
     if (response != null) {
@@ -178,9 +187,12 @@ Socialmedia.Facebook.prototype.AddToPage = function() {
 /* Facebook add friend function */
 
 Socialmedia.Facebook.prototype.AddFriend = function(options) {
+  if (options == null) {
+    options = {};
+  }
   return FB.ui({
     method: 'friends',
-    id: options && (options.id != null) && options.id || 'jabranr'
+    id: options.id || 'jabranr'
   }, function(response) {
     var _ref;
     if (response != null) {
@@ -195,9 +207,12 @@ Socialmedia.Facebook.prototype.AddFriend = function(options) {
 /* Facebook send function */
 
 Socialmedia.Facebook.prototype.Send = function(options) {
+  if (options == null) {
+    options = {};
+  }
   return FB.ui({
     method: 'send',
-    link: (options != null) && (options.link != null) && options.link || window.location.href
+    link: options.link || window.location.href
   });
 };
 
@@ -205,10 +220,13 @@ Socialmedia.Facebook.prototype.Send = function(options) {
 /* Facebook pay function */
 
 Socialmedia.Facebook.prototype.Pay = function(options) {
+  if (options == null) {
+    options = {};
+  }
   return FB.ui({
     method: 'pay',
     action: 'purchaseitem',
-    product: (options != null) && (options.link != null) && options.link || window.location.href
+    product: options.link || window.location.href
   }, function(data) {
     var _ref;
     if (data != null) {

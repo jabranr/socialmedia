@@ -27,10 +27,10 @@ Socialmedia.Popup = function(url, settings) {
     settings = {};
   }
   options = {
-    width: (settings.width != null) && settings.width || 600,
-    height: (settings.height != null) && settings.height || 300,
-    features: (settings.features != null) && settings.features || ['dialog', 'location', 'dependent'],
-    getString: function() {
+    width: settings.width || 600,
+    height: settings.height || 300,
+    features: settings.features || ['dialog', 'location', 'dependent'],
+    getFeatures: function() {
       var s;
       s = "width=" + this.width + ",height=" + this.height;
       s += ",left=" + ((window.outerWidth / 2) - (this.width / 2));
@@ -38,7 +38,7 @@ Socialmedia.Popup = function(url, settings) {
       return s += "," + (this.features.join(','));
     }
   };
-  _popup = window.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getString());
+  _popup = window.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getFeatures());
   if (_popup) {
     return _popup.focus();
   }
@@ -50,14 +50,14 @@ Socialmedia.Popup = function(url, settings) {
 
 /* Facebook object */
 Socialmedia.Facebook = function(settings) {
-  this.appid = (settings.appid != null) && settings.appid || '';
-  this.status = (settings.status != null) && settings.status || false;
-  this.xfbml = (settings.xfbml != null) && settings.xfbml || true;
-  this.cookie = (settings.cookie != null) && settings.cookie || true;
-  this.requests = (settings.requests != null) && settings.requests || false;
-  this.version = (settings.version != null) && settings.version || '';
-  this.debug = (settings.debug != null) && settings.debug || false;
-  this.callback = (settings.callback != null) && settings.callback || function() {};
+  this.appid = settings.appid || '';
+  this.status = settings.status || false;
+  this.xfbml = settings.xfbml || true;
+  this.cookie = settings.cookie || true;
+  this.requests = settings.requests || false;
+  this.version = settings.version || '';
+  this.debug = settings.debug || false;
+  this.callback = settings.callback || function() {};
   this.init();
 };
 
@@ -158,8 +158,11 @@ Socialmedia.Facebook.prototype.autogrow = function(settings) {
 
 Socialmedia.Facebook.prototype.scroll = function(settings) {
   var x, y;
-  x = (settings != null) && (settings.x != null) ? settings.x || 0 : void 0;
-  y = (settings != null) && (settings.y != null) ? settings.y || 0 : void 0;
+  if (settings == null) {
+    settings = {};
+  }
+  x = settings.x || 0;
+  y = settings.y || 0;
   if (x && y) {
     return FB.Canvas.scrollTo(x, y);
   } else {
@@ -171,13 +174,16 @@ Socialmedia.Facebook.prototype.scroll = function(settings) {
 /* Facebook share function */
 
 Socialmedia.Facebook.prototype.Share = function(options) {
+  if (options == null) {
+    options = {};
+  }
   return FB.ui({
     method: 'feed',
-    name: options && (options.title != null) && options.title || '',
-    link: options && (options.link != null) && options.link || '',
-    picture: options && (options.image != null) && options.image || '',
-    caption: options && (options.caption != null) && options.caption || '',
-    description: options && (options.description != null) && options.description || ''
+    name: options.title || '',
+    link: options.link || '',
+    picture: options.image || '',
+    caption: options.caption || '',
+    description: options.description || ''
   }, function(response) {
     var _ref, _ref1;
     if (response != null) {
@@ -196,14 +202,17 @@ Socialmedia.Facebook.prototype.Share = function(options) {
 /* Facebook invite function */
 
 Socialmedia.Facebook.prototype.Invite = function(options) {
+  if (options == null) {
+    options = {};
+  }
   return FB.ui({
     method: 'apprequests',
-    title: options && (options.title != null) && options.title || '',
-    message: options && (options.message != null) && options.message || '',
-    to: options && (options.to != null) && options.to || [],
-    exclude_ids: options && (options.exclude_ids != null) && options.exclude_ids || [],
-    max_recipients: options && (options.max_to != null) && options.max_to || 100,
-    data: options && (options.data != null) && options.data || {}
+    title: options.title || '',
+    message: options.message || '',
+    to: options.to || [],
+    exclude_ids: options.exclude_ids || [],
+    max_recipients: options.max_to || 100,
+    data: options.data || {}
   }, function(response) {
     var _ref;
     if (response != null) {
@@ -227,9 +236,12 @@ Socialmedia.Facebook.prototype.AddToPage = function() {
 /* Facebook add friend function */
 
 Socialmedia.Facebook.prototype.AddFriend = function(options) {
+  if (options == null) {
+    options = {};
+  }
   return FB.ui({
     method: 'friends',
-    id: options && (options.id != null) && options.id || 'jabranr'
+    id: options.id || 'jabranr'
   }, function(response) {
     var _ref;
     if (response != null) {
@@ -244,9 +256,12 @@ Socialmedia.Facebook.prototype.AddFriend = function(options) {
 /* Facebook send function */
 
 Socialmedia.Facebook.prototype.Send = function(options) {
+  if (options == null) {
+    options = {};
+  }
   return FB.ui({
     method: 'send',
-    link: (options != null) && (options.link != null) && options.link || window.location.href
+    link: options.link || window.location.href
   });
 };
 
@@ -254,10 +269,13 @@ Socialmedia.Facebook.prototype.Send = function(options) {
 /* Facebook pay function */
 
 Socialmedia.Facebook.prototype.Pay = function(options) {
+  if (options == null) {
+    options = {};
+  }
   return FB.ui({
     method: 'pay',
     action: 'purchaseitem',
-    product: (options != null) && (options.link != null) && options.link || window.location.href
+    product: options.link || window.location.href
   }, function(data) {
     var _ref;
     if (data != null) {
@@ -300,9 +318,12 @@ Socialmedia.GooglePlus.prototype.init = function() {
 
 Socialmedia.GooglePlus.prototype.Share = function(options) {
   var data, platformUrl;
+  if (options == null) {
+    options = {};
+  }
   platformUrl = '//plus.google.com/share?';
-  data = (options != null) && (options.link != null) && ("url=" + (encodeURIComponent(options.link))) || ("url=" + (encodeURIComponent(window.location.href)));
-  data += (options != null) && (options.lang != null) && ("&hl=" + (encodeURIComponent(options.lang))) || "&hl=en";
+  data = (options.link != null) && ("url=" + (encodeURIComponent(options.link))) || ("url=" + (encodeURIComponent(window.location.href)));
+  data += (options.lang != null) && ("&hl=" + (encodeURIComponent(options.lang))) || "&hl=en";
   return Socialmedia.Popup.apply(this, [platformUrl + data]);
 };
 
@@ -339,9 +360,9 @@ Socialmedia.Pinterest.prototype.init = function() {
 Socialmedia.Pinterest.prototype.Pinit = function(options) {
   var data, platformUrl;
   platformUrl = '//pinterest.com/pin/create/button/?';
-  data = (options != null) && (options.link != null) && ("url=" + (encodeURIComponent(options.link))) || ("url=" + (encodeURIComponent(window.location.href)));
-  data += (options != null) && (options.image != null) && ("media=" + (encodeURIComponent(options.image))) || "";
-  data += (options != null) && (options.description != null) && ("description=" + (encodeURIComponent(options.description))) || ("description=" + (encodeURIComponent(document.title)));
+  data = (options.link != null) && ("url=" + (encodeURIComponent(options.link))) || ("url=" + (encodeURIComponent(window.location.href)));
+  data += (options.image != null) && ("media=" + (encodeURIComponent(options.image))) || "";
+  data += (options.description != null) && ("description=" + (encodeURIComponent(options.description))) || ("description=" + (encodeURIComponent(document.title)));
   return Socialmedia.Popup.apply(this, [
     platformUrl + data, {
       width: 765,
@@ -382,12 +403,15 @@ Socialmedia.Twitter.prototype.init = function() {
 
 Socialmedia.Twitter.prototype.Tweet = function(options) {
   var data, intentShareUrl;
+  if (options == null) {
+    options = {};
+  }
   intentShareUrl = '//twitter.com/intent/tweet?';
-  data = (options != null) && options.tweet ? "text=" + (encodeURIComponent(options.tweet)) : "text=" + (encodeURIComponent(document.title)) + " ";
-  data += (options != null) && options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag.replace('/#/', ''))) + " " : '';
-  data += (options != null) && options.recommend ? "&related=" + (encodeURIComponent(options.recommend.replace('/@/', ''))) + " " : '';
-  data += (options != null) && options.via ? "&via=" + (encodeURIComponent(options.via.replace('/@/', ''))) + " " : '';
-  data += (options != null) && options.link ? "&url=" + (encodeURIComponent(options.link)) + " " : "&url=" + (encodeURIComponent(window.location.href)) + " ";
+  data = options.tweet ? "text=" + (encodeURIComponent(options.tweet)) : "text=" + (encodeURIComponent(document.title)) + " ";
+  data += options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag.replace('/#/', ''))) + " " : '';
+  data += options.recommend ? "&related=" + (encodeURIComponent(options.recommend.replace('/@/', ''))) + " " : '';
+  data += options.via ? "&via=" + (encodeURIComponent(options.via.replace('/@/', ''))) + " " : '';
+  data += options.link ? "&url=" + (encodeURIComponent(options.link)) + " " : "&url=" + (encodeURIComponent(window.location.href)) + " ";
   return Socialmedia.Popup.apply(this, [intentShareUrl + data]);
 };
 
@@ -417,10 +441,13 @@ Socialmedia.Twitter.prototype.Follow = function(username) {
 
 Socialmedia.Twitter.prototype.Mention = function(options) {
   var data, intentMentionUrl;
+  if (options == null) {
+    options = {};
+  }
   intentMentionUrl = '//twitter.com/intent/tweet?';
-  data = (options != null) && options.username && ("screen_name=" + (encodeURIComponent(options.username.replace(/@/, '')))) || '';
-  data += (options != null) && options.recommend && ("&related=" + (encodeURIComponent(options.recommend.replace(/@/, '')))) || '';
-  data += (options != null) && options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
+  data = options.username && ("screen_name=" + (encodeURIComponent(options.username.replace(/@/, '')))) || '';
+  data += options.recommend && ("&related=" + (encodeURIComponent(options.recommend.replace(/@/, '')))) || '';
+  data += options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
   return Socialmedia.Popup.apply(this, [intentMentionUrl + data]);
 };
 
@@ -432,10 +459,13 @@ Socialmedia.Twitter.prototype.Mention = function(options) {
 
 Socialmedia.Twitter.prototype.Hashtag = function(options) {
   var data, intentHashtagUrl;
+  if (options == null) {
+    options = {};
+  }
   intentHashtagUrl = '//twitter.com/intent/tweet?';
-  data = (options != null) && options.hashtag && ("button_hashtag=" + (encodeURIComponent(options.hashtag.replace(/#/, '')))) || '';
-  data += (options != null) && options.recommend && ("&related=" + (encodeURIComponent(options.recommend.replace(/@/, '')))) || '';
-  data += (options != null) && options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
-  data += (options != null) && options.link && ("&url=" + (encodeURIComponent(options.link))) || '';
+  data = options.hashtag && ("button_hashtag=" + (encodeURIComponent(options.hashtag.replace(/#/, '')))) || '';
+  data += options.recommend && ("&related=" + (encodeURIComponent(options.recommend.replace(/@/, '')))) || '';
+  data += options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
+  data += options.link && ("&url=" + (encodeURIComponent(options.link))) || '';
   return Socialmedia.Popup.apply(this, [intentHashtagUrl + data]);
 };

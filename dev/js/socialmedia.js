@@ -27,10 +27,10 @@ Socialmedia.Popup = function(url, settings) {
     settings = {};
   }
   options = {
-    width: (settings.width != null) && settings.width || 600,
-    height: (settings.height != null) && settings.height || 300,
-    features: (settings.features != null) && settings.features || ['dialog', 'location', 'dependent'],
-    getString: function() {
+    width: settings.width || 600,
+    height: settings.height || 300,
+    features: settings.features || ['dialog', 'location', 'dependent'],
+    getFeatures: function() {
       var s;
       s = "width=" + this.width + ",height=" + this.height;
       s += ",left=" + ((window.outerWidth / 2) - (this.width / 2));
@@ -38,7 +38,7 @@ Socialmedia.Popup = function(url, settings) {
       return s += "," + (this.features.join(','));
     }
   };
-  _popup = window.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getString());
+  _popup = window.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getFeatures());
   if (_popup) {
     return _popup.focus();
   }

@@ -30,8 +30,11 @@ Socialmedia.GooglePlus.prototype.init = function() {
 
 Socialmedia.GooglePlus.prototype.Share = function(options) {
   var data, platformUrl;
+  if (options == null) {
+    options = {};
+  }
   platformUrl = '//plus.google.com/share?';
-  data = (options != null) && (options.link != null) && ("url=" + (encodeURIComponent(options.link))) || ("url=" + (encodeURIComponent(window.location.href)));
-  data += (options != null) && (options.lang != null) && ("&hl=" + (encodeURIComponent(options.lang))) || "&hl=en";
+  data = (options.link != null) && ("url=" + (encodeURIComponent(options.link))) || ("url=" + (encodeURIComponent(window.location.href)));
+  data += (options.lang != null) && ("&hl=" + (encodeURIComponent(options.lang))) || "&hl=en";
   return Socialmedia.Popup.apply(this, [platformUrl + data]);
 };

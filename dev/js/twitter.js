@@ -30,12 +30,15 @@ Socialmedia.Twitter.prototype.init = function() {
 
 Socialmedia.Twitter.prototype.Tweet = function(options) {
   var data, intentShareUrl;
+  if (options == null) {
+    options = {};
+  }
   intentShareUrl = '//twitter.com/intent/tweet?';
-  data = (options != null) && options.tweet ? "text=" + (encodeURIComponent(options.tweet)) : "text=" + (encodeURIComponent(document.title)) + " ";
-  data += (options != null) && options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag.replace('/#/', ''))) + " " : '';
-  data += (options != null) && options.recommend ? "&related=" + (encodeURIComponent(options.recommend.replace('/@/', ''))) + " " : '';
-  data += (options != null) && options.via ? "&via=" + (encodeURIComponent(options.via.replace('/@/', ''))) + " " : '';
-  data += (options != null) && options.link ? "&url=" + (encodeURIComponent(options.link)) + " " : "&url=" + (encodeURIComponent(window.location.href)) + " ";
+  data = options.tweet ? "text=" + (encodeURIComponent(options.tweet)) : "text=" + (encodeURIComponent(document.title)) + " ";
+  data += options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag.replace('/#/', ''))) + " " : '';
+  data += options.recommend ? "&related=" + (encodeURIComponent(options.recommend.replace('/@/', ''))) + " " : '';
+  data += options.via ? "&via=" + (encodeURIComponent(options.via.replace('/@/', ''))) + " " : '';
+  data += options.link ? "&url=" + (encodeURIComponent(options.link)) + " " : "&url=" + (encodeURIComponent(window.location.href)) + " ";
   return Socialmedia.Popup.apply(this, [intentShareUrl + data]);
 };
 
@@ -65,10 +68,13 @@ Socialmedia.Twitter.prototype.Follow = function(username) {
 
 Socialmedia.Twitter.prototype.Mention = function(options) {
   var data, intentMentionUrl;
+  if (options == null) {
+    options = {};
+  }
   intentMentionUrl = '//twitter.com/intent/tweet?';
-  data = (options != null) && options.username && ("screen_name=" + (encodeURIComponent(options.username.replace(/@/, '')))) || '';
-  data += (options != null) && options.recommend && ("&related=" + (encodeURIComponent(options.recommend.replace(/@/, '')))) || '';
-  data += (options != null) && options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
+  data = options.username && ("screen_name=" + (encodeURIComponent(options.username.replace(/@/, '')))) || '';
+  data += options.recommend && ("&related=" + (encodeURIComponent(options.recommend.replace(/@/, '')))) || '';
+  data += options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
   return Socialmedia.Popup.apply(this, [intentMentionUrl + data]);
 };
 
@@ -80,10 +86,13 @@ Socialmedia.Twitter.prototype.Mention = function(options) {
 
 Socialmedia.Twitter.prototype.Hashtag = function(options) {
   var data, intentHashtagUrl;
+  if (options == null) {
+    options = {};
+  }
   intentHashtagUrl = '//twitter.com/intent/tweet?';
-  data = (options != null) && options.hashtag && ("button_hashtag=" + (encodeURIComponent(options.hashtag.replace(/#/, '')))) || '';
-  data += (options != null) && options.recommend && ("&related=" + (encodeURIComponent(options.recommend.replace(/@/, '')))) || '';
-  data += (options != null) && options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
-  data += (options != null) && options.link && ("&url=" + (encodeURIComponent(options.link))) || '';
+  data = options.hashtag && ("button_hashtag=" + (encodeURIComponent(options.hashtag.replace(/#/, '')))) || '';
+  data += options.recommend && ("&related=" + (encodeURIComponent(options.recommend.replace(/@/, '')))) || '';
+  data += options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
+  data += options.link && ("&url=" + (encodeURIComponent(options.link))) || '';
   return Socialmedia.Popup.apply(this, [intentHashtagUrl + data]);
 };

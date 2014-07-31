@@ -14,19 +14,19 @@ Socialmedia.SDK =
 ### Default popup method ###
 Socialmedia.Popup = (url = 'about:blank', settings = {}) ->
 	options =
-		width: settings.width? and settings.width or 600
-		height: settings.height? and settings.height or 300
-		features: settings.features? and settings.features or [
+		width: settings.width or 600
+		height: settings.height or 300
+		features: settings.features or [
 			'dialog'
 			'location'
 			'dependent'
 		]
-		getString: ->
+		getFeatures: ->
 			s = "width=#{this.width},height=#{this.height}"
 			s += ",left=#{(window.outerWidth / 2) - (this.width / 2)}"
 			s += ",top=#{(window.outerHeight / 2) - (this.height / 2)}"
 			s += ",#{this.features.join ','}"
-	_popup = window.open url, '_w_' + new Date().getUTCMilliseconds(), options.getString()
+	_popup = window.open url, '_w_' + new Date().getUTCMilliseconds(), options.getFeatures()
 	if _popup then _popup.focus();
 
 ### Global init method ###
