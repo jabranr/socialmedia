@@ -1,8 +1,6 @@
-# Socialmedia.js [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/Socialmedia.js/Master)](https://github.com/igrigorik/ga-beacon)
+# Socialmedia.js [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/Socialmedia.js/Master)](https://github.com/igrigorik/ga-beacon) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
-<blockquote>If you are using version 1.4.0 or less then you will need to update the code as methods in this library are not compatible with older versions.</blockquote>
-
-Socialmedia.js enables JavaScript SDKs and their associated social sharing functions for various social media services. At the moment, Socialmedia.js supports following social media services:
+**Socialmedia.js** enables JavaScript SDKs and their associated social sharing functions for various social media services. At the moment, **Socialmedia.js** supports following social media services:
 
 * [Facebook](#facebook)
 * [Twitter](#twitter)
@@ -18,13 +16,19 @@ Socialmedia.js enables JavaScript SDKs and their associated social sharing funct
 
 ``` javascript
 // Initialize Facebook SDK
-var facebook = new Socialmedia.Facebook({ appid: '1234567890' });
+var facebook = new Socialmedia.Facebook({ 
+	appid: '1234567890' 
+});
 
 // Initialize Facebook SDK in debug mode
-var facebook = new Socialmedia.Facebook({ appid: '1234567890', debug: true });
+var facebook = new Socialmedia.Facebook({ 
+	appid: '1234567890', debug: true 
+});
 
 // Initialize Facebook SDK version 2.0
-var facebook = new Socialmedia.Facebook({ appid: '1234567890', version: 'v2.0' });
+var facebook = new Socialmedia.Facebook({ 
+	appid: '1234567890', version: 'v2.0' 
+});
 
 // Initialize Twitter SDK
 var twitter = new Socialmedia.Twitter();
@@ -46,17 +50,32 @@ Use following to install the package from Bower.
 bower install socialmedia
 ```
 
-### Contribute / Feedback / Issues
+### Contribute
 
-**To contribute, fork or clone, use following URLs:**
+Socialmedia.js is built with `Grunt` and `CoffeeScript`. Use following workflow to contribute:
 
-``` html
-HTTP: https://github.com/jabranr/socialmedia.js.git
-SSH: git@github.com:jabranr/socialmedia.js.git
-SVN: https://github.com/jabranr/socialmedia.js
+* Fork the repository.
+* Create a new branch from `Master`:
+
+``` shell
+$ git checkout -b YOUR_BRANCH_NAME
 ```
 
-**Report an issue, bug or enhancement:**
+* Make sure you have [Node](http://nodejs.org) installed.
+* Run `npm install` to install dev dependencies.
+* Run `grunt watch` to automate the build process.
+* Add/edit your stuff to files in `dev/coffee/`.
+* Update versions in `package.json` and `bower.json`.
+* Commit and create new version tag (keep x.x.x notation):
+
+``` shell
+$ git tag NEW_TAG -m 'SOMETHING ABOUT NEW TAG'
+```
+
+* Push changes and create a new [pull request](https://github.com/jabranr/Socialmedia/compare/).
+* Let me review, merge your changes and thank you! :-)
+
+### Feedback / Issues
 
 [https://github.com/jabranr/socialmedia.js/issues](https://github.com/jabranr/socialmedia.js/issues)
 
@@ -106,6 +125,10 @@ debug: Boolean True or False. (Default is false)
 ``` javascript
 // Get new v2.0 Facebook SDK
 version: String Facebook SDK version (Default is null)
+```
+``` javascript
+// Pass asynchronous callback function
+callback: Function Returns a response object with status of current user
 ```
 
 #### Methods:
