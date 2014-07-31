@@ -21,8 +21,8 @@ Socialmedia.Pinterest.prototype.init = ->
 Socialmedia.Pinterest.prototype.Pinit = (options) ->
 	platformUrl = '//pinterest.com/pin/create/button/?'
 	data = options.link? and "url=#{encodeURIComponent options.link }" or "url=#{encodeURIComponent window.location.href}"
-	data += options.image? and "media=#{encodeURIComponent options.image }" or ""
-	data += options.description? and "description=#{encodeURIComponent options.description }" or "description=#{encodeURIComponent document.title}"
+	data += options.image? and "&media=#{encodeURIComponent options.image }" or ""
+	data += options.description? and "&description=#{encodeURIComponent options.description }" or "&description=#{encodeURIComponent document.title}"
 	Socialmedia.Popup.apply this, [platformUrl + data, 
 		width: 765 
 		height: 325
