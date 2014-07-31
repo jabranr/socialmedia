@@ -32,16 +32,9 @@ Socialmedia.Facebook.prototype.init = function() {
     _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
 
     /* Async callback function */
-    FB.getLoginStatus = function(response) {
-      var _ref;
-      if (response != null) {
-        if ((_ref = _this.callback) != null) {
-          _ref.call(this, response);
-        }
-      } else {
-        false;
-      }
-    };
+    if (_this.callback != null) {
+      FB.getLoginStatus(_this.callback);
+    }
   };
 
   /* Move the auto-generated fb-root DOM element to appropriate position */

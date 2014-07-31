@@ -1,4 +1,4 @@
-/*! socialmedia | v1.4.5 | Jabran Rafique | MIT | https://github.com/jabranr/Socialmedia.js */
+/*! socialmedia | v1.4.6 | Jabran Rafique | MIT | https://github.com/jabranr/Socialmedia.js */
 /* Global object with unique identifier */
 window.Socialmedia = window.Socialmedia || {};
 
@@ -81,16 +81,9 @@ Socialmedia.Facebook.prototype.init = function() {
     _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
 
     /* Async callback function */
-    FB.getLoginStatus = function(response) {
-      var _ref;
-      if (response != null) {
-        if ((_ref = _this.callback) != null) {
-          _ref.call(this, response);
-        }
-      } else {
-        false;
-      }
-    };
+    if (_this.callback != null) {
+      FB.getLoginStatus(_this.callback);
+    }
   };
 
   /* Move the auto-generated fb-root DOM element to appropriate position */

@@ -31,11 +31,8 @@ Socialmedia.Facebook.prototype.init = ->
 
 
 		### Async callback function ###
-		FB.getLoginStatus = (response)->
-			if response?
-				_this.callback?.call this, response
-			else false
-			return
+		if _this.callback?
+			FB.getLoginStatus _this.callback
 		return
 		
 	### Move the auto-generated fb-root DOM element to appropriate position ###
