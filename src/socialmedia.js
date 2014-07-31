@@ -1,4 +1,4 @@
-/*! socialmedia | v1.4.4 | Jabran Rafique | MIT | https://github.com/jabranr/Socialmedia.js */
+/*! socialmedia | v1.4.5 | Jabran Rafique | MIT | https://github.com/jabranr/Socialmedia.js */
 /* Global object with unique identifier */
 window.Socialmedia = window.Socialmedia || {};
 
@@ -389,9 +389,9 @@ Socialmedia.Twitter.prototype.Tweet = function(options) {
   var data, intentShareUrl;
   intentShareUrl = '//twitter.com/intent/tweet?';
   data = (options != null) && options.tweet ? "text=" + (encodeURIComponent(options.tweet)) : "text=" + (encodeURIComponent(document.title)) + " ";
-  data += (options != null) && options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag)) + " " : '';
-  data += (options != null) && options.recommend ? "&related=" + (encodeURIComponent(options.recommend)) + " " : '';
-  data += (options != null) && options.via ? "&via=" + (encodeURIComponent(options.via)) + " " : '';
+  data += (options != null) && options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag.replace('/#/', ''))) + " " : '';
+  data += (options != null) && options.recommend ? "&related=" + (encodeURIComponent(options.recommend.replace('/@/', ''))) + " " : '';
+  data += (options != null) && options.via ? "&via=" + (encodeURIComponent(options.via.replace('/@/', ''))) + " " : '';
   data += (options != null) && options.link ? "&url=" + (encodeURIComponent(options.link)) + " " : "&url=" + (encodeURIComponent(window.location.href)) + " ";
   return Socialmedia.Popup.apply(this, [intentShareUrl + data]);
 };
@@ -424,7 +424,7 @@ Socialmedia.Twitter.prototype.Mention = function(options) {
   var data, intentMentionUrl;
   intentMentionUrl = '//twitter.com/intent/tweet?';
   data = (options != null) && options.username && ("screen_name=" + (encodeURIComponent(options.username.replace(/@/, '')))) || '';
-  data += (options != null) && options.recommend && ("&related=" + (encodeURIComponent(options.recommend))) || '';
+  data += (options != null) && options.recommend && ("&related=" + (encodeURIComponent(options.recommend.replace(/@/, '')))) || '';
   data += (options != null) && options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
   return Socialmedia.Popup.apply(this, [intentMentionUrl + data]);
 };
@@ -439,7 +439,7 @@ Socialmedia.Twitter.prototype.Hashtag = function(options) {
   var data, intentHashtagUrl;
   intentHashtagUrl = '//twitter.com/intent/tweet?';
   data = (options != null) && options.hashtag && ("button_hashtag=" + (encodeURIComponent(options.hashtag.replace(/#/, '')))) || '';
-  data += (options != null) && options.recommend && ("&related=" + (encodeURIComponent(options.recommend))) || '';
+  data += (options != null) && options.recommend && ("&related=" + (encodeURIComponent(options.recommend.replace(/@/, '')))) || '';
   data += (options != null) && options.tweet && ("&text=" + (encodeURIComponent(options.tweet))) || '';
   data += (options != null) && options.link && ("&url=" + (encodeURIComponent(options.link))) || '';
   return Socialmedia.Popup.apply(this, [intentHashtagUrl + data]);
