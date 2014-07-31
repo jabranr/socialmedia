@@ -14,7 +14,7 @@ Socialmedia.Twitter.prototype.init = ->
 		sdk.src = Socialmedia.SDK.twitter
 		ref = doc.getElementsByTagName(tag)[0]
 		ref.parentNode.insertBefore sdk, ref
-		_this.twttrsdk = doc.querySelector '#' + id
+		_this.twttrsdk = doc.getElementById '#' + id
 		return
 	)(document, 'script', 'twitter-wjs')
 

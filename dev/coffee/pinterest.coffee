@@ -13,7 +13,7 @@ Socialmedia.Pinterest.prototype.init = ->
 		sdk.src = Socialmedia.SDK.pinterest
 		ref = doc.getElementsByTagName(tag)[0]
 		ref.parentNode.insertBefore sdk, ref
-		_this.pinsdk = doc.querySelector '#' + id
+		_this.pinsdk = doc.getElementById '#' + id
 		return
 	)(document, 'script', 'pinterest-jssdk')
 

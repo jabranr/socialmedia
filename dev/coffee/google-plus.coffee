@@ -14,7 +14,7 @@ Socialmedia.GooglePlus.prototype.init = ->
         sdk.id = id
         ref = doc.getElementsByTagName(tag)[0]
         ref.parentNode.insertBefore sdk, ref
-        _this.gpsdk = doc.querySelector '#' + id
+        _this.gpsdk = doc.getElementById '#' + id
         return
     )(document, 'script', 'gplus-jssdk')
 

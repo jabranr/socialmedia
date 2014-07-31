@@ -75,10 +75,12 @@ Socialmedia.Facebook.prototype.init = function() {
     });
 
     /* Setup FB SDK script source */
-    _this.fbsdk = document.querySelector('#facebook-jssdk');
+    _this.fbsdk = document.getElementById('#facebook-jssdk');
 
     /* Append app_id to fbsdk source */
-    _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
+    if (_this.fbsdk != null) {
+      _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
+    }
 
     /* Async callback function */
     if (_this.callback != null) {
@@ -289,7 +291,7 @@ Socialmedia.GooglePlus.prototype.init = function() {
     sdk.id = id;
     ref = doc.getElementsByTagName(tag)[0];
     ref.parentNode.insertBefore(sdk, ref);
-    _this.gpsdk = doc.querySelector('#' + id);
+    _this.gpsdk = doc.getElementById('#' + id);
   })(document, 'script', 'gplus-jssdk');
 };
 
@@ -327,7 +329,7 @@ Socialmedia.Pinterest.prototype.init = function() {
     sdk.src = Socialmedia.SDK.pinterest;
     ref = doc.getElementsByTagName(tag)[0];
     ref.parentNode.insertBefore(sdk, ref);
-    _this.pinsdk = doc.querySelector('#' + id);
+    _this.pinsdk = doc.getElementById('#' + id);
   })(document, 'script', 'pinterest-jssdk');
 };
 
@@ -371,7 +373,7 @@ Socialmedia.Twitter.prototype.init = function() {
     sdk.src = Socialmedia.SDK.twitter;
     ref = doc.getElementsByTagName(tag)[0];
     ref.parentNode.insertBefore(sdk, ref);
-    _this.twttrsdk = doc.querySelector('#' + id);
+    _this.twttrsdk = doc.getElementById('#' + id);
   })(document, 'script', 'twitter-wjs');
 };
 

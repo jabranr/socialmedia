@@ -21,7 +21,7 @@ Socialmedia.GooglePlus.prototype.init = function() {
     sdk.id = id;
     ref = doc.getElementsByTagName(tag)[0];
     ref.parentNode.insertBefore(sdk, ref);
-    _this.gpsdk = doc.querySelector('#' + id);
+    _this.gpsdk = doc.getElementById('#' + id);
   })(document, 'script', 'gplus-jssdk');
 };
 

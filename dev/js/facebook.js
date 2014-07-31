@@ -26,10 +26,12 @@ Socialmedia.Facebook.prototype.init = function() {
     });
 
     /* Setup FB SDK script source */
-    _this.fbsdk = document.querySelector('#facebook-jssdk');
+    _this.fbsdk = document.getElementById('#facebook-jssdk');
 
     /* Append app_id to fbsdk source */
-    _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
+    if (_this.fbsdk != null) {
+      _this.fbsdk.src += '#xfbml=1&appId=' + _this.appid;
+    }
 
     /* Async callback function */
     if (_this.callback != null) {

@@ -24,10 +24,11 @@ Socialmedia.Facebook.prototype.init = ->
 			frictionlessRequests: _this.requests
 		
 		### Setup FB SDK script source ###
-		_this.fbsdk = document.querySelector '#facebook-jssdk'
+		_this.fbsdk = document.getElementById '#facebook-jssdk'
 		
 		### Append app_id to fbsdk source ###
-		_this.fbsdk.src += '#xfbml=1&appId=' + _this.appid
+		if _this.fbsdk?
+			_this.fbsdk.src += '#xfbml=1&appId=' + _this.appid
 
 
 		### Async callback function ###
