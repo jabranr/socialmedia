@@ -22,12 +22,22 @@ var facebook = new Socialmedia.Facebook({
 
 // Initialize Facebook SDK in debug mode
 var facebook = new Socialmedia.Facebook({ 
-	appid: '1234567890', debug: true 
+	appid: '1234567890',
+	debug: true 
 });
 
 // Initialize Facebook SDK version 2.0
 var facebook = new Socialmedia.Facebook({ 
-	appid: '1234567890', version: 'v2.0' 
+	appid: '1234567890',
+	version: 'v2.0' 
+});
+
+// Initialize Facebook SDK with async callback
+var facebook = new Socialmedia.Facebook({ 
+	appid: '1234567890',
+	callback: function(response) {
+		// returns Facebook Graph API response object
+	}
 });
 
 // Initialize Twitter SDK
@@ -128,7 +138,7 @@ version: String Facebook SDK version (Default is null)
 ```
 ``` javascript
 // Pass asynchronous callback function
-callback: Function Returns a response object with status of current user
+callback: Function returns a Graph API response object with status of current user
 ```
 
 #### Methods:
