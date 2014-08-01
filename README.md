@@ -1,5 +1,7 @@
 # Socialmedia.js [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/Socialmedia.js/Master)](https://github.com/igrigorik/ga-beacon) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
+> This branch (`dev-master`) is unstable and in continuous development. Please use `master` branch for any kind of operations.
+
 **Socialmedia.js** enables JavaScript SDKs and their associated social sharing functions for various social media services. At the moment, **Socialmedia.js** supports following social media services:
 
 * [Facebook](#facebook)
