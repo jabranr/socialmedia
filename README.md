@@ -85,7 +85,7 @@ $ git tag NEW_TAG -m 'SOMETHING ABOUT NEW TAG'
 ```
 
 * Push changes and create a new [pull request](https://github.com/jabranr/Socialmedia/compare/).
-* Let me review, merge your changes and thank you! :-)
+* Let me review, merge your changes and thank you! :-) :+1:
 
 ### Feedback / Issues
 
