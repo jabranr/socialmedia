@@ -15,7 +15,7 @@
   } else {
     window.Socialmedia = factory;
   }
-})(this, function() {
+})(this, (function() {
   'use strict';
 
   /* Global object with unique identifier */
@@ -60,7 +60,7 @@
     }
   };
   return Socialmedia;
-});
+})());
 
 
 /* Global init method */

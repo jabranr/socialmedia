@@ -1,4 +1,4 @@
-! do (root = this, factory = ->
+! do (root = this, factory = do ->
 
 	'use strict';
 
