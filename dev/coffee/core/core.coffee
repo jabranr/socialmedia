@@ -17,6 +17,9 @@
 
 	### Default popup method ###
 	Socialmedia.Popup = (url = 'about:blank', settings = {}) ->
+
+		'use strict'
+
 		options =
 			width: settings.width or 600
 			height: settings.height or 300
@@ -26,6 +29,9 @@
 				'dependent'
 			]
 			getFeatures: ->
+				
+				'use strict'
+
 				s = "width=#{this.width},height=#{this.height}"
 				s += ",left=#{(window.outerWidth / 2) - (this.width / 2)}"
 				s += ",top=#{(window.outerHeight / 2) - (this.height / 2)}"
@@ -36,6 +42,8 @@
 	Socialmedia
 
 	)->
+
+		'use strict'
 
 		### Setup modular support ###
 		Socialmedia = ->

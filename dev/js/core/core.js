@@ -1,4 +1,5 @@
 !(function(root, factory) {
+  'use strict';
 
   /* Setup modular support */
   var Socialmedia;
@@ -42,11 +43,13 @@
     if (settings == null) {
       settings = {};
     }
+    'use strict';
     options = {
       width: settings.width || 600,
       height: settings.height || 300,
       features: settings.features || ['dialog', 'location', 'dependent'],
       getFeatures: function() {
+        'use strict';
         var s;
         s = "width=" + this.width + ",height=" + this.height;
         s += ",left=" + ((window.outerWidth / 2) - (this.width / 2));

@@ -1,4 +1,7 @@
 module.exports = function(grunt)	{
+	
+	'use strict';
+
 	grunt.initConfig({
 		
 		pkg: grunt.file.readJSON('package.json'),
@@ -58,6 +61,18 @@ module.exports = function(grunt)	{
 			}
 		},
 
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc'
+                // reporter: require('jshint-stylish')
+            },
+            all: [
+                'Gruntfile.js',
+                '<%= project.path.to.dist %>/*.js',
+                '!<%= project.path.to.dist %>/*.min.js'
+            ]
+        },
+
 		uglify: {
 			build: {
 				src: '<%= project.path.to.dist %><%= pkg.name %>.js',
@@ -105,6 +120,7 @@ module.exports = function(grunt)	{
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-coffee');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	grunt.registerTask(
 		'default', [
