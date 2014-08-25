@@ -1,4 +1,4 @@
-/*! socialmedia | v1.4.8 | Jabran Rafique | MIT | https://github.com/jabranr/Socialmedia.js */
+/*! socialmedia | v1.4.9 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
 !(function(root, factory) {
   'use strict';
 
