@@ -1,6 +1,10 @@
 {
 	"name":  "socialmedia",
 	"version": "1.4.8",
+	"license": "MIT License",
+	"authors": [
+		"Jabran Rafique <hello@jabran.me>"
+	],
 	"ignore": [
 		"dev",
 		".gitignore",
