@@ -2,3 +2,4 @@
 tests
 node_modules
 bower_components
+tests/node_modules
