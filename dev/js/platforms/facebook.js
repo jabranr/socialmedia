@@ -8,9 +8,14 @@ Socialmedia.Facebook = (function() {
       settings = {};
     }
 
-    /* Fulfil crucial app id requirements */
+    /* Throw error if app id is not provided */
     if (settings.appid == null) {
       throw new Error('Facebook app ID is required');
+    }
+
+    /* Throw error if app id is not a string */
+    if (typeof settings.appid !== 'string') {
+      throw new Error('Facebook app ID must be a string');
     }
 
     /* Setup default variables */
@@ -41,7 +46,7 @@ Socialmedia.Facebook = (function() {
       });
 
       /* Setup FB SDK script source */
-      that.fbsdk = document.getElementById('#facebook-jssdk');
+      that.fbsdk = document.getElementById('facebook-jssdk');
 
       /* Append app_id to fbsdk source */
       if (that.fbsdk != null) {
@@ -133,27 +138,38 @@ Socialmedia.Facebook = (function() {
 
   /* Facebook share function */
 
-  Facebook.prototype.Share = function(options) {
-    if (options == null) {
-      options = {};
+  Facebook.prototype.Share = function(shareOptions) {
+    var that;
+    this.shareOptions = shareOptions != null ? shareOptions : {};
+
+    /*
+    		 * Default options
+    		 *
+    		 * method: 'feed'
+    		 * name: Text (Title)
+    		 * link: Absolute URL
+    		 * picture: Absolute URL
+    		 * caption: Text
+    		 * description: Text
+    		 * callback: Function
+     */
+    this.shareOptions.method = 'feed';
+
+    /* Legacy support */
+    if (shareOptions.title != null) {
+      this.shareOptions.name = shareOptions.title;
     }
-    return FB.ui({
-      method: 'feed',
-      name: options.title || '',
-      link: options.link || '',
-      picture: options.image || '',
-      caption: options.caption || '',
-      description: options.description || ''
-    }, function(response) {
-      var _ref, _ref1;
+    if (shareOptions.image != null) {
+      this.shareOptions.picture = shareOptions.image;
+    }
+    if (this.shareOptions.link == null) {
+      throw new Error('URL is missing');
+    }
+    that = this;
+    return FB.ui(this.shareOptions, function(response) {
+      var _ref;
       if (response != null) {
-        if (options.onSuccess != null) {
-          return (_ref = options.onSuccess) != null ? _ref.call(this, response) : void 0;
-        } else if (options.onFail != null) {
-          return (_ref1 = options.onFail) != null ? _ref1.call(this, response) : void 0;
-        }
-      } else {
-        return false;
+        return (_ref = that.shareOptions.callback) != null ? _ref.call(this, response) : void 0;
       }
     });
   };
@@ -161,24 +177,29 @@ Socialmedia.Facebook = (function() {
 
   /* Facebook invite function */
 
-  Facebook.prototype.Invite = function(options) {
-    if (options == null) {
-      options = {};
-    }
-    return FB.ui({
-      method: 'apprequests',
-      title: options.title || '',
-      message: options.message || '',
-      to: options.to || [],
-      exclude_ids: options.exclude_ids || [],
-      max_recipients: options.max_to || 100,
-      data: options.data || {}
-    }, function(response) {
+  Facebook.prototype.Invite = function(inviteOptions) {
+    var that;
+    this.inviteOptions = inviteOptions != null ? inviteOptions : {};
+
+    /*
+    		 * Default options
+    		 *
+    		 * method: 'apprequests'
+    		 * title: Text (Title)
+    		 * message: Text
+    		 * to: Array
+    		 * exclude_ids: Array
+    		 * max_recipients: Number
+    		 * data: Object
+    		 * callback: Function
+     */
+    this.inviteOptions.method = 'apprequests';
+    that = this;
+    return FB.ui(this.inviteOptions, function(response) {
       var _ref;
+      console.log(that);
       if (response != null) {
-        return (_ref = options.callback) != null ? _ref.call(this, response) : void 0;
-      } else {
-        return false;
+        return (_ref = that.inviteOptions.callback) != null ? _ref.call(this, response) : void 0;
       }
     });
   };
@@ -195,19 +216,23 @@ Socialmedia.Facebook = (function() {
 
   /* Facebook add friend function */
 
-  Facebook.prototype.AddFriend = function(options) {
-    if (options == null) {
-      options = {};
-    }
-    return FB.ui({
-      method: 'friends',
-      id: options.id || 'jabranr'
-    }, function(response) {
+  Facebook.prototype.AddFriend = function(friendOptions) {
+    var that;
+    this.friendOptions = friendOptions != null ? friendOptions : {};
+
+    /*
+    		 * Default options
+    		 *
+    		 * method: 'friends'
+    		 * id: Facebook ID or username
+    		 * callback: Function
+     */
+    this.friendOptions.method = 'friends';
+    that = this;
+    return FB.ui(this.friendOptions, function(response) {
       var _ref;
       if (response != null) {
-        return (_ref = options.callback) != null ? _ref.call(this, response.action) : void 0;
-      } else {
-        return false;
+        return (_ref = that.friendOptions.callback) != null ? _ref.call(this, response) : void 0;
       }
     });
   };
@@ -215,33 +240,41 @@ Socialmedia.Facebook = (function() {
 
   /* Facebook send function */
 
-  Facebook.prototype.Send = function(options) {
-    if (options == null) {
-      options = {};
-    }
-    return FB.ui({
-      method: 'send',
-      link: options.link || window.location.href
-    });
+  Facebook.prototype.Send = function(sendOptions) {
+    this.sendOptions = sendOptions != null ? sendOptions : {};
+
+    /*
+    		 * Default options
+    		 *
+    		 * method: 'send'
+    		 * link: Absolute URL
+     */
+    this.sendOptions.method = 'send';
+    return FB.ui(this.sendOptions);
   };
 
 
   /* Facebook pay function */
 
-  Facebook.prototype.Pay = function(options) {
-    if (options == null) {
-      options = {};
-    }
-    return FB.ui({
-      method: 'pay',
-      action: 'purchaseitem',
-      product: options.link || window.location.href
-    }, function(data) {
+  Facebook.prototype.Pay = function(payOptions) {
+    var that;
+    this.payOptions = payOptions != null ? payOptions : {};
+
+    /*
+    		 * Default options
+    		 *
+    		 * method: 'pay'
+    		 * action: 'purchaseitem'
+    		 * product: Absolute URL
+    		 * callback: Function
+     */
+    this.payOptions.method = 'pay';
+    this.payOptions.action = 'purchaseitem';
+    that = this;
+    return FB.ui(this.payOptions, function(data) {
       var _ref;
       if (data != null) {
-        return (options != null) && ((_ref = options.callback) != null ? _ref.call(this, data) : void 0);
-      } else {
-        return false;
+        return (that.payOptions != null) && ((_ref = payOptions.callback) != null ? _ref.call(this, data) : void 0);
       }
     });
   };

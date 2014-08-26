@@ -6,13 +6,30 @@
   } else if (typeof module !== 'undefined' && typeof exports === 'object') {
     module.exports = factory;
   } else {
-    window.Socialmedia = factory;
+    if (window.Socialmedia == null) {
+      window.Socialmedia = factory;
+    }
   }
 })(this, (function() {
   'use strict';
 
-  /* Global object with unique identifier */
+  /* Array indexOf support for IE8- */
   var Socialmedia;
+  if (typeof Array.prototype.indexOf === "undefined") {
+    Array.prototype.indexOf = function(item) {
+      var i;
+      i = 0;
+      while (i < this.length) {
+        if (this[i] === item) {
+          return i;
+        }
+        i++;
+      }
+      return -1;
+    };
+  }
+
+  /* Global object with unique identifier */
   Socialmedia = {
 
     /* Setup SDK sources */

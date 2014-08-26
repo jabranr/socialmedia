@@ -4,8 +4,11 @@ class Socialmedia.Facebook
 	### Constructor method ###
 	constructor: (settings = { })->
 
-		### Fulfil crucial app id requirements ###
+		### Throw error if app id is not provided ###
 		throw new Error 'Facebook app ID is required' unless settings.appid?
+
+		### Throw error if app id is not a string ###
+		throw new Error 'Facebook app ID must be a string' unless typeof settings.appid is 'string'
 
 		### Setup default variables ###
 		@appid		= settings.appid
@@ -32,7 +35,8 @@ class Socialmedia.Facebook
 				frictionlessRequests: that.requests
 			
 			### Setup FB SDK script source ###
-			that.fbsdk = document.getElementById '#facebook-jssdk'
+			that.fbsdk = document.getElementById 'facebook-jssdk'
+
 			
 			### Append app_id to fbsdk source ###
 			if that.fbsdk?
@@ -44,7 +48,8 @@ class Socialmedia.Facebook
 			### Async callback function ###
 			if that.callback?
 				FB.getLoginStatus that.callback
-			return
+				return
+
 			
 		### Move the auto-generated fb-root DOM element to appropriate position ###
 		if addEventListener?
@@ -96,67 +101,110 @@ class Socialmedia.Facebook
 		if x and y then FB.Canvas.scrollTo x, y
 
 	### Facebook share function ###
-	Share: (options = { }) ->
-		FB.ui
-			method		:	'feed'
-			name		: 	options.title		or ''
-			link		: 	options.link		or ''
-			picture		: 	options.image		or ''
-			caption		: 	options.caption		or ''
-			description	: 	options.description	or ''
-		, 
-		(response) ->
+	Share: (@shareOptions = { }) ->
+
+		###
+		# Default options
+		#
+		# method: 'feed'
+		# name: Text (Title)
+		# link: Absolute URL
+		# picture: Absolute URL
+		# caption: Text
+		# description: Text
+		# callback: Function
+		###
+
+		@shareOptions.method = 'feed'
+
+		### Legacy support ###
+		@shareOptions.name = shareOptions.title if shareOptions.title?
+		@shareOptions.picture = shareOptions.image if shareOptions.image?
+
+		throw new Error 'URL is missing' unless @shareOptions.link?
+
+		that = @
+		FB.ui @shareOptions, (response) ->
 			if response?
-				if options.onSuccess? 
-					options.onSuccess?.call this, response
-				else if options.onFail? 
-					options.onFail?.call this, response
-			else false
+				that.shareOptions.callback?.call this, response
+
 
 	### Facebook invite function ###
-	Invite: (options = { }) ->
-		FB.ui
-			method			:	'apprequests'
-			title			:	options.title		or ''
-			message			:	options.message		or ''
-			to				:	options.to			or []
-			exclude_ids		:	options.exclude_ids	or []
-			max_recipients	:	options.max_to		or 100
-			data			:	options.data		or {}
-		, 
-		(response) ->
+	Invite: (@inviteOptions = { }) ->
+
+		###
+		# Default options
+		#
+		# method: 'apprequests'
+		# title: Text (Title)
+		# message: Text
+		# to: Array
+		# exclude_ids: Array
+		# max_recipients: Number
+		# data: Object
+		# callback: Function
+		###
+
+		@inviteOptions.method = 'apprequests'
+
+		that = @
+		FB.ui @inviteOptions, (response) ->
+			console.log that
 			if response?
-				options.callback?.call this, response
-			else false
+				that.inviteOptions.callback?.call this, response
 
 	### Facebook add to page tab function ###
 	AddToPage: () ->
 		FB.ui method: 'pagetab', ->
 
 	### Facebook add friend function ###
-	AddFriend: (options = {}) ->
-		FB.ui
-		  method: 'friends'
-		  id: options.id || 'jabranr'
-		,
-		(response) ->
+	AddFriend: (@friendOptions = { }) ->
+
+		###
+		# Default options
+		#
+		# method: 'friends'
+		# id: Facebook ID or username
+		# callback: Function
+		###
+
+		@friendOptions.method = 'friends'
+
+		that = @
+		FB.ui @friendOptions, (response) ->
 			if response?
-				options.callback?.call this, response.action
-			else false
+				that.friendOptions.callback?.call this, response
 
 	### Facebook send function ###
-	Send: (options = {}) ->
-		FB.ui
-		  method: 'send'
-		  link: options.link or window.location.href
+	Send: (@sendOptions = { }) ->
+
+		###
+		# Default options
+		#
+		# method: 'send'
+		# link: Absolute URL
+		###
+
+		@sendOptions.method = 'send'
+		
+		FB.ui @sendOptions
 
 	### Facebook pay function ###
-	Pay: (options = {}) ->
-		FB.ui
-		  method: 'pay'
-		  action: 'purchaseitem'
-		  product: options.link or window.location.href
-		, (data) ->
+	Pay: (@payOptions = { }) ->
+		
+		###
+		# Default options
+		#
+		# method: 'pay'
+		# action: 'purchaseitem'
+		# product: Absolute URL
+		# callback: Function
+		###
+
+		@payOptions.method = 'pay'
+		@payOptions.action = 'purchaseitem'
+
+		that = @
+		FB.ui @payOptions, (data) ->
 			if data?
-				options? and options.callback?.call this, data
-			else false
+				that.payOptions? and payOptions.callback?.call this, data

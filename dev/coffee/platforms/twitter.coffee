@@ -15,7 +15,7 @@ class Socialmedia.Twitter
 			sdk.src = Socialmedia.SDK.twitter
 			ref = doc.getElementsByTagName(tag)[0]
 			ref.parentNode.insertBefore sdk, ref
-			that.twttrsdk = doc.getElementById '#' + id
+			that.twttrsdk = doc.getElementById id
 			return
 		)(document, 'script', 'twitter-wjs')
 

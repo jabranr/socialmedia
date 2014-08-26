@@ -2,6 +2,17 @@
 
 	'use strict';
 
+	### Array indexOf support for IE8- ###
+	if typeof Array::indexOf is "undefined"
+	  Array::indexOf = (item) ->
+	    i = 0
+
+	    while i < @.length
+	      return i  if @[i] is item
+	      i++
+	    -1
+
+
 	### Global object with unique identifier ###
 	Socialmedia =
 
@@ -44,7 +55,7 @@
 			module.exports = factory
 
 		else
-			window.Socialmedia = factory;
+			window.Socialmedia ?= factory
 
 		return
 
