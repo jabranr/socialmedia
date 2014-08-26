@@ -37,14 +37,10 @@
 
 	)->
 		### Setup modular support ###
-		Socialmedia = ->
-			factory()
-
 		if typeof define is 'function' and typeof define.amd is 'object' and define.amd
-			define ->
-				factory()
+			define ['Socialmedia'], factory
 		
-		else if typeof module isnt 'undefined' and module.exports
+		else if typeof module isnt 'undefined' and typeof exports is 'object'
 			module.exports = factory
 
 		else

@@ -19,7 +19,7 @@ Socialmedia.Facebook = (function() {
     this.xfbml = settings.xfbml || true;
     this.cookie = settings.cookie || true;
     this.requests = settings.requests || false;
-    this.version = settings.version || '';
+    this.version = settings.version || 'v2.1';
     this.debug = settings.debug || false;
     this.autogrow = settings.autogrow || true;
     this.callback = settings.callback || function() {};
@@ -78,16 +78,16 @@ Socialmedia.Facebook = (function() {
       sdk.id = id;
       sdk.async = true;
       if (dev) {
-        if (ver === '' || ver !== 'v1.0') {
-          sdk.src = Socialmedia.SDK.facebook_debugv2;
-        } else {
+        if (ver === 'v1.0') {
           sdk.src = Socialmedia.SDK.facebook_debug;
+        } else {
+          sdk.src = Socialmedia.SDK.facebook_debugv2;
         }
       } else {
-        if (ver === '' || ver !== 'v1.0') {
-          sdk.src = Socialmedia.SDK.facebookv2;
-        } else {
+        if (ver === 'v1.0') {
           sdk.src = Socialmedia.SDK.facebook;
+        } else {
+          sdk.src = Socialmedia.SDK.facebookv2;
         }
       }
       fbdiv = doc.createElement('div');

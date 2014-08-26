@@ -1,15 +1,9 @@
 !(function(root, factory) {
 
   /* Setup modular support */
-  var Socialmedia;
-  Socialmedia = function() {
-    return factory();
-  };
   if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
-    define(function() {
-      return factory();
-    });
-  } else if (typeof module !== 'undefined' && module.exports) {
+    define(['Socialmedia'], factory);
+  } else if (typeof module !== 'undefined' && typeof exports === 'object') {
     module.exports = factory;
   } else {
     window.Socialmedia = factory;

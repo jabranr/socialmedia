@@ -2,15 +2,9 @@
 !(function(root, factory) {
 
   /* Setup modular support */
-  var Socialmedia;
-  Socialmedia = function() {
-    return factory();
-  };
   if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
-    define(function() {
-      return factory();
-    });
-  } else if (typeof module !== 'undefined' && module.exports) {
+    define(['Socialmedia'], factory);
+  } else if (typeof module !== 'undefined' && typeof exports === 'object') {
     module.exports = factory;
   } else {
     window.Socialmedia = factory;
@@ -87,7 +81,7 @@ Socialmedia.Facebook = (function() {
     this.xfbml = settings.xfbml || true;
     this.cookie = settings.cookie || true;
     this.requests = settings.requests || false;
-    this.version = settings.version || '';
+    this.version = settings.version || 'v2.1';
     this.debug = settings.debug || false;
     this.autogrow = settings.autogrow || true;
     this.callback = settings.callback || function() {};
@@ -146,16 +140,16 @@ Socialmedia.Facebook = (function() {
       sdk.id = id;
       sdk.async = true;
       if (dev) {
-        if (ver === '' || ver !== 'v1.0') {
-          sdk.src = Socialmedia.SDK.facebook_debugv2;
-        } else {
+        if (ver === 'v1.0') {
           sdk.src = Socialmedia.SDK.facebook_debug;
+        } else {
+          sdk.src = Socialmedia.SDK.facebook_debugv2;
         }
       } else {
-        if (ver === '' || ver !== 'v1.0') {
-          sdk.src = Socialmedia.SDK.facebookv2;
-        } else {
+        if (ver === 'v1.0') {
           sdk.src = Socialmedia.SDK.facebook;
+        } else {
+          sdk.src = Socialmedia.SDK.facebookv2;
         }
       }
       fbdiv = doc.createElement('div');

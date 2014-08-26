@@ -13,7 +13,7 @@ class Socialmedia.Facebook
 		@xfbml		= settings.xfbml	or true
 		@cookie		= settings.cookie	or true
 		@requests	= settings.requests	or false
-		@version	= settings.version	or ''
+		@version	= settings.version	or 'v2.1'
 		@debug		= settings.debug	or false
 		@autogrow 	= settings.autogrow or true
 		@callback	= settings.callback	or ->
@@ -64,15 +64,15 @@ class Socialmedia.Facebook
 			sdk.id = id
 			sdk.async = true
 			if dev 
-				if ver is '' or ver isnt 'v1.0'
-					sdk.src = Socialmedia.SDK.facebook_debugv2
-				else
+				if ver is 'v1.0'
 					sdk.src = Socialmedia.SDK.facebook_debug
-			else
-				if ver is '' or ver isnt 'v1.0'
-					sdk.src = Socialmedia.SDK.facebookv2
 				else
+					sdk.src = Socialmedia.SDK.facebook_debugv2
+			else
+				if ver is 'v1.0'
 					sdk.src = Socialmedia.SDK.facebook
+				else
+					sdk.src = Socialmedia.SDK.facebookv2
 			fbdiv = doc.createElement 'div'
 			fbdiv.id = 'fb-root'
 			ref = doc.getElementsByTagName(tag)[0]
