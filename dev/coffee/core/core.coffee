@@ -3,55 +3,45 @@
 	'use strict';
 
 	### Global object with unique identifier ###
-	Socialmedia = {}
+	Socialmedia =
 
-	### Setup SDK sources ### 
-	Socialmedia.SDK =
-		facebook: '//connect.facebook.net/en_US/all.js'
-		facebook_debug: '//connect.facebook.net/en_US/all/debug.js'
-		facebookv2: '//connect.facebook.net/en_US/sdk.js'
-		facebook_debugv2: '//connect.facebook.net/en_US/sdk/debug.js'
-		twitter: '//platform.twitter.com/widgets.js'
-		googleplus: '//apis.google.com/js/platform.js'
-		pinterest: '//assets.pinterest.com/js/pinit.js'
+		### Setup SDK sources ### 
+		SDK:
+			facebook: '//connect.facebook.net/en_US/all.js'
+			facebook_debug: '//connect.facebook.net/en_US/all/debug.js'
+			facebookv2: '//connect.facebook.net/en_US/sdk.js'
+			facebook_debugv2: '//connect.facebook.net/en_US/sdk/debug.js'
+			twitter: '//platform.twitter.com/widgets.js'
+			googleplus: '//apis.google.com/js/platform.js'
+			pinterest: '//assets.pinterest.com/js/pinit.js'
 
-	### Default popup method ###
-	Socialmedia.Popup = (url = 'about:blank', settings = {}) ->
-
-		'use strict'
-
-		options =
-			width: settings.width or 600
-			height: settings.height or 300
-			features: settings.features or [
-				'dialog'
-				'location'
-				'dependent'
-			]
-			getFeatures: ->
-				
-				'use strict'
-
-				s = "width=#{this.width},height=#{this.height}"
-				s += ",left=#{(window.outerWidth / 2) - (this.width / 2)}"
-				s += ",top=#{(window.outerHeight / 2) - (this.height / 2)}"
-				s += ",#{this.features.join ','}"
-		_popup = window.open url, '_w_' + new Date().getUTCMilliseconds(), options.getFeatures()
-		if _popup then _popup.focus();
+		### Default popup method ###
+		Popup: (url = 'about:blank', settings = {}) ->
+			options =
+				width: settings.width or 600
+				height: settings.height or 300
+				features: settings.features or [
+					'dialog'
+					'location'
+					'dependent'
+				]
+				getFeatures: ->
+					s = "width=#{this.width},height=#{this.height}"
+					s += ",left=#{(window.outerWidth / 2) - (this.width / 2)}"
+					s += ",top=#{(window.outerHeight / 2) - (this.height / 2)}"
+					s += ",#{this.features.join ','}"
+			_popup = window.open url, '_w_' + new Date().getUTCMilliseconds(), options.getFeatures()
+			if _popup then _popup.focus();
 
 	Socialmedia
 
 	)->
-
-		'use strict'
-
 		### Setup modular support ###
 		Socialmedia = ->
 			factory()
 
 		if typeof define is 'function' and typeof define.amd is 'object' and define.amd
 			define ->
-				'use strict';
 				factory()
 		
 		else if typeof module isnt 'undefined' and module.exports
