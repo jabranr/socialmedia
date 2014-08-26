@@ -9,7 +9,7 @@ module.exports = function(grunt)	{
 		project: {
 			path: {
 				to: {
-					tests: 'tests',
+					tests: 'tests/',
 					dist: 'src/',
 					dev: {
 						basedir: 'dev',
