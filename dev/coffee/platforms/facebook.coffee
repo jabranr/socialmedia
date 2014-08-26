@@ -116,12 +116,13 @@ class Socialmedia.Facebook
 		###
 
 		@shareOptions.method = 'feed'
+		@shareOptions.callback ?= (response) ->
 
 		### Legacy support ###
-		@shareOptions.name = shareOptions.title if shareOptions.title?
-		@shareOptions.picture = shareOptions.image if shareOptions.image?
+		@shareOptions.name ?= shareOptions and shareOptions.title if shareOptions and shareOptions.title?
+		@shareOptions.picture ?= shareOptions and shareOptions.image if shareOptions and shareOptions.image?
 
-		throw new Error 'URL is missing' unless @shareOptions.link?
+		# throw new Error 'URL is missing' unless @shareOptions.link?
 
 		that = @
 		FB.ui @shareOptions, (response) ->

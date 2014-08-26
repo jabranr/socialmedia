@@ -139,7 +139,7 @@ Socialmedia.Facebook = (function() {
   /* Facebook share function */
 
   Facebook.prototype.Share = function(shareOptions) {
-    var that;
+    var that, _base, _base1, _base2;
     this.shareOptions = shareOptions != null ? shareOptions : {};
 
     /*
@@ -154,16 +154,20 @@ Socialmedia.Facebook = (function() {
     		 * callback: Function
      */
     this.shareOptions.method = 'feed';
+    if ((_base = this.shareOptions).callback == null) {
+      _base.callback = function(response) {};
+    }
 
     /* Legacy support */
-    if (shareOptions.title != null) {
-      this.shareOptions.name = shareOptions.title;
+    if (shareOptions && (shareOptions.title != null)) {
+      if ((_base1 = this.shareOptions).name == null) {
+        _base1.name = shareOptions && shareOptions.title;
+      }
     }
-    if (shareOptions.image != null) {
-      this.shareOptions.picture = shareOptions.image;
-    }
-    if (this.shareOptions.link == null) {
-      throw new Error('URL is missing');
+    if (shareOptions && (shareOptions.image != null)) {
+      if ((_base2 = this.shareOptions).picture == null) {
+        _base2.picture = shareOptions && shareOptions.image;
+      }
     }
     that = this;
     return FB.ui(this.shareOptions, function(response) {
