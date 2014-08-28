@@ -80,6 +80,12 @@ $ git checkout -b YOUR_BRANCH_NAME
 * Run `npm install` to install dev dependencies.
 * Run `grunt watch` to automate the build process.
 * Add/edit your stuff to files in `dev/coffee/`.
+* Add tests in `test/test.js`
+* Run and confirm your tests with following methods:
+
+1. **Browser:** Run `test/index.html` in browser with a local server
+2. **Terminal:** Run `$ mocha-phantomjs test/test.js`
+
 * Update versions in `package.json` and `bower.json`.
 * Commit and create new version tag (keep x.x.x notation):
 
