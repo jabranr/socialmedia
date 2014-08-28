@@ -1,4 +1,4 @@
-/*! socialmedia | v1.4.9 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
+/*! socialmedia | v1.5.0 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
 !(function(root, factory) {
 
   /* Setup modular support */
@@ -394,7 +394,7 @@ Socialmedia.GooglePlus = (function() {
       sdk.id = id;
       ref = doc.getElementsByTagName(tag)[0];
       ref.parentNode.insertBefore(sdk, ref);
-      that.gpsdk = doc.getElementById('#' + id);
+      that.gpsdk = doc.getElementById(id);
     })(document, 'script', 'gplus-jssdk');
   };
 
@@ -441,7 +441,7 @@ Socialmedia.Pinterest = (function() {
       sdk.src = Socialmedia.SDK.pinterest;
       ref = doc.getElementsByTagName(tag)[0];
       ref.parentNode.insertBefore(sdk, ref);
-      that.pinsdk = doc.getElementById('#' + id);
+      that.pinsdk = doc.getElementById(id);
     })(document, 'script', 'pinterest-jssdk');
   };
 

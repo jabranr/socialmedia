@@ -23,7 +23,7 @@ Socialmedia.GooglePlus = (function() {
       sdk.id = id;
       ref = doc.getElementsByTagName(tag)[0];
       ref.parentNode.insertBefore(sdk, ref);
-      that.gpsdk = doc.getElementById('#' + id);
+      that.gpsdk = doc.getElementById(id);
     })(document, 'script', 'gplus-jssdk');
   };
 
