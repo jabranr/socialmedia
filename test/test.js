@@ -1,4 +1,12 @@
-var expect = chai.expect;
+var expect;
+
+if ( typeof exports !== 'undefined' ) {
+	var chai = require('chai');
+	expect = chai.expect;
+}
+else {
+	expect = chai.expect;
+}
 
 describe('Socialmedia', function()	{
 
