@@ -18,7 +18,7 @@ describe('Socialmedia', function()	{
 					appid: '322056601296318'
 				}));
 				var fbsdk = document.getElementById('facebook-jssdk');
-				expect(fbsdk.src.replace(/http[s]?:/, '')).to.equal(Socialmedia.SDK.facebookv2);
+				expect(fbsdk.src.replace(/((http[s]?)|(file)):/, '')).to.equal(Socialmedia.SDK.facebookv2);
 			});
 
 			describe('App ID', function()	{
@@ -146,7 +146,7 @@ describe('Socialmedia', function()	{
 			it('should load Twitter SDK', function()	{
 				(new Socialmedia.Twitter());
 				var twitterSDK = document.getElementById('twitter-wjs');
-				expect(twitterSDK.src.replace(/http[s]?:/, '')).to.equal(Socialmedia.SDK.twitter);
+				expect(twitterSDK.src.replace(/((http[s]?)|(file)):/, '')).to.equal(Socialmedia.SDK.twitter);
 			});
 		});
 	});
@@ -158,7 +158,7 @@ describe('Socialmedia', function()	{
 			it('should load Google+ SDK', function()	{
 				(new Socialmedia.GooglePlus());
 				var gplusSDK = document.getElementById('gplus-jssdk');
-				expect(gplusSDK.src.replace(/http[s]?:/, '')).to.equal(Socialmedia.SDK.googleplus);
+				expect(gplusSDK.src.replace(/((http[s]?)|(file)):/, '')).to.equal(Socialmedia.SDK.googleplus);
 			});
 		});
 	});
@@ -170,7 +170,7 @@ describe('Socialmedia', function()	{
 			it('should load Pinterest SDK', function()	{
 				(new Socialmedia.Pinterest());
 				var pinterestSDK =  document.getElementById('pinterest-jssdk');
-				expect(pinterestSDK.src.replace(/http[s]?:/, '')).to.equal(Socialmedia.SDK.pinterest);
+				expect(pinterestSDK.src.replace(/((http[s]?)|(file)):/, '')).to.equal(Socialmedia.SDK.pinterest);
 			});
 		});
 	});
