@@ -126,23 +126,6 @@ describe('Socialmedia', function()	{
 					expect(typeof fb.callback).to.equal('function');
 				});
 			});
-
-			// describe('Share Method', function()	{
-			// 	describe('constructor', function()	{
-			// 		it('should throw error if no link is provided', function()	{
-			// 			var fb = new Socialmedia.Facebook({
-			// 				appid: '322056601296318',
-			// 				callback: tryShare
-			// 			});
-
-			// 			function tryShare(response) {
-			// 				return expect(fb.Share({link: 'http://jabran.me'})).to.throw(Error);
-			// 			}
-
-			// 		});
-			// 	});
-			// });
-
 		});
 
 	});
