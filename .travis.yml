@@ -4,14 +4,15 @@ node_js:
 install:
  - npm install phantomjs -g
  - npm install -g mocha-phantomjs
- - npm install -g gulp
+ - npm install -g grunt
+ - npm install -g grunt-cli
  - npm install -g bower
  - npm install
  - bower install
 before_script:
  - phantomjs --version
  - mocha-phantomjs --version
- - gulp &
+ - grunt &
  - sleep 5
 script:
  - mocha-phantomjs test/index.html
