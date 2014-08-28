@@ -1,5 +1,6 @@
 var expect;
 
+// Setup for browser and node testing
 if ( typeof exports !== 'undefined' ) {
 	var chai = require('chai');
 	expect = chai.expect;
@@ -8,6 +9,7 @@ else {
 	expect = chai.expect;
 }
 
+// Global obejct test
 describe('Socialmedia', function()	{
 
 	describe('constructor', function()	{
@@ -73,6 +75,52 @@ describe('Socialmedia', function()	{
 
 			});
 
+			describe('Cookie', function()	{
+
+				it('should set default SDK cookie argument to true', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '322056601296318'
+					});
+					expect(fb.cookie).to.equal(true);
+				});
+
+				/**
+				 * Following test requires Facebook SDKs to be reset and reloaded
+				 */
+
+				// it('should set Facebook SDK cookie if provided', function()	{
+				// 	var fb = new Socialmedia.Facebook({
+				// 		appid: '322056601296318',
+				// 		cookie: false
+				// 	});
+				// 	expect(fb.cookie).to.equal(false);
+				// });
+
+			});
+
+			describe('XFBML', function()	{
+
+				it('should set default SDK xfbml argument to true', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '322056601296318'
+					});
+					expect(fb.xfbml).to.equal(true);
+				});
+
+				/**
+				 * Following test requires Facebook SDKs to be reset and reloaded
+				 */
+
+				// it('should set Facebook SDK xfbml if provided', function()	{
+				// 	var fb = new Socialmedia.Facebook({
+				// 		appid: '322056601296318',
+				// 		xfbml: false
+				// 	});
+				// 	expect(fb.xfbml).to.equal(false);
+				// });
+
+			});
+
 			describe('Status', function()	{
 				it('should set default SDK status argument to false', function()	{
 					var fb = new Socialmedia.Facebook({
@@ -80,32 +128,47 @@ describe('Socialmedia', function()	{
 					});
 					expect(fb.status).to.equal(false);
 				});
-			});
 
-			describe('Cookie', function()	{
-				it('should set default SDK cookie argument to true', function()	{
+				it('should set Facebook SDK status if provided', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318'
+						appid: '322056601296318',
+						status: true
 					});
-					expect(fb.cookie).to.equal(true);
+					expect(fb.status).to.equal(true);
 				});
 			});
 
-			describe('Requests', function()	{
-				it('should set default SDK requests argument to false', function()	{
+			describe('Frictionless Requests', function()	{
+				it('should set default SDK frictionless request argument to false', function()	{
 					var fb = new Socialmedia.Facebook({
 						appid: '322056601296318'
 					});
 					expect(fb.requests).to.equal(false);
 				});
+
+				it('should set Facebook SDK frictionless request if provided', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '322056601296318',
+						requests: true
+					});
+					expect(fb.requests).to.equal(true);
+				});
 			});
 
 			describe('Debug', function()	{
-				it('should set default SDK debug argument to false', function()	{
+				it('should set default debug argument to false', function()	{
 					var fb = new Socialmedia.Facebook({
 						appid: '322056601296318'
 					});
 					expect(fb.debug).to.equal(false);
+				});
+
+				it('should set debug argument if provided', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '322056601296318',
+						debug: true
+					});
+					expect(fb.debug).to.equal(true);
 				});
 			});
 
@@ -119,9 +182,17 @@ describe('Socialmedia', function()	{
 			});
 
 			describe('Callback', function()	{
-				it('should set default SDK callback argument to anonymous function', function()	{
+				it('should set default callback argument to anonymous function', function()	{
 					var fb = new Socialmedia.Facebook({
 						appid: '322056601296318'
+					});
+					expect(typeof fb.callback).to.equal('function');
+				});
+
+				it('should set a callback function if provided', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '322056601296318',
+						callback: function(response) {}
 					});
 					expect(typeof fb.callback).to.equal('function');
 				});
