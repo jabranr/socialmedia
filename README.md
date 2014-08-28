@@ -1,4 +1,4 @@
-# Socialmedia.js [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/Socialmedia.js/Master)](https://github.com/igrigorik/ga-beacon) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# Socialmedia.js [![Build Status](https://travis-ci.org/jabranr/socialmedia.svg)](https://travis-ci.org/jabranr/socialmedia) [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/Socialmedia.js/Master)](https://github.com/igrigorik/ga-beacon) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 **Socialmedia.js** enables JavaScript SDKs and their associated social sharing functions for various social media services. At the moment, **Socialmedia.js** supports following social media services:
 
@@ -9,6 +9,17 @@
 
 ### Usage:
 
+
+#### Install with Bower
+
+Use following to install the package from Bower.
+
+```
+bower install socialmedia
+```
+
+#### Download latest release
+
 * Download the latest release from [Releases](http://git.io/sm-release).
 * The zipped package contains complete source code. The `src/` folder contains the uncompressed and minified versions.
 * Include the source file `src/socialmedia.min.js` into your HTML document.
@@ -16,18 +27,29 @@
 
 ``` javascript
 // Initialize Facebook SDK
+// By default it loads the latest SDK version. Current version v2.1
 var facebook = new Socialmedia.Facebook({ 
 	appid: '1234567890' 
 });
 
 // Initialize Facebook SDK in debug mode
 var facebook = new Socialmedia.Facebook({ 
-	appid: '1234567890', debug: true 
+	appid: '1234567890',
+	debug: true 
 });
 
-// Initialize Facebook SDK version 2.0
+// Initialize any older Facebook SDK version
 var facebook = new Socialmedia.Facebook({ 
-	appid: '1234567890', version: 'v2.0' 
+	appid: '1234567890',
+	version: 'v1.0' 
+});
+
+// Initialize Facebook SDK with async callback
+var facebook = new Socialmedia.Facebook({ 
+	appid: '1234567890',
+	callback: function(response) {
+		// returns Facebook Graph API response object
+	}
 });
 
 // Initialize Twitter SDK
@@ -42,13 +64,6 @@ var pin = new Socialmedia.Pinterest();
 
 For complete list of methods associated with each class, see the [detailed documentation](#documentation).
 
-### Install with Bower
-
-Use following to install the package from Bower.
-
-```
-bower install socialmedia
-```
 
 ### Contribute
 
@@ -65,6 +80,12 @@ $ git checkout -b YOUR_BRANCH_NAME
 * Run `npm install` to install dev dependencies.
 * Run `grunt watch` to automate the build process.
 * Add/edit your stuff to files in `dev/coffee/`.
+* Add tests in `test/test.js`
+* Run and confirm your tests with following methods:
+
+1. **Browser:** Run `test/index.html` in browser with a local server
+2. **Terminal:** Run `$ mocha-phantomjs test/test.js`
+
 * Update versions in `package.json` and `bower.json`.
 * Commit and create new version tag (keep x.x.x notation):
 
@@ -73,7 +94,7 @@ $ git tag NEW_TAG -m 'SOMETHING ABOUT NEW TAG'
 ```
 
 * Push changes and create a new [pull request](https://github.com/jabranr/Socialmedia/compare/).
-* Let me review, merge your changes and thank you! :-)
+* Let me review, merge your changes and thank you! :-) :+1:
 
 ### Feedback / Issues
 
@@ -109,26 +130,35 @@ appid: Your Facebook app ID in numeric string format.
 ``` javascript
 // Whether SDK to check login status.
 status: Boolean True or False. (Default is false)
-```
-``` javascript
+
+
 // Whether to enable XFBML parse.
 xfbml: Boolean True or False. (Default is true)
-```
-``` javascript
+
+
+// Whether to enable cookie for session storage.
+cookie: Boolean True or False. (Default is true)
+
+
 // Whether to enable Frictionless Requests.
 requests: Boolean True or False. (Default is false)
-```
-``` javascript
+
+
+// Load specific Facebook SDK 
+// Unless specified explicitly, latest SDK is loaded
+version: String Facebook SDK version (Default is latest version) // v2.1
+
+
 // Get uncompressed Facebook SDK source for debugging
 debug: Boolean True or False. (Default is false)
-```
-``` javascript
-// Get new v2.0 Facebook SDK
-version: String Facebook SDK version (Default is null)
-```
-``` javascript
+
+
+// Facebook Canvas autogrow on content update
+autogrow: Boolean True or False (Default is true)
+
+
 // Pass asynchronous callback function
-callback: Function Returns a response object with status of current user
+callback: Function returns a Graph API response object with status of current user
 ```
 
 #### Methods:
@@ -173,7 +203,7 @@ facebook.Invite({
 
 ``` javascript
 facebook.Pay({
-	String link,
+	String product, // Absolute URL
 	Function callback
 });
 
@@ -185,7 +215,7 @@ facebook.Pay({
 
 ``` javascript
 facebook.Send({
-	String link
+	String link // Absolute URL
 });
 ```
 
@@ -194,26 +224,17 @@ facebook.Send({
 
 ``` javascript
 facebook.Share({
-	String title,
-	String link,
-	String image,
+	String name, // Previously title
+	String link, // Absolute URL
+	String picture, // Absolute URL (Previously image)
 	String caption,
 	String description,
-	Function onSuccess,
-	Function onFail
+	Function callback
 });
 
 // onSuccess response contains successful request data
 // onFail response contains failed request data
 ```
-
-
-**Facebook Canvas autogrow on content update. Default is true.**
-
-``` javascript
-facebook.autogrow( Boolen );
-```
-
 
 **Scroll the Facebook Canvas.**
 

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Socialmedia.js Tests</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, width=device-width">
+		<link href="../node_modules/mocha/mocha.css" rel="stylesheet">
+	</head>
+	<body>
+
+		<!-- Setup navigation -->
+		<div id="mocha">
+			<p>
+				<a href=".">Socialmedia / Index</a>
+			</p>
+		</div>
+
+		<!-- Information / messages -->
+		<div id="message"></div>
+		<div id="fixtures"></div>
+		
+		<!-- Testing libraries -->
+		<script src="../node_modules/mocha/mocha.js"></script>
+		<script src="../node_modules/chai/chai.js"></script>
+
+		<!-- Setup Mocha test environment -->
+		<script>
+			mocha.setup('bdd');
+		</script>
+
+		<!-- Application & tests -->
+		<script src="../src/socialmedia.min.js"></script>
+		<script src="test.js"></script>
+
+		<!-- Run tests -->
+		<script>
+			if (window.mochaPhantomJS) {
+				mochaPhantomJS.run();
+			} else {
+				mocha.run();
+			}
+		</script>
+	</body>
+</html>
