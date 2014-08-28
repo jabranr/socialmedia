@@ -17,4 +17,3 @@ before_script:
  - sleep 5
 script:
  - mocha-phantomjs test/index.html
- - make test
