@@ -4,6 +4,9 @@
   "version": "1.4.9",
   "license": "MIT License",
   "repo": "https://github.com/jabranr/Socialmedia.js",
+  "scripts": {
+    "test": "make test"
+    },
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-contrib-concat": "~0.4.0",

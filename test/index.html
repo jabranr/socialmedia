@@ -30,11 +30,15 @@
 
 		<!-- Application & tests -->
 		<script src="../src/socialmedia.min.js"></script>
-		<script src="tests.js"></script>
+		<script src="test.js"></script>
 
 		<!-- Run tests -->
 		<script>
-			mocha.run();
+			if (window.mochaPhantomJS) {
+				mochaPhantomJS.run();
+			} else {
+				mocha.run();
+			}
 		</script>
 	</body>
 </html>
