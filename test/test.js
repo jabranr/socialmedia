@@ -25,7 +25,7 @@ describe('Socialmedia', function()	{
 
 			it('should load latest Facebook SDK', function()	{
 				(new Socialmedia.Facebook({
-					appid: '322056601296318'
+					appid: '1234567890'
 				}));
 				var fbsdk = document.getElementById('facebook-jssdk');
 				expect(fbsdk.src).to.equal(Socialmedia.SDK.facebookv2);
@@ -42,16 +42,16 @@ describe('Socialmedia', function()	{
 				it('should throw error if Facebook app ID is not a string', function()	{
 					expect(function()	{
 						new Socialmedia.Facebook({
-							appid: 322056601296318 
+							appid: 1234567890 
 						});
 					}).to.throw(Error);
 				});
 
 				it('should set Facebook app id if provided', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318'
+						appid: '1234567890'
 					});
-					expect(fb.appid).to.equal('322056601296318');
+					expect(fb.appid).to.equal('1234567890');
 				});
 
 			});
@@ -60,14 +60,14 @@ describe('Socialmedia', function()	{
 
 				it('should set default Facebook SDK version to latest', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318'
+						appid: '1234567890'
 					});
 					expect(fb.version).to.equal('v2.1');
 				});
 
 				it('should set Facebook SDK version if provided', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318',
+						appid: '1234567890',
 						version: 'v1.0'
 					});
 					expect(fb.version).to.equal('v1.0');
@@ -79,7 +79,7 @@ describe('Socialmedia', function()	{
 
 				it('should set default SDK cookie argument to true', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318'
+						appid: '1234567890'
 					});
 					expect(fb.cookie).to.equal(true);
 				});
@@ -90,7 +90,7 @@ describe('Socialmedia', function()	{
 
 				// it('should set Facebook SDK cookie if provided', function()	{
 				// 	var fb = new Socialmedia.Facebook({
-				// 		appid: '322056601296318',
+				// 		appid: '1234567890',
 				// 		cookie: false
 				// 	});
 				// 	expect(fb.cookie).to.equal(false);
@@ -102,7 +102,7 @@ describe('Socialmedia', function()	{
 
 				it('should set default SDK xfbml argument to true', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318'
+						appid: '1234567890'
 					});
 					expect(fb.xfbml).to.equal(true);
 				});
@@ -113,7 +113,7 @@ describe('Socialmedia', function()	{
 
 				// it('should set Facebook SDK xfbml if provided', function()	{
 				// 	var fb = new Socialmedia.Facebook({
-				// 		appid: '322056601296318',
+				// 		appid: '1234567890',
 				// 		xfbml: false
 				// 	});
 				// 	expect(fb.xfbml).to.equal(false);
@@ -124,14 +124,14 @@ describe('Socialmedia', function()	{
 			describe('Status', function()	{
 				it('should set default SDK status argument to false', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318'
+						appid: '1234567890'
 					});
 					expect(fb.status).to.equal(false);
 				});
 
 				it('should set Facebook SDK status if provided', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318',
+						appid: '1234567890',
 						status: true
 					});
 					expect(fb.status).to.equal(true);
@@ -141,14 +141,14 @@ describe('Socialmedia', function()	{
 			describe('Frictionless Requests', function()	{
 				it('should set default SDK frictionless request argument to false', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318'
+						appid: '1234567890'
 					});
 					expect(fb.requests).to.equal(false);
 				});
 
 				it('should set Facebook SDK frictionless request if provided', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318',
+						appid: '1234567890',
 						requests: true
 					});
 					expect(fb.requests).to.equal(true);
@@ -158,14 +158,14 @@ describe('Socialmedia', function()	{
 			describe('Debug', function()	{
 				it('should set default debug argument to false', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318'
+						appid: '1234567890'
 					});
 					expect(fb.debug).to.equal(false);
 				});
 
 				it('should set debug argument if provided', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318',
+						appid: '1234567890',
 						debug: true
 					});
 					expect(fb.debug).to.equal(true);
@@ -175,7 +175,7 @@ describe('Socialmedia', function()	{
 			describe('Autogrow', function()	{
 				it('should set default SDK autogrow argument to true', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318'
+						appid: '1234567890'
 					});
 					expect(fb.autogrow).to.equal(true);
 				});
@@ -184,14 +184,14 @@ describe('Socialmedia', function()	{
 			describe('Callback', function()	{
 				it('should set default callback argument to anonymous function', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318'
+						appid: '1234567890'
 					});
 					expect(typeof fb.callback).to.equal('function');
 				});
 
 				it('should set a callback function if provided', function()	{
 					var fb = new Socialmedia.Facebook({
-						appid: '322056601296318',
+						appid: '1234567890',
 						callback: function(response) {}
 					});
 					expect(typeof fb.callback).to.equal('function');
