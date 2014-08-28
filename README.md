@@ -1,4 +1,4 @@
-# Socialmedia.js [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/Socialmedia.js/Master)](https://github.com/igrigorik/ga-beacon) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# Socialmedia.js [![Build Status](https://travis-ci.org/jabranr/socialmedia.svg)](https://travis-ci.org/jabranr/socialmedia) [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/Socialmedia.js/Master)](https://github.com/igrigorik/ga-beacon) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 > This branch (`dev-master`) is unstable and in continuous development. Please use `master` branch for any kind of operations.
 
