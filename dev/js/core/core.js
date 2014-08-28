@@ -14,7 +14,7 @@
   'use strict';
 
   /* Array indexOf support for IE8- */
-  var Socialmedia;
+  var Socialmedia, defaultProtocol;
   if (typeof Array.prototype.indexOf === "undefined") {
     Array.prototype.indexOf = function(item) {
       var i;
@@ -29,18 +29,21 @@
     };
   }
 
+  /* Setup current or default protocol */
+  defaultProtocol = window.location.protocol === 'file:' ? 'http:' : window.location.protocol;
+
   /* Global object with unique identifier */
   Socialmedia = {
 
     /* Setup SDK sources */
     SDK: {
-      facebook: '//connect.facebook.net/en_US/all.js',
-      facebook_debug: '//connect.facebook.net/en_US/all/debug.js',
-      facebookv2: '//connect.facebook.net/en_US/sdk.js',
-      facebook_debugv2: '//connect.facebook.net/en_US/sdk/debug.js',
-      twitter: '//platform.twitter.com/widgets.js',
-      googleplus: '//apis.google.com/js/platform.js',
-      pinterest: '//assets.pinterest.com/js/pinit.js'
+      facebook: defaultProtocol + '//connect.facebook.net/en_US/all.js',
+      facebook_debug: defaultProtocol + '//connect.facebook.net/en_US/all/debug.js',
+      facebookv2: defaultProtocol + '//connect.facebook.net/en_US/sdk.js',
+      facebook_debugv2: defaultProtocol + '//connect.facebook.net/en_US/sdk/debug.js',
+      twitter: defaultProtocol + '//platform.twitter.com/widgets.js',
+      googleplus: defaultProtocol + '//apis.google.com/js/platform.js',
+      pinterest: defaultProtocol + '//assets.pinterest.com/js/pinit.js'
     },
 
     /* Default popup method */
