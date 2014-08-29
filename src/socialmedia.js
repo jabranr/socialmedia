@@ -283,7 +283,6 @@ Socialmedia.Facebook = (function() {
     that = this;
     return FB.ui(this.inviteOptions, function(response) {
       var _ref;
-      console.log(that);
       if (response != null) {
         return (_ref = that.inviteOptions.callback) != null ? _ref.call(this, response) : void 0;
       }

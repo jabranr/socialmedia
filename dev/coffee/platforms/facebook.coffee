@@ -150,7 +150,6 @@ class Socialmedia.Facebook
 
 		that = @
 		FB.ui @inviteOptions, (response) ->
-			console.log that
 			if response?
 				that.inviteOptions.callback?.call this, response
 
