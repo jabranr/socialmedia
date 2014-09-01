@@ -35,6 +35,9 @@
   /* Global object with unique identifier */
   Socialmedia = {
 
+    /* Version */
+    version: "1.5.2",
+
     /* Setup SDK sources */
     SDK: {
       facebook: defaultProtocol + '//connect.facebook.net/en_US/all.js',

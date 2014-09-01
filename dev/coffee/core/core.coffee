@@ -18,8 +18,10 @@
 	### Global object with unique identifier ###
 	Socialmedia =
 
+		### Version ###
+		version: "1.5.2",
 
-		### Setup SDK sources ### 
+		### Setup SDK sources ###
 		SDK:
 			facebook: defaultProtocol + '//connect.facebook.net/en_US/all.js'
 			facebook_debug: defaultProtocol + '//connect.facebook.net/en_US/all/debug.js'
@@ -53,7 +55,7 @@
 		### Setup modular support ###
 		if typeof define is 'function' and typeof define.amd is 'object' and define.amd
 			define ['Socialmedia'], factory
-		
+
 		else if typeof module isnt 'undefined' and typeof exports is 'object'
 			module.exports = factory
 
