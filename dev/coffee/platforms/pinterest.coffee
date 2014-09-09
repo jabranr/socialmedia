@@ -2,7 +2,7 @@
 class Socialmedia.Pinterest
 	constructor: ->
 		@init()
-		return
+		return @
 
 	### Pinterest init method ###
 	init: ->

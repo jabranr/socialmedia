@@ -2,7 +2,7 @@
 class Socialmedia.Twitter
 	constructor: ->
 		@init()
-		return
+		return @
 
 	### Twitter init method ###
 	init: ->

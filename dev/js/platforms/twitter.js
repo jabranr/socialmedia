@@ -3,7 +3,7 @@
 Socialmedia.Twitter = (function() {
   function Twitter() {
     this.init();
-    return;
+    return this;
   }
 
 

@@ -2,7 +2,7 @@
 class Socialmedia.GooglePlus 
     constructor: ->
     	@init()
-    	return
+    	return @
 
     ### Google+ init method ###
     init: ->

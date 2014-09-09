@@ -29,7 +29,7 @@ Socialmedia.Facebook = (function() {
     this.autogrow = settings.autogrow || true;
     this.callback = settings.callback || function() {};
     this.init();
-    return;
+    return this;
   }
 
   Facebook.prototype.init = function() {

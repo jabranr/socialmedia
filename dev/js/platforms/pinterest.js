@@ -3,7 +3,7 @@
 Socialmedia.Pinterest = (function() {
   function Pinterest() {
     this.init();
-    return;
+    return this;
   }
 
 

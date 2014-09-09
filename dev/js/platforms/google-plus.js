@@ -3,7 +3,7 @@
 Socialmedia.GooglePlus = (function() {
   function GooglePlus() {
     this.init();
-    return;
+    return this;
   }
 
 

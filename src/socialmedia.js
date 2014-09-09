@@ -1,4 +1,4 @@
-/*! socialmedia | v1.5.1 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
+/*! socialmedia | v1.5.2 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
 !(function(root, factory) {
 
   /* Setup modular support */
@@ -114,7 +114,7 @@ Socialmedia.Facebook = (function() {
     this.autogrow = settings.autogrow || true;
     this.callback = settings.callback || function() {};
     this.init();
-    return;
+    return this;
   }
 
   Facebook.prototype.init = function() {
@@ -376,7 +376,7 @@ Socialmedia.Facebook = (function() {
 Socialmedia.GooglePlus = (function() {
   function GooglePlus() {
     this.init();
-    return;
+    return this;
   }
 
 
@@ -423,7 +423,7 @@ Socialmedia.GooglePlus = (function() {
 Socialmedia.Pinterest = (function() {
   function Pinterest() {
     this.init();
-    return;
+    return this;
   }
 
 
@@ -476,7 +476,7 @@ Socialmedia.Pinterest = (function() {
 Socialmedia.Twitter = (function() {
   function Twitter() {
     this.init();
-    return;
+    return this;
   }
 
 

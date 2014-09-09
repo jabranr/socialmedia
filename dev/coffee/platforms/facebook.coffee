@@ -21,7 +21,7 @@ class Socialmedia.Facebook
 		@autogrow 	= settings.autogrow or true
 		@callback	= settings.callback	or ->
 		@init()
-		return
+		return @
 
 	init: ->
 		that = @
