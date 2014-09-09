@@ -1,4 +1,4 @@
-/*! socialmedia | v1.5.2 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
+/*! socialmedia | v1.5.3 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
 !(function(root, factory) {
 
   /* Setup modular support */
