@@ -37,7 +37,7 @@
   Socialmedia = {
 
     /* Version */
-    version: "1.5.3",
+    version: "1.5.4",
 
     /* Setup SDK sources */
     SDK: {
@@ -106,6 +106,7 @@ Socialmedia.Facebook = (function() {
     /* Setup default variables */
     this.appid = settings.appid;
     this.status = settings.status || false;
+    this.channel = settings.channel || document.location.href;
     this.xfbml = settings.xfbml || true;
     this.cookie = settings.cookie || true;
     this.requests = settings.requests || false;
@@ -124,6 +125,7 @@ Socialmedia.Facebook = (function() {
       FB.init({
         appId: that.appid,
         status: that.status,
+        channelUrl: that.channel,
         cookie: that.cookie,
         xfbml: that.xfbml,
         version: that.version,

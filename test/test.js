@@ -75,6 +75,25 @@ describe('Socialmedia', function()	{
 
 			});
 
+			describe('Channel URL', function() {
+
+				it('should set default channel URL', function() {
+					var fb = new Socialmedia.Facebook({
+						appid: '1234567890'
+					});
+					expect(fb.channel).to.equal(document.location.href);
+				});
+
+				it('should set to channel URL provided', function() {
+					var fb = new Socialmedia.Facebook({
+						appid: '1234567890',
+						channel: '//example.com'
+					});
+					expect(fb.channel).to.equal('//example.com');
+				});
+
+			});
+
 			describe('Cookie', function()	{
 
 				it('should set default SDK cookie argument to true', function()	{

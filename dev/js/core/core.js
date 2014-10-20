@@ -36,7 +36,7 @@
   Socialmedia = {
 
     /* Version */
-    version: "1.5.3",
+    version: "1.5.4",
 
     /* Setup SDK sources */
     SDK: {

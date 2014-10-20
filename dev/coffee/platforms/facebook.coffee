@@ -12,14 +12,15 @@ class Socialmedia.Facebook
 
 		### Setup default variables ###
 		@appid		= settings.appid
-		@status		= settings.status	or false
-		@xfbml		= settings.xfbml	or true
-		@cookie		= settings.cookie	or true
-		@requests	= settings.requests	or false
-		@version	= settings.version	or 'v2.1'
-		@debug		= settings.debug	or false
-		@autogrow 	= settings.autogrow or true
-		@callback	= settings.callback	or ->
+		@status		= settings.status		or false
+		@channel	= settings.channel		or document.location.href
+		@xfbml		= settings.xfbml		or true
+		@cookie		= settings.cookie		or true
+		@requests	= settings.requests		or false
+		@version	= settings.version		or 'v2.1'
+		@debug		= settings.debug		or false
+		@autogrow 	= settings.autogrow 	or true
+		@callback	= settings.callback		or ->
 		@init()
 		return @
 
@@ -29,6 +30,7 @@ class Socialmedia.Facebook
 			FB.init
 				appId: that.appid
 				status: that.status
+				channelUrl: that.channel
 				cookie: that.cookie
 				xfbml: that.xfbml
 				version: that.version
