@@ -157,7 +157,7 @@ debug: Boolean True or False. (Default is false)
 autogrow: Boolean True or False (Default is true)
 
 // Channel URL for Cross-Origin Resource Sharing (CORS)
-channel: String URL to channel.php file on your domain (Default current URL)
+channel: String URL to channel.php file on your domain (Default empty string)
 
 // Pass asynchronous callback function
 callback: Function returns a Graph API response object with status of current user
