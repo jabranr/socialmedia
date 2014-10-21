@@ -21,7 +21,7 @@ Socialmedia.Facebook = (function() {
     /* Setup default variables */
     this.appid = settings.appid;
     this.status = settings.status || false;
-    this.channel = settings.channel || document.location.href;
+    this.channel = settings.channel || '';
     this.xfbml = settings.xfbml || true;
     this.cookie = settings.cookie || true;
     this.requests = settings.requests || false;

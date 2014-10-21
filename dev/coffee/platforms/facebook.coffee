@@ -13,7 +13,7 @@ class Socialmedia.Facebook
 		### Setup default variables ###
 		@appid		= settings.appid
 		@status		= settings.status		or false
-		@channel	= settings.channel		or document.location.href
+		@channel	= settings.channel		or ''
 		@xfbml		= settings.xfbml		or true
 		@cookie		= settings.cookie		or true
 		@requests	= settings.requests		or false

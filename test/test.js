@@ -81,7 +81,7 @@ describe('Socialmedia', function()	{
 					var fb = new Socialmedia.Facebook({
 						appid: '1234567890'
 					});
-					expect(fb.channel).to.equal(document.location.href);
+					expect(fb.channel).to.equal('');
 				});
 
 				it('should set to channel URL provided', function() {
