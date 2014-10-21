@@ -122,7 +122,7 @@ The `Settings` parameter takes following combination of key and values:
 **Required parameters:**
 
 ``` javascript
-appid: Your Facebook app ID in numeric string format.
+appid: Your Facebook app ID in string format.
 ```
 
 **Optional parameters:**
@@ -156,6 +156,8 @@ debug: Boolean True or False. (Default is false)
 // Facebook Canvas autogrow on content update
 autogrow: Boolean True or False (Default is true)
 
+// Channel URL for Cross-Origin Resource Sharing (CORS)
+channel: String URL to channel.php file on your domain (Default current URL)
 
 // Pass asynchronous callback function
 callback: Function returns a Graph API response object with status of current user
