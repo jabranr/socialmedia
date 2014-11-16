@@ -1,4 +1,4 @@
-/*! socialmedia | v1.5.4 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
+/*! socialmedia | v1.6.4 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
 !(function(root, factory) {
 
   /* Setup modular support */
@@ -37,7 +37,7 @@
   Socialmedia = {
 
     /* Version */
-    version: "1.5.4",
+    version: "1.6.4",
 
     /* Setup SDK sources */
     SDK: {
@@ -110,7 +110,7 @@ Socialmedia.Facebook = (function() {
     this.xfbml = settings.xfbml || true;
     this.cookie = settings.cookie || true;
     this.requests = settings.requests || false;
-    this.version = settings.version || 'v2.1';
+    this.version = settings.version || 'v2.2';
     this.debug = settings.debug || false;
     this.autogrow = settings.autogrow || true;
     this.callback = settings.callback || function() {};

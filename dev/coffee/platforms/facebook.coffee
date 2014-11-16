@@ -17,7 +17,7 @@ class Socialmedia.Facebook
 		@xfbml		= settings.xfbml		or true
 		@cookie		= settings.cookie		or true
 		@requests	= settings.requests		or false
-		@version	= settings.version		or 'v2.1'
+		@version	= settings.version		or 'v2.2'
 		@debug		= settings.debug		or false
 		@autogrow 	= settings.autogrow 	or true
 		@callback	= settings.callback		or ->
