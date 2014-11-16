@@ -27,7 +27,7 @@ bower install socialmedia
 
 ``` javascript
 // Initialize Facebook SDK
-// By default it loads the latest SDK version. Current version v2.1
+// By default it loads the latest SDK version.
 var facebook = new Socialmedia.Facebook({ 
 	appid: '1234567890' 
 });
@@ -146,7 +146,7 @@ requests: Boolean True or False. (Default is false)
 
 // Load specific Facebook SDK 
 // Unless specified explicitly, latest SDK is loaded
-version: String Facebook SDK version (Default is latest version) // v2.1
+version: String Facebook SDK version (Default is latest version)
 
 
 // Get uncompressed Facebook SDK source for debugging

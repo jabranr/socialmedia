@@ -62,7 +62,7 @@ describe('Socialmedia', function()	{
 					var fb = new Socialmedia.Facebook({
 						appid: '1234567890'
 					});
-					expect(fb.version).to.equal('v2.1');
+					expect(fb.version).to.equal('v2.2');
 				});
 
 				it('should set Facebook SDK version if provided', function()	{
