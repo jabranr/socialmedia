@@ -28,24 +28,24 @@ bower install socialmedia
 ``` javascript
 // Initialize Facebook SDK
 // By default it loads the latest SDK version.
-var facebook = new Socialmedia.Facebook({ 
-	appid: '1234567890' 
+var facebook = new Socialmedia.Facebook({
+	appid: '1234567890'
 });
 
 // Initialize Facebook SDK in debug mode
-var facebook = new Socialmedia.Facebook({ 
+var facebook = new Socialmedia.Facebook({
 	appid: '1234567890',
-	debug: true 
+	debug: true
 });
 
 // Initialize any older Facebook SDK version
-var facebook = new Socialmedia.Facebook({ 
+var facebook = new Socialmedia.Facebook({
 	appid: '1234567890',
-	version: 'v1.0' 
+	version: 'v1.0'
 });
 
 // Initialize Facebook SDK with async callback
-var facebook = new Socialmedia.Facebook({ 
+var facebook = new Socialmedia.Facebook({
 	appid: '1234567890',
 	callback: function(response) {
 		// returns Facebook Graph API response object
@@ -85,13 +85,6 @@ $ git checkout -b YOUR_BRANCH_NAME
 
 1. **Browser:** Run `test/index.html` in browser with a local server
 2. **Terminal:** Run `$ mocha-phantomjs test/test.js`
-
-* Update versions in `package.json` and `bower.json`.
-* Commit and create new version tag (keep x.x.x notation):
-
-``` shell
-$ git tag NEW_TAG -m 'SOMETHING ABOUT NEW TAG'
-```
 
 * Push changes and create a new [pull request](https://github.com/jabranr/Socialmedia/compare/).
 * Let me review, merge your changes and thank you! :-) :+1:
@@ -144,7 +137,7 @@ cookie: Boolean True or False. (Default is true)
 requests: Boolean True or False. (Default is false)
 
 
-// Load specific Facebook SDK 
+// Load specific Facebook SDK
 // Unless specified explicitly, latest SDK is loaded
 version: String Facebook SDK version (Default is latest version)
 
@@ -168,9 +161,9 @@ callback: Function returns a Graph API response object with status of current us
 **Add a friend on Facebook.**
 
 ``` javascript
-facebook.AddFriend({ 
-	String id, 
-	Function callback 
+facebook.AddFriend({
+	String id,
+	Function callback
 });
 
 // callback response returns true or false
@@ -250,7 +243,7 @@ facebook.scroll({
 **Set Facebook Canvas size. Default size 810x800.**
 
 ``` javascript
-facebook.setSize({ 
+facebook.setSize({
 	int width,
 	int height
 });
