@@ -291,6 +291,8 @@ Initialize the Twitter class using following scheme:
 var twitter = new Socialmedia.Twitter();
 ```
 
+Using following methods on [Twitter Web Intent](https://dev.twitter.com/web/intents) enabled links will produce unexpected results. [See this explanation](https://github.com/jabranr/socialmedia/issues/22#issuecomment-77557115)
+
 #### Methods:
 
 Simple Tweet
