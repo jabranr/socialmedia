@@ -185,7 +185,7 @@ facebook.Invite({
 	String message,
 	Array to,
 	Array exclude_ids,
-	int max_to,
+	Int max_recipients,
 	Object data,
 	Function callback
 });
