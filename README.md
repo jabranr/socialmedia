@@ -41,8 +41,10 @@ var facebook = new Socialmedia.Facebook({
 // Initialize any older Facebook SDK version
 var facebook = new Socialmedia.Facebook({
 	appid: '1234567890',
-	version: 'v1.0'
+	version: 'v2.0'
 });
+
+[Facebook Graph API v1.0 deprecated](https://developers.facebook.com/docs/apps/versions) on 30th April 2015 so it is NOT recommended to use it.
 
 // Initialize Facebook SDK with async callback
 var facebook = new Socialmedia.Facebook({
