@@ -141,35 +141,94 @@ Socialmedia.Facebook = (function() {
   /* Facebook share function */
 
   Facebook.prototype.Share = function(shareOptions) {
-    var that, _base, _base1, _base2;
+    var that, _base;
+    this.shareOptions = shareOptions != null ? shareOptions : {};
+
+    /*
+    		 * Default options
+    		 *
+    		 * method: 'share'
+    		 * href: Absolute URL
+    		 * callback: Function
+     */
+    this.shareOptions.method = 'share';
+    if ((_base = this.shareOptions).callback == null) {
+      _base.callback = function(response) {};
+    }
+    if (this.shareOptions.href == null) {
+      throw new TypeError('href attribute is missing');
+    }
+    that = this;
+    return FB.ui(this.shareOptions, function(response) {
+      var _ref;
+      if (response != null) {
+        return (_ref = that.shareOptions.callback) != null ? _ref.call(this, response) : void 0;
+      }
+    });
+  };
+
+
+  /* Facebook share_open_graph function */
+
+  Facebook.prototype.ShareOpenGraph = function(shareOptions) {
+    var that, _base;
+    this.shareOptions = shareOptions != null ? shareOptions : {};
+
+    /*
+    		 * Default options
+    		 *
+    		 * method: 'share_open_graph'
+    		 * action_type: String Open Graph action type e.g. og.likes
+    		 * action_properties: Object key/value pair. e.g. object: {URL}
+    		 * callback: Function
+     */
+    if (this.shareOptions.action_type == null) {
+      throw new TypeError('Open Graph action type is missing');
+    }
+    if (this.shareOptions.action_properties == null) {
+      throw new TypeError('Open Graph action properties is missing');
+    }
+    this.shareOptions.method = 'share_open_graph';
+    if ((_base = this.shareOptions).callback == null) {
+      _base.callback = function(response) {};
+    }
+    this.shareOptions.action_properties = JSON.stringify(this.shareOptions.action_properties);
+    that = this;
+    return FB.ui(this.shareOptions, function(response) {
+      var _ref;
+      if (response != null) {
+        return (_ref = that.shareOptions.callback) != null ? _ref.call(this, response) : void 0;
+      }
+    });
+  };
+
+
+  /* Facebook share function (Legacy support) */
+
+  Facebook.prototype.Feed = function(shareOptions) {
+    var that, _base;
     this.shareOptions = shareOptions != null ? shareOptions : {};
 
     /*
     		 * Default options
     		 *
     		 * method: 'feed'
-    		 * name: Text (Title)
+    		 * name: String (Title)
     		 * link: Absolute URL
     		 * picture: Absolute URL
-    		 * caption: Text
-    		 * description: Text
+    		 * caption: String
+    		 * description: String
     		 * callback: Function
      */
+    if (this.shareOptions.name == null) {
+      throw new TypeError('name attribute is missing');
+    }
+    if (this.shareOptions.link == null) {
+      throw new TypeError('link attribute is missing');
+    }
     this.shareOptions.method = 'feed';
     if ((_base = this.shareOptions).callback == null) {
       _base.callback = function(response) {};
-    }
-
-    /* Legacy support */
-    if (shareOptions && (shareOptions.title != null)) {
-      if ((_base1 = this.shareOptions).name == null) {
-        _base1.name = shareOptions && shareOptions.title;
-      }
-    }
-    if (shareOptions && (shareOptions.image != null)) {
-      if ((_base2 = this.shareOptions).picture == null) {
-        _base2.picture = shareOptions && shareOptions.image;
-      }
     }
     that = this;
     return FB.ui(this.shareOptions, function(response) {
@@ -191,8 +250,8 @@ Socialmedia.Facebook = (function() {
     		 * Default options
     		 *
     		 * method: 'apprequests'
-    		 * title: Text (Title)
-    		 * message: Text
+    		 * title: String (Title)
+    		 * message: String
     		 * to: Array
     		 * exclude_ids: Array
     		 * max_recipients: Number

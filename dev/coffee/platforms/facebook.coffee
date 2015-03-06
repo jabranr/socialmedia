@@ -35,11 +35,11 @@ class Socialmedia.Facebook
 				xfbml: that.xfbml
 				version: that.version
 				frictionlessRequests: that.requests
-			
+
 			### Setup FB SDK script source ###
 			that.fbsdk = document.getElementById 'facebook-jssdk'
 
-			
+
 			### Append app_id to fbsdk source ###
 			if that.fbsdk?
 				that.fbsdk.src += '#xfbml=1&appId=' + that.appid
@@ -52,7 +52,7 @@ class Socialmedia.Facebook
 				FB.getLoginStatus that.callback
 				return
 
-			
+
 		### Move the auto-generated fb-root DOM element to appropriate position ###
 		if addEventListener?
 			window.addEventListener 'load', ->
@@ -70,7 +70,7 @@ class Socialmedia.Facebook
 			sdk = doc.createElement tag
 			sdk.id = id
 			sdk.async = true
-			if dev 
+			if dev
 				if ver is 'v1.0'
 					sdk.src = Socialmedia.SDK.facebook_debug
 				else
@@ -108,29 +108,70 @@ class Socialmedia.Facebook
 		###
 		# Default options
 		#
-		# method: 'feed'
-		# name: Text (Title)
-		# link: Absolute URL
-		# picture: Absolute URL
-		# caption: Text
-		# description: Text
+		# method: 'share'
+		# href: Absolute URL
 		# callback: Function
 		###
 
-		@shareOptions.method = 'feed'
+		@shareOptions.method = 'share'
 		@shareOptions.callback ?= (response) ->
 
-		### Legacy support ###
-		@shareOptions.name ?= shareOptions and shareOptions.title if shareOptions and shareOptions.title?
-		@shareOptions.picture ?= shareOptions and shareOptions.image if shareOptions and shareOptions.image?
-
-		# throw new Error 'URL is missing' unless @shareOptions.link?
+		throw new TypeError 'href attribute is missing' unless @shareOptions.href?
 
 		that = @
 		FB.ui @shareOptions, (response) ->
 			if response?
 				that.shareOptions.callback?.call this, response
 
+	### Facebook share_open_graph function ###
+	ShareOpenGraph: (@shareOptions = { }) ->
+
+		###
+		# Default options
+		#
+		# method: 'share_open_graph'
+		# action_type: String Open Graph action type e.g. og.likes
+		# action_properties: Object key/value pair. e.g. object: {URL}
+		# callback: Function
+		###
+
+		throw new TypeError 'Open Graph action type is missing' unless @shareOptions.action_type?
+		throw new TypeError 'Open Graph action properties is missing' unless @shareOptions.action_properties?
+
+		@shareOptions.method = 'share_open_graph'
+		@shareOptions.callback ?= (response) ->
+		@shareOptions.action_properties = JSON.stringify(@shareOptions.action_properties)
+
+		that = @
+		FB.ui @shareOptions, (response) ->
+			if response?
+				that.shareOptions.callback?.call this, response
+
+	### Facebook share function (Legacy support) ###
+	Feed: (@shareOptions = { }) ->
+
+		###
+		# Default options
+		#
+		# method: 'feed'
+		# name: String (Title)
+		# link: Absolute URL
+		# picture: Absolute URL
+		# caption: String
+		# description: String
+		# callback: Function
+		###
+
+		throw new TypeError 'name attribute is missing' unless @shareOptions.name?
+		throw new TypeError 'link attribute is missing' unless @shareOptions.link?
+
+		@shareOptions.method = 'feed'
+		@shareOptions.callback ?= (response) ->
+
+		that = @
+		FB.ui @shareOptions, (response) ->
+			if response?
+				that.shareOptions.callback?.call this, response
 
 	### Facebook invite function ###
 	Invite: (@inviteOptions = { }) ->
@@ -139,8 +180,8 @@ class Socialmedia.Facebook
 		# Default options
 		#
 		# method: 'apprequests'
-		# title: Text (Title)
-		# message: Text
+		# title: String (Title)
+		# message: String
 		# to: Array
 		# exclude_ids: Array
 		# max_recipients: Number
@@ -188,12 +229,12 @@ class Socialmedia.Facebook
 		###
 
 		@sendOptions.method = 'send'
-		
+
 		FB.ui @sendOptions
 
 	### Facebook pay function ###
 	Pay: (@payOptions = { }) ->
-		
+
 		###
 		# Default options
 		#
