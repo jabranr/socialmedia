@@ -219,8 +219,40 @@ facebook.Send({
 
 **Share a link to Facebook Timeline.**
 
+Available since v2.0
+
 ``` javascript
 facebook.Share({
+	String href, // Absolute URL
+	Function callback
+});
+
+// onSuccess response contains successful request data
+// onFail response contains failed request data
+```
+
+
+**Share an Open Graph API object to Facebook Timeline.**
+
+Available since v2.0
+
+``` javascript
+facebook.ShareOpenGraph({
+	String action_type, // Open Graph API action type e.g. og.likes
+	Object action_properties, // JSON string in key/value pair e.g. { object: 'http://git.io/socialmedia' }
+	Function callback
+});
+
+// onSuccess response contains successful request data
+// onFail response contains failed request data
+```
+
+**Share a link to Facebook Timeline. (Using legacy Share dialog)**
+
+Available only with v1.0
+
+``` javascript
+facebook.Feed({
 	String name, // Previously title
 	String link, // Absolute URL
 	String picture, // Absolute URL (Previously image)
