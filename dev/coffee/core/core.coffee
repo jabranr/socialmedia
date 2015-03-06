@@ -19,7 +19,7 @@
 	Socialmedia =
 
 		### Version ###
-		version: "1.6.5",
+		version: "1.7.4",
 
 		### Setup SDK sources ###
 		SDK:

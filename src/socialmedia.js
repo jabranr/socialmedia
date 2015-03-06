@@ -1,4 +1,4 @@
-/*! socialmedia | v1.6.5 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
+/*! socialmedia | v1.7.4 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
 !(function(root, factory) {
 
   /* Setup modular support */
@@ -37,7 +37,7 @@
   Socialmedia = {
 
     /* Version */
-    version: "1.6.5",
+    version: "1.7.4",
 
     /* Setup SDK sources */
     SDK: {
