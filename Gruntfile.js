@@ -1,25 +1,25 @@
 module.exports = function(grunt)	{
-	
+
 	'use strict';
 
 	grunt.initConfig({
-		
+
 		pkg: grunt.file.readJSON('package.json'),
 
 		project: {
 			path: {
 				to: {
-					tests: 'tests/',
-					dist: 'src/',
+					tests: 'test/',
+					dist: 'dist/',
 					dev: {
-						basedir: 'dev',
+						basedir: 'src',
 						coffee: {
-							core: 'dev/coffee/core',
-							platforms: 'dev/coffee/platforms'
+							core: 'src/coffee/core',
+							platforms: 'src/coffee/platforms'
 						},
 						js: {
-							core: 'dev/js/core',
-							platforms: 'dev/js/platforms'
+							core: 'src/js/core',
+							platforms: 'src/js/platforms'
 						}
 					}
 				}
@@ -100,7 +100,7 @@ module.exports = function(grunt)	{
 			},
 
 			script: {
-				
+
 				files: [
 					'<%= project.path.to.dev.js.core %>/*.js',
 					'<%= project.path.to.dev.js.platforms %>/*.js',
