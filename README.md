@@ -96,7 +96,7 @@ $ git checkout -b YOUR_BRANCH_NAME
 
 ### Feedback / Issues
 
-[https://github.com/jabranr/socialmedia.js/issues](https://github.com/jabranr/socialmedia.js/issues)
+[https://github.com/jabranr/socialmedia/issues](https://github.com/jabranr/socialmedia/issues)
 
 ## Documentation
 
