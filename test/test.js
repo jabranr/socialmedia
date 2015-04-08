@@ -18,7 +18,7 @@ describe('Socialmedia', function()	{
 			expect(typeof socialmedia).to.equal('object');
 		});
 	});
-	
+
 	// Facebook tests
 	describe('Facebook', function()	{
 		describe('constructor', function()	{
@@ -32,7 +32,7 @@ describe('Socialmedia', function()	{
 			});
 
 			describe('App ID', function()	{
-			
+
 				it('should throw error if no Facebook app ID', function()	{
 					expect(function()	{
 						(new Socialmedia.Facebook());
@@ -42,7 +42,7 @@ describe('Socialmedia', function()	{
 				it('should throw error if Facebook app ID is not a string', function()	{
 					expect(function()	{
 						new Socialmedia.Facebook({
-							appid: 1234567890 
+							appid: 1234567890
 						});
 					}).to.throw(Error);
 				});
@@ -62,7 +62,7 @@ describe('Socialmedia', function()	{
 					var fb = new Socialmedia.Facebook({
 						appid: '1234567890'
 					});
-					expect(fb.version).to.equal('v2.2');
+					expect(fb.version).to.equal('v2.3');
 				});
 
 				it('should set Facebook SDK version if provided', function()	{
@@ -220,7 +220,7 @@ describe('Socialmedia', function()	{
 
 	});
 
-	
+
 	// Twitter tests
 	describe('Twitter', function()	{
 		describe('constructor', function()	{
@@ -232,7 +232,7 @@ describe('Socialmedia', function()	{
 		});
 	});
 
-	
+
 	// GooglePlus tests
 	describe('GooglePlus', function()	{
 		describe('constructor', function()	{
@@ -244,7 +244,7 @@ describe('Socialmedia', function()	{
 		});
 	});
 
-	
+
 	// Pinterest tests
 	describe('Pinterest', function()	{
 		describe('constructor', function()	{
