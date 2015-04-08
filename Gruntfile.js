@@ -79,7 +79,8 @@ module.exports = function(grunt)	{
 				dest: '<%= project.path.to.dist %><%= pkg.name %>.min.js'
 			},
 			options: {
-				preserveComments: 'some'
+				preserveComments: 'some',
+				sourceMap: true
 			}
 		},
 
