@@ -8,7 +8,10 @@
 * Pinterest
 
 ## Documentation
-See [Wiki](https://github.com/jabranr/socialmedia/wiki) for information on installation, use and API reference.
+See [Wiki](https://github.com/jabranr/socialmedia/wiki) for information on [Installation](https://github.com/jabranr/socialmedia/wiki/Installation), [Setup](https://github.com/jabranr/socialmedia/wiki/Setup) and [API reference](https://github.com/jabranr/socialmedia/wiki/API-Reference).
 
 ## License:
-&copy; Jabran Rafique ([@jabranr](https://twitter.com/jabranr)) | 2014-2015 | [MIT License](http://opensource.org/licenses/MIT)
+[MIT License](http://opensource.org/licenses/MIT)
+
+---
+&copy; Jabran Rafique ([@jabranr](https://twitter.com/jabranr)) 2014-2015
