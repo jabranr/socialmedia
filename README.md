@@ -13,5 +13,4 @@ See [Wiki](https://github.com/jabranr/socialmedia/wiki) for information on [Inst
 ## License:
 [MIT License](http://opensource.org/licenses/MIT)
 
----
 &copy; Jabran Rafique ([@jabranr](https://twitter.com/jabranr)) 2014-2015
