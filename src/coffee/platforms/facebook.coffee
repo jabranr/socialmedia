@@ -5,10 +5,10 @@ class Socialmedia.Facebook
 	constructor: (settings = { })->
 
 		### Throw error if app id is not provided ###
-		throw new Error 'Facebook app ID is required' unless settings.appid?
+		throw new TypeError 'Facebook app ID is required' unless settings.appid?
 
 		### Throw error if app id is not a string ###
-		throw new Error 'Facebook app ID must be a string' unless typeof settings.appid is 'string'
+		throw new TypeError 'Facebook app ID must be a string' unless typeof settings.appid is 'string'
 
 		### Setup default variables ###
 		@appid		= settings.appid

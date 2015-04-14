@@ -36,7 +36,7 @@ describe('Socialmedia', function()	{
 				it('should throw error if no Facebook app ID', function()	{
 					expect(function()	{
 						(new Socialmedia.Facebook());
-					}).to.throw(Error);
+					}).to.throw(TypeError);
 				});
 
 				it('should throw error if Facebook app ID is not a string', function()	{
@@ -44,7 +44,7 @@ describe('Socialmedia', function()	{
 						new Socialmedia.Facebook({
 							appid: 1234567890
 						});
-					}).to.throw(Error);
+					}).to.throw(TypeError);
 				});
 
 				it('should set Facebook app id if provided', function()	{
