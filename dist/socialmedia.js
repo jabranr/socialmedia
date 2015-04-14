@@ -95,12 +95,12 @@ Socialmedia.Facebook = (function() {
 
     /* Throw error if app id is not provided */
     if (settings.appid == null) {
-      throw new Error('Facebook app ID is required');
+      throw new TypeError('Facebook app ID is required');
     }
 
     /* Throw error if app id is not a string */
     if (typeof settings.appid !== 'string') {
-      throw new Error('Facebook app ID must be a string');
+      throw new TypeError('Facebook app ID must be a string');
     }
 
     /* Setup default variables */
