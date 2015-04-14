@@ -7,17 +7,7 @@ class Socialmedia.Twitter
 	### Twitter init method ###
 	init: ->
 		that = @
-		((doc, tag, id) ->
-			return if doc.getElementById id
-			sdk = doc.createElement tag
-			sdk.id = id
-			sdk.async = true
-			sdk.src = Socialmedia.SDK.twitter
-			ref = doc.getElementsByTagName(tag)[0]
-			ref.parentNode.insertBefore sdk, ref
-			that.twttrsdk = doc.getElementById id
-			return
-		)(document, 'script', 'twitter-wjs')
+		Socialmedia.LoadSDK 'twitter-wjs', Socialmedia.SDK.twitter
 
 	### Twitter share link method ###
 	Tweet: (options = { }) ->
@@ -33,7 +23,7 @@ class Socialmedia.Twitter
 	Follow: (username = 'socialmedia_js') ->
 		username.replace /@/, ''
 		intentFollowUrl = '//twitter.com/intent/follow?'
-		Socialmedia.Popup.apply @, [intentFollowUrl + "screen_name=#{username}", 
+		Socialmedia.Popup.apply @, [intentFollowUrl + "screen_name=#{username}",
 				width: 700
 				height: 485
 			]

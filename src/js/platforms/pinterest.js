@@ -12,19 +12,7 @@ Socialmedia.Pinterest = (function() {
   Pinterest.prototype.init = function() {
     var that;
     that = this;
-    return (function(doc, tag, id) {
-      var ref, sdk;
-      if (doc.getElementById(id)) {
-        return;
-      }
-      sdk = doc.createElement(tag);
-      sdk.id = id;
-      sdk.async = true;
-      sdk.src = Socialmedia.SDK.pinterest;
-      ref = doc.getElementsByTagName(tag)[0];
-      ref.parentNode.insertBefore(sdk, ref);
-      that.pinsdk = doc.getElementById(id);
-    })(document, 'script', 'pinterest-jssdk');
+    return Socialmedia.LoadSDK('pinterest-jssdk', Socialmedia.SDK.pinterest);
   };
 
 

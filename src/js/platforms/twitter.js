@@ -12,19 +12,7 @@ Socialmedia.Twitter = (function() {
   Twitter.prototype.init = function() {
     var that;
     that = this;
-    return (function(doc, tag, id) {
-      var ref, sdk;
-      if (doc.getElementById(id)) {
-        return;
-      }
-      sdk = doc.createElement(tag);
-      sdk.id = id;
-      sdk.async = true;
-      sdk.src = Socialmedia.SDK.twitter;
-      ref = doc.getElementsByTagName(tag)[0];
-      ref.parentNode.insertBefore(sdk, ref);
-      that.twttrsdk = doc.getElementById(id);
-    })(document, 'script', 'twitter-wjs');
+    return Socialmedia.LoadSDK('twitter-wjs', Socialmedia.SDK.twitter);
   };
 
 

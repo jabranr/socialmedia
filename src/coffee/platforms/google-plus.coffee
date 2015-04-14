@@ -1,5 +1,5 @@
 ### Google+ object ###
-class Socialmedia.GooglePlus 
+class Socialmedia.GooglePlus
     constructor: ->
     	@init()
     	return @
@@ -7,17 +7,7 @@ class Socialmedia.GooglePlus
     ### Google+ init method ###
     init: ->
         that = @
-        ((doc, tag, id) ->
-            return if doc.getElementById id
-            sdk = doc.createElement tag
-            sdk.async = true
-            sdk.src = Socialmedia.SDK.googleplus
-            sdk.id = id
-            ref = doc.getElementsByTagName(tag)[0]
-            ref.parentNode.insertBefore sdk, ref
-            that.gpsdk = doc.getElementById id
-            return
-        )(document, 'script', 'gplus-jssdk')
+        Socialmedia.LoadSDK 'gplus-jssdk', Socialmedia.SDK.googleplus
 
     ### Google+ share method ###
     Share: (options = { }) ->

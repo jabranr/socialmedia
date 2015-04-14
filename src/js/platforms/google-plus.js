@@ -12,19 +12,7 @@ Socialmedia.GooglePlus = (function() {
   GooglePlus.prototype.init = function() {
     var that;
     that = this;
-    return (function(doc, tag, id) {
-      var ref, sdk;
-      if (doc.getElementById(id)) {
-        return;
-      }
-      sdk = doc.createElement(tag);
-      sdk.async = true;
-      sdk.src = Socialmedia.SDK.googleplus;
-      sdk.id = id;
-      ref = doc.getElementsByTagName(tag)[0];
-      ref.parentNode.insertBefore(sdk, ref);
-      that.gpsdk = doc.getElementById(id);
-    })(document, 'script', 'gplus-jssdk');
+    return Socialmedia.LoadSDK('gplus-jssdk', Socialmedia.SDK.googleplus);
   };
 
 
