@@ -21,13 +21,33 @@ class Socialmedia.Facebook
 		@debug		= settings.debug		or false
 		@autogrow 	= settings.autogrow 	or true
 		@callback	= settings.callback		or ->
+
+		### Support Parse ###
+		@parse		= false
+		@parseId	= settings.parseId		or ''
+		@parseKey	= settings.parseKey		or ''
+
 		@init()
 		return @
 
 	init: ->
 		that = @
+
+		### Load Parse SDK if required and initialize Parse ###
+		if @.parseId != '' and @.parseKey != ''
+			Socialmedia.LoadSDK 'parse-jssdk', Socialmedia.SDK.parse
+			parseCallback = ->
+				Parse.initialize that.parseId, that.parseKey
+				that.parse = true
+				return
+
+			if !Parse?
+				setTimeout parseCallback, 100
+			else
+				parseCallback
+
 		window.fbAsyncInit = ->
-			FB.init
+			opts =
 				appId: that.appid
 				status: that.status
 				channelUrl: that.channel
@@ -35,6 +55,11 @@ class Socialmedia.Facebook
 				xfbml: that.xfbml
 				version: that.version
 				frictionlessRequests: that.requests
+
+			if that.parse and Parse?
+				Parse.FacebookUtils.init opts
+			else
+				FB.init opts
 
 			### Setup FB SDK script source ###
 			that.fbsdk = document.getElementById 'facebook-jssdk'
@@ -65,28 +90,19 @@ class Socialmedia.Facebook
 				return
 
 		### Load the Facebook JavaScript SDK ###
-		((doc, dev, tag, id, ver) ->
-			return if doc.getElementById id
-			sdk = doc.createElement tag
-			sdk.id = id
-			sdk.async = true
-			if dev
-				if ver is 'v1.0'
-					sdk.src = Socialmedia.SDK.facebook_debug
-				else
-					sdk.src = Socialmedia.SDK.facebook_debugv2
+		if that.debug
+			if that.version is 'v1.0'
+				src = Socialmedia.SDK.facebook_debug
 			else
-				if ver is 'v1.0'
-					sdk.src = Socialmedia.SDK.facebook
-				else
-					sdk.src = Socialmedia.SDK.facebookv2
-			fbdiv = doc.createElement 'div'
-			fbdiv.id = 'fb-root'
-			ref = doc.getElementsByTagName(tag)[0]
-			ref.parentNode.insertBefore fbdiv, ref
-			ref.parentNode.insertBefore sdk, ref
-			return
-		)(document, that.debug, 'script','facebook-jssdk', that.version)
+				src = Socialmedia.SDK.facebook_debugv2
+		else
+			if that.version is 'v1.0'
+				src = Socialmedia.SDK.facebook
+			else
+				src = Socialmedia.SDK.facebookv2
+
+		### Load Facebook SDK ###
+		Socialmedia.LoadSDK 'facebook-jssdk', src
 
 	### Facebook canvas setsize function ###
 	setSize: (settings = { }) ->

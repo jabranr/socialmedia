@@ -29,15 +29,35 @@ Socialmedia.Facebook = (function() {
     this.debug = settings.debug || false;
     this.autogrow = settings.autogrow || true;
     this.callback = settings.callback || function() {};
+
+    /* Support Parse */
+    this.parse = false;
+    this.parseId = settings.parseId || '';
+    this.parseKey = settings.parseKey || '';
     this.init();
     return this;
   }
 
   Facebook.prototype.init = function() {
-    var that;
+    var parseCallback, src, that;
     that = this;
+
+    /* Load Parse SDK if required and initialize Parse */
+    if (this.parseId !== '' && this.parseKey !== '') {
+      Socialmedia.LoadSDK('parse-jssdk', Socialmedia.SDK.parse);
+      parseCallback = function() {
+        Parse.initialize(that.parseId, that.parseKey);
+        that.parse = true;
+      };
+      if (typeof Parse === "undefined" || Parse === null) {
+        setTimeout(parseCallback, 100);
+      } else {
+        parseCallback;
+      }
+    }
     window.fbAsyncInit = function() {
-      FB.init({
+      var opts;
+      opts = {
         appId: that.appid,
         status: that.status,
         channelUrl: that.channel,
@@ -45,7 +65,12 @@ Socialmedia.Facebook = (function() {
         xfbml: that.xfbml,
         version: that.version,
         frictionlessRequests: that.requests
-      });
+      };
+      if (that.parse && (typeof Parse !== "undefined" && Parse !== null)) {
+        Parse.FacebookUtils.init(opts);
+      } else {
+        FB.init(opts);
+      }
 
       /* Setup FB SDK script source */
       that.fbsdk = document.getElementById('facebook-jssdk');
@@ -76,33 +101,22 @@ Socialmedia.Facebook = (function() {
     }
 
     /* Load the Facebook JavaScript SDK */
-    return (function(doc, dev, tag, id, ver) {
-      var fbdiv, ref, sdk;
-      if (doc.getElementById(id)) {
-        return;
-      }
-      sdk = doc.createElement(tag);
-      sdk.id = id;
-      sdk.async = true;
-      if (dev) {
-        if (ver === 'v1.0') {
-          sdk.src = Socialmedia.SDK.facebook_debug;
-        } else {
-          sdk.src = Socialmedia.SDK.facebook_debugv2;
-        }
+    if (that.debug) {
+      if (that.version === 'v1.0') {
+        src = Socialmedia.SDK.facebook_debug;
       } else {
-        if (ver === 'v1.0') {
-          sdk.src = Socialmedia.SDK.facebook;
-        } else {
-          sdk.src = Socialmedia.SDK.facebookv2;
-        }
+        src = Socialmedia.SDK.facebook_debugv2;
       }
-      fbdiv = doc.createElement('div');
-      fbdiv.id = 'fb-root';
-      ref = doc.getElementsByTagName(tag)[0];
-      ref.parentNode.insertBefore(fbdiv, ref);
-      ref.parentNode.insertBefore(sdk, ref);
-    })(document, that.debug, 'script', 'facebook-jssdk', that.version);
+    } else {
+      if (that.version === 'v1.0') {
+        src = Socialmedia.SDK.facebook;
+      } else {
+        src = Socialmedia.SDK.facebookv2;
+      }
+    }
+
+    /* Load Facebook SDK */
+    return Socialmedia.LoadSDK('facebook-jssdk', src);
   };
 
 

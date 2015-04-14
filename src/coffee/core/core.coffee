@@ -19,7 +19,7 @@
 	Socialmedia =
 
 		### Version ###
-		version: "1.7.6",
+		version: "1.8.6",
 
 		### Setup SDK sources ###
 		SDK:
@@ -30,6 +30,8 @@
 			twitter: defaultProtocol + '//platform.twitter.com/widgets.js'
 			googleplus: defaultProtocol + '//apis.google.com/js/platform.js'
 			pinterest: defaultProtocol + '//assets.pinterest.com/js/pinit.js'
+			parse_debug: defaultProtocol + '//www.parsecdn.com/js/parse-1.4.2.js'
+			parse: defaultProtocol + '//www.parsecdn.com/js/parse-1.4.2.min.js'
 
 		### Default popup method ###
 		Popup: (url = 'about:blank', settings = {}) ->
@@ -48,6 +50,23 @@
 					s += ",#{this.features.join ','}"
 			_popup = window.open url, '_w_' + new Date().getUTCMilliseconds(), options.getFeatures()
 			if _popup then _popup.focus();
+
+		### Global method to load required SDK ###
+		LoadSDK: (id, src) ->
+			return if document.getElementById id
+			sdk = document.createElement 'script'
+			sdk.id = id
+			sdk.async = true
+			sdk.src = src
+
+			ref = document.getElementsByTagName('script')[0]
+			ref.parentNode.insertBefore sdk, ref
+
+			if  id == 'facebook-jssdk'
+				div = document.createElement 'div'
+				div.id = 'fb-root'
+				ref.parentNode.insertBefore div, ref
+			return
 
 	Socialmedia
 

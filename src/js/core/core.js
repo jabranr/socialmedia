@@ -36,7 +36,7 @@
   Socialmedia = {
 
     /* Version */
-    version: "1.7.6",
+    version: "1.8.6",
 
     /* Setup SDK sources */
     SDK: {
@@ -46,7 +46,9 @@
       facebook_debugv2: defaultProtocol + '//connect.facebook.net/en_US/sdk/debug.js',
       twitter: defaultProtocol + '//platform.twitter.com/widgets.js',
       googleplus: defaultProtocol + '//apis.google.com/js/platform.js',
-      pinterest: defaultProtocol + '//assets.pinterest.com/js/pinit.js'
+      pinterest: defaultProtocol + '//assets.pinterest.com/js/pinit.js',
+      parse_debug: defaultProtocol + '//www.parsecdn.com/js/parse-1.4.2.js',
+      parse: defaultProtocol + '//www.parsecdn.com/js/parse-1.4.2.min.js'
     },
 
     /* Default popup method */
@@ -73,6 +75,25 @@
       _popup = window.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getFeatures());
       if (_popup) {
         return _popup.focus();
+      }
+    },
+
+    /* Global method to load required SDK */
+    LoadSDK: function(id, src) {
+      var div, ref, sdk;
+      if (document.getElementById(id)) {
+        return;
+      }
+      sdk = document.createElement('script');
+      sdk.id = id;
+      sdk.async = true;
+      sdk.src = src;
+      ref = document.getElementsByTagName('script')[0];
+      ref.parentNode.insertBefore(sdk, ref);
+      if (id === 'facebook-jssdk') {
+        div = document.createElement('div');
+        div.id = 'fb-root';
+        ref.parentNode.insertBefore(div, ref);
       }
     }
   };

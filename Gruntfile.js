@@ -2,6 +2,9 @@ module.exports = function(grunt)	{
 
 	'use strict';
 
+	require('time-grunt')(grunt);
+	require('load-grunt-tasks')(grunt);
+
 	grunt.initConfig({
 
 		pkg: grunt.file.readJSON('package.json'),
@@ -113,15 +116,16 @@ module.exports = function(grunt)	{
 				options: {
 					spawn: false
 				}
+			},
+
+			config: {
+				files: ['./Gruntfile.js', './package.json', './bower.json'],
+				options: {
+					spawn: false
+				}
 			}
 		}
 	});
-
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-coffee');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	grunt.registerTask(
 		'default', [

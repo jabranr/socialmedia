@@ -216,6 +216,41 @@ describe('Socialmedia', function()	{
 					expect(typeof fb.callback).to.equal('function');
 				});
 			});
+
+			describe('Parse', function() {
+				it('should set to default if no Parse app ID given', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '1234567890'
+					});
+					expect(fb.parse).to.equal(false);
+					expect(fb.parseId).to.equal('');
+				});
+
+				it('should set to default if no Parse JavaScript Key given', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '1234567890'
+					});
+					expect(fb.parse).to.equal(false);
+					expect(fb.parseKey).to.equal('');
+				});
+
+				it('should set to default if either Parse app ID or JavaScript Key missing', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '1234567890',
+						parseId: '1234567890'
+					});
+					expect(fb.parse).to.equal(false);
+				});
+
+				it('should support Parse if Parse app ID and JavaScript Key given', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '1234567890',
+						parseId: '1234567890',
+						parseKey: '1234567890',
+					});
+					expect(fb.parse).to.equal(true);
+				});
+			});
 		});
 
 	});
