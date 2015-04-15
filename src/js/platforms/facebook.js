@@ -31,29 +31,20 @@ Socialmedia.Facebook = (function() {
     this.callback = settings.callback || function() {};
 
     /* Support Parse */
-    this.parse = false;
-    this.parseId = settings.parseId || '';
-    this.parseKey = settings.parseKey || '';
+    this.parseId = settings.parseId || null;
+    this.parseKey = settings.parseKey || null;
+    this.parse = this.parseId && this.parseKey;
     this.init();
     return this;
   }
 
   Facebook.prototype.init = function() {
-    var parseCallback, src, that;
+    var src, that;
     that = this;
 
     /* Load Parse SDK if required and initialize Parse */
-    if (this.parseId !== '' && this.parseKey !== '') {
-      Socialmedia.LoadSDK('parse-jssdk', Socialmedia.SDK.parse);
-      parseCallback = function() {
-        Parse.initialize(that.parseId, that.parseKey);
-        that.parse = true;
-      };
-      if (typeof Parse === "undefined" || Parse === null) {
-        setTimeout(parseCallback, 100);
-      } else {
-        parseCallback;
-      }
+    if (that.parse) {
+      Parse.initialize(that.parseId, that.parseKey);
     }
     window.fbAsyncInit = function() {
       var opts;

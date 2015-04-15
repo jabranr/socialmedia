@@ -47,8 +47,6 @@
       twitter: defaultProtocol + '//platform.twitter.com/widgets.js',
       googleplus: defaultProtocol + '//apis.google.com/js/platform.js',
       pinterest: defaultProtocol + '//assets.pinterest.com/js/pinit.js',
-      parse_debug: defaultProtocol + '//www.parsecdn.com/js/parse-1.4.2.js',
-      parse: defaultProtocol + '//www.parsecdn.com/js/parse-1.4.2.min.js'
     },
 
     /* Default popup method */

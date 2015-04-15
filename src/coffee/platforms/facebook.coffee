@@ -23,9 +23,9 @@ class Socialmedia.Facebook
 		@callback	= settings.callback		or ->
 
 		### Support Parse ###
-		@parse		= false
-		@parseId	= settings.parseId		or ''
-		@parseKey	= settings.parseKey		or ''
+		@parseId	= settings.parseId		or null
+		@parseKey	= settings.parseKey		or null
+		@parse		= @parseId and @parseKey
 
 		@init()
 		return @
@@ -34,17 +34,8 @@ class Socialmedia.Facebook
 		that = @
 
 		### Load Parse SDK if required and initialize Parse ###
-		if @.parseId != '' and @.parseKey != ''
-			Socialmedia.LoadSDK 'parse-jssdk', Socialmedia.SDK.parse
-			parseCallback = ->
-				Parse.initialize that.parseId, that.parseKey
-				that.parse = true
-				return
-
-			if !Parse?
-				setTimeout parseCallback, 100
-			else
-				parseCallback
+		if that.parse
+			Parse.initialize that.parseId, that.parseKey
 
 		window.fbAsyncInit = ->
 			opts =
