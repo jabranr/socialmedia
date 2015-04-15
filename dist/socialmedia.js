@@ -14,23 +14,8 @@
 })(this, (function() {
   'use strict';
 
-  /* Array indexOf support for IE8- */
-  var Socialmedia, defaultProtocol;
-  if (typeof Array.prototype.indexOf === "undefined") {
-    Array.prototype.indexOf = function(item) {
-      var i;
-      i = 0;
-      while (i < this.length) {
-        if (this[i] === item) {
-          return i;
-        }
-        i++;
-      }
-      return -1;
-    };
-  }
-
   /* Setup current or default protocol */
+  var Socialmedia, defaultProtocol;
   defaultProtocol = window.location.protocol === 'file:' ? 'http:' : window.location.protocol;
 
   /* Global object with unique identifier */
@@ -48,6 +33,8 @@
       twitter: defaultProtocol + '//platform.twitter.com/widgets.js',
       googleplus: defaultProtocol + '//apis.google.com/js/platform.js',
       pinterest: defaultProtocol + '//assets.pinterest.com/js/pinit.js',
+      parse_debug: defaultProtocol + '//www.parsecdn.com/js/parse-1.4.2.js',
+      parse: defaultProtocol + '//www.parsecdn.com/js/parse-1.4.2.min.js'
     },
 
     /* Default popup method */

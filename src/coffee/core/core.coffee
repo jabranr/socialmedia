@@ -2,16 +2,6 @@
 
 	'use strict';
 
-	### Array indexOf support for IE8- ###
-	if typeof Array::indexOf is "undefined"
-	  Array::indexOf = (item) ->
-	    i = 0
-
-	    while i < @.length
-	      return i  if @[i] is item
-	      i++
-	    -1
-
 	### Setup current or default protocol ###
 	defaultProtocol = if window.location.protocol is 'file:' then 'http:' else window.location.protocol
 
