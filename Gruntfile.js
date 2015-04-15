@@ -17,11 +17,11 @@ module.exports = function(grunt)	{
 					dev: {
 						basedir: 'src',
 						coffee: {
-							core: 'src/coffee/core',
+							core: 'src/coffee',
 							platforms: 'src/coffee/platforms'
 						},
 						js: {
-							core: 'src/js/core',
+							core: 'src/js',
 							platforms: 'src/js/platforms'
 						}
 					}
@@ -57,7 +57,7 @@ module.exports = function(grunt)	{
 			},
 			dist: {
 				src: [
-					'<%= project.path.to.dev.js.core %>/core.js',
+					'<%= project.path.to.dev.js.core %>/main.js',
 					'<%= project.path.to.dev.js.platforms %>/*.js'
 				],
 				dest: '<%= project.path.to.dist %><%= pkg.name %>.js'

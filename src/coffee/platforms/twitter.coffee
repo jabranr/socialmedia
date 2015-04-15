@@ -1,52 +1,55 @@
-### Twitter object ###
-class Socialmedia.Twitter
-	constructor: ->
-		@init()
-		return @
+!do (root = @, Socialmedia) ->
 
-	### Twitter init method ###
-	init: ->
-		that = @
-		Socialmedia.LoadSDK 'twitter-wjs', Socialmedia.SDK.twitter
+	### Twitter object ###
+	class Socialmedia.Twitter
+		constructor: ->
+			@init()
+			return @
 
-	### Twitter share link method ###
-	Tweet: (options = { }) ->
-		intentShareUrl = '//twitter.com/intent/tweet?'
-		data = if options.tweet then "text=#{encodeURIComponent options.tweet}" else "text=#{encodeURIComponent document.title} "
-		data += if options.hashtag then "&hashtags=#{encodeURIComponent options.hashtag.replace '/#/', ''} " else ''
-		data += if options.recommend then "&related=#{encodeURIComponent options.recommend.replace '/@/', ''} " else ''
-		data += if options.via then "&via=#{encodeURIComponent options.via.replace '/@/', ''} " else ''
-		data += if options.link then "&url=#{encodeURIComponent options.link} " else "&url=#{encodeURIComponent window.location.href} "
-		Socialmedia.Popup.apply @, [intentShareUrl + data]
+		### Twitter init method ###
+		init: ->
+			that = @
+			Socialmedia.LoadSDK 'twitter-wjs', Socialmedia.SDK.twitter
 
-	### Twitter Follow method ###
-	Follow: (username = 'socialmedia_js') ->
-		username.replace /@/, ''
-		intentFollowUrl = '//twitter.com/intent/follow?'
-		Socialmedia.Popup.apply @, [intentFollowUrl + "screen_name=#{username}",
-				width: 700
-				height: 485
-			]
+		### Twitter share link method ###
+		Tweet: (options = { }) ->
+			intentShareUrl = '//twitter.com/intent/tweet?'
+			data = if options.tweet then "text=#{encodeURIComponent options.tweet}" else "text=#{encodeURIComponent document.title} "
+			data += if options.hashtag then "&hashtags=#{encodeURIComponent options.hashtag.replace '/#/', ''} " else ''
+			data += if options.recommend then "&related=#{encodeURIComponent options.recommend.replace '/@/', ''} " else ''
+			data += if options.via then "&via=#{encodeURIComponent options.via.replace '/@/', ''} " else ''
+			data += if options.link then "&url=#{encodeURIComponent options.link} " else "&url=#{encodeURIComponent root.location.href} "
+			Socialmedia.Popup.apply @, [intentShareUrl + data]
 
-	###
-	# Twitter Mention method
-	# Supports multiple recommendations separated by commas
-	###
-	Mention: (options = { }) ->
-		intentMentionUrl = '//twitter.com/intent/tweet?'
-		data = options.username and "screen_name=#{encodeURIComponent options.username.replace /@/, ''}" or ''
-		data += options.recommend and "&related=#{encodeURIComponent options.recommend.replace /@/, ''}" or ''
-		data += options.tweet and "&text=#{encodeURIComponent options.tweet}" or ''
-		Socialmedia.Popup.apply @, [intentMentionUrl + data]
+		### Twitter Follow method ###
+		Follow: (username = 'socialmedia_js') ->
+			username.replace /@/, ''
+			intentFollowUrl = '//twitter.com/intent/follow?'
+			Socialmedia.Popup.apply @, [intentFollowUrl + "screen_name=#{username}",
+					width: 700
+					height: 485
+				]
 
-	###
-	# Twitter Hashtag method
-	# Supports multiple recommendations separated by commas
-	###
-	Hashtag: (options = { }) ->
-		intentHashtagUrl = '//twitter.com/intent/tweet?'
-		data = options.hashtag and "button_hashtag=#{encodeURIComponent options.hashtag.replace /#/, ''}" or ''
-		data += options.recommend and "&related=#{encodeURIComponent options.recommend.replace /@/, ''}" or ''
-		data += options.tweet and "&text=#{encodeURIComponent options.tweet}" or ''
-		data += options.link and "&url=#{encodeURIComponent options.link}" or ''
-		Socialmedia.Popup.apply @, [intentHashtagUrl + data]
+		###
+		# Twitter Mention method
+		# Supports multiple recommendations separated by commas
+		###
+		Mention: (options = { }) ->
+			intentMentionUrl = '//twitter.com/intent/tweet?'
+			data = options.username and "screen_name=#{encodeURIComponent options.username.replace /@/, ''}" or ''
+			data += options.recommend and "&related=#{encodeURIComponent options.recommend.replace /@/, ''}" or ''
+			data += options.tweet and "&text=#{encodeURIComponent options.tweet}" or ''
+			Socialmedia.Popup.apply @, [intentMentionUrl + data]
+
+		###
+		# Twitter Hashtag method
+		# Supports multiple recommendations separated by commas
+		###
+		Hashtag: (options = { }) ->
+			intentHashtagUrl = '//twitter.com/intent/tweet?'
+			data = options.hashtag and "button_hashtag=#{encodeURIComponent options.hashtag.replace /#/, ''}" or ''
+			data += options.recommend and "&related=#{encodeURIComponent options.recommend.replace /@/, ''}" or ''
+			data += options.tweet and "&text=#{encodeURIComponent options.tweet}" or ''
+			data += options.link and "&url=#{encodeURIComponent options.link}" or ''
+			Socialmedia.Popup.apply @, [intentHashtagUrl + data]
+	return

@@ -1,260 +1,263 @@
-### Facebook object ###
+!do (root = @, Socialmedia) ->
 
-class Socialmedia.Facebook
-	### Constructor method ###
-	constructor: (settings = { })->
+	### Facebook object ###
 
-		### Throw error if app id is not provided ###
-		throw new TypeError 'Facebook app ID is required' unless settings.appid?
+	class Socialmedia.Facebook
+		### Constructor method ###
+		constructor: (settings = { })->
 
-		### Throw error if app id is not a string ###
-		throw new TypeError 'Facebook app ID must be a string' unless typeof settings.appid is 'string'
+			### Throw error if app id is not provided ###
+			throw new TypeError 'Facebook app ID is required' unless settings.appid?
 
-		### Setup default variables ###
-		@appid		= settings.appid
-		@status		= settings.status		or false
-		@channel	= settings.channel		or ''
-		@xfbml		= settings.xfbml		or true
-		@cookie		= settings.cookie		or true
-		@requests	= settings.requests		or false
-		@version	= settings.version		or 'v2.3'
-		@debug		= settings.debug		or false
-		@autogrow 	= settings.autogrow 	or true
-		@callback	= settings.callback		or ->
+			### Throw error if app id is not a string ###
+			throw new TypeError 'Facebook app ID must be a string' unless typeof settings.appid is 'string'
 
-		### Support Parse ###
-		@parseId	= settings.parseId		or null
-		@parseKey	= settings.parseKey		or null
-		@parse		= @parseId and @parseKey
+			### Setup default Parse options ###
+			@parseId	= settings.parseId		or null
+			@parseKey	= settings.parseKey		or null
+			@parse		= @parseId? and @parseKey?
 
-		@init()
-		return @
+			### Setup default options ###
+			@appid		= settings.appid
+			@status		= settings.status		or false
+			@channel	= settings.channel		or ''
+			@xfbml		= settings.xfbml		or !@parse
+			@cookie		= settings.cookie		or true
+			@requests	= settings.requests		or false
+			@version	= settings.version		or 'v2.3'
+			@debug		= settings.debug		or false
+			@autogrow 	= settings.autogrow 	or !@parse
+			@callback	= settings.callback		or ->
 
-	init: ->
-		that = @
+			@init()
+			return @
 
-		### Load Parse SDK if required and initialize Parse ###
-		if that.parse
-			Parse.initialize that.parseId, that.parseKey
+		init: ->
+			that = @
 
-		window.fbAsyncInit = ->
-			opts =
-				appId: that.appid
-				status: that.status
-				channelUrl: that.channel
-				cookie: that.cookie
-				xfbml: that.xfbml
-				version: that.version
-				frictionlessRequests: that.requests
+			### Load Parse SDK if required and initialize Parse ###
+			if that.parse
+				Parse.initialize that.parseId, that.parseKey
 
-			if that.parse and Parse?
-				Parse.FacebookUtils.init opts
+			root.fbAsyncInit = ->
+				opts =
+					appId: that.appid
+					status: that.status
+					channelUrl: that.channel
+					cookie: that.cookie
+					xfbml: that.xfbml
+					version: that.version
+					frictionlessRequests: that.requests
+
+				if that.parse and Parse?
+					Parse.FacebookUtils.init opts
+				else
+					FB.init opts
+
+				### Setup FB SDK script source ###
+				that.fbsdk = document.getElementById 'facebook-jssdk'
+
+
+				### Append app_id to fbsdk source ###
+				if that.fbsdk? && !that.parse
+					that.fbsdk.src += '#xfbml=1&appId=' + that.appid
+
+				### Facebook canvas autogrow function ###
+				FB.Canvas.setAutoGrow that.autogrow
+
+				### Async callback function ###
+				if that.callback?
+					FB.getLoginStatus that.callback
+					return
+
+
+			### Move the auto-generated fb-root DOM element to appropriate position ###
+			if addEventListener?
+				root.addEventListener 'load', ->
+					document.body.appendChild document.getElementById 'fb-root'
+					return
+
+			else if attachEvent?
+				root.attachEvent 'onload', ->
+					document.body.appendChild document.getElementById 'fb-root'
+					return
+
+			### Load the Facebook JavaScript SDK ###
+			if that.debug
+				if that.version is 'v1.0'
+					src = Socialmedia.SDK.facebook_debug
+				else
+					src = Socialmedia.SDK.facebook_debugv2
 			else
-				FB.init opts
+				if that.version is 'v1.0'
+					src = Socialmedia.SDK.facebook
+				else
+					src = Socialmedia.SDK.facebookv2
 
-			### Setup FB SDK script source ###
-			that.fbsdk = document.getElementById 'facebook-jssdk'
+			### Load Facebook SDK ###
+			Socialmedia.LoadSDK 'facebook-jssdk', src
 
+		### Facebook canvas setsize function ###
+		setSize: (settings = { }) ->
+			if settings.width? or settings.height?
+				FB.Canvas.setSize
+					width	: parseInt(settings.width)	or 810
+					height	: parseInt(settings.height)	or 800
+			else FB.Canvas.setSize()
 
-			### Append app_id to fbsdk source ###
-			if that.fbsdk?
-				that.fbsdk.src += '#xfbml=1&appId=' + that.appid
+		### Facebook canvas scroll function ###
+		scroll: (settings = { }) ->
+			x = settings.x or 0
+			y = settings.y or 0
+			if x and y then FB.Canvas.scrollTo x, y
 
-			### Facebook canvas autogrow function ###
-			FB.Canvas.setAutoGrow that.autogrow
+		### Facebook share function ###
+		Share: (@shareOptions = { }) ->
 
-			### Async callback function ###
-			if that.callback?
-				FB.getLoginStatus that.callback
-				return
+			###
+			# Default options
+			#
+			# method: 'share'
+			# href: Absolute URL
+			# callback: Function
+			###
 
+			@shareOptions.method = 'share'
+			@shareOptions.callback ?= (response) ->
 
-		### Move the auto-generated fb-root DOM element to appropriate position ###
-		if addEventListener?
-			window.addEventListener 'load', ->
-				document.body.appendChild document.getElementById 'fb-root'
-				return
+			throw new TypeError 'href attribute is missing' unless @shareOptions.href?
 
-		else if attachEvent?
-			window.attachEvent 'onload', ->
-				document.body.appendChild document.getElementById 'fb-root'
-				return
+			that = @
+			FB.ui @shareOptions, (response) ->
+				if response?
+					that.shareOptions.callback?.call this, response
 
-		### Load the Facebook JavaScript SDK ###
-		if that.debug
-			if that.version is 'v1.0'
-				src = Socialmedia.SDK.facebook_debug
-			else
-				src = Socialmedia.SDK.facebook_debugv2
-		else
-			if that.version is 'v1.0'
-				src = Socialmedia.SDK.facebook
-			else
-				src = Socialmedia.SDK.facebookv2
+		### Facebook share_open_graph function ###
+		ShareOpenGraph: (@shareOptions = { }) ->
 
-		### Load Facebook SDK ###
-		Socialmedia.LoadSDK 'facebook-jssdk', src
+			###
+			# Default options
+			#
+			# method: 'share_open_graph'
+			# action_type: String Open Graph action type e.g. og.likes
+			# action_properties: Object key/value pair. e.g. object: {URL}
+			# callback: Function
+			###
 
-	### Facebook canvas setsize function ###
-	setSize: (settings = { }) ->
-		if settings.width? or settings.height?
-			FB.Canvas.setSize
-				width	: parseInt(settings.width)	or 810
-				height	: parseInt(settings.height)	or 800
-		else FB.Canvas.setSize()
+			throw new TypeError 'Open Graph action type is missing' unless @shareOptions.action_type?
+			throw new TypeError 'Open Graph action properties is missing' unless @shareOptions.action_properties?
 
-	### Facebook canvas scroll function ###
-	scroll: (settings = { }) ->
-		x = settings.x or 0
-		y = settings.y or 0
-		if x and y then FB.Canvas.scrollTo x, y
+			@shareOptions.method = 'share_open_graph'
+			@shareOptions.callback ?= (response) ->
+			@shareOptions.action_properties = JSON.stringify(@shareOptions.action_properties)
 
-	### Facebook share function ###
-	Share: (@shareOptions = { }) ->
+			that = @
+			FB.ui @shareOptions, (response) ->
+				if response?
+					that.shareOptions.callback?.call this, response
 
-		###
-		# Default options
-		#
-		# method: 'share'
-		# href: Absolute URL
-		# callback: Function
-		###
+		### Facebook share function (Legacy support) ###
+		Feed: (@shareOptions = { }) ->
 
-		@shareOptions.method = 'share'
-		@shareOptions.callback ?= (response) ->
+			###
+			# Default options
+			#
+			# method: 'feed'
+			# name: String (Title)
+			# link: Absolute URL
+			# picture: Absolute URL
+			# caption: String
+			# description: String
+			# callback: Function
+			###
 
-		throw new TypeError 'href attribute is missing' unless @shareOptions.href?
+			throw new TypeError 'name attribute is missing' unless @shareOptions.name?
+			throw new TypeError 'link attribute is missing' unless @shareOptions.link?
 
-		that = @
-		FB.ui @shareOptions, (response) ->
-			if response?
-				that.shareOptions.callback?.call this, response
+			@shareOptions.method = 'feed'
+			@shareOptions.callback ?= (response) ->
 
-	### Facebook share_open_graph function ###
-	ShareOpenGraph: (@shareOptions = { }) ->
+			that = @
+			FB.ui @shareOptions, (response) ->
+				if response?
+					that.shareOptions.callback?.call this, response
 
-		###
-		# Default options
-		#
-		# method: 'share_open_graph'
-		# action_type: String Open Graph action type e.g. og.likes
-		# action_properties: Object key/value pair. e.g. object: {URL}
-		# callback: Function
-		###
+		### Facebook invite function ###
+		Invite: (@inviteOptions = { }) ->
 
-		throw new TypeError 'Open Graph action type is missing' unless @shareOptions.action_type?
-		throw new TypeError 'Open Graph action properties is missing' unless @shareOptions.action_properties?
+			###
+			# Default options
+			#
+			# method: 'apprequests'
+			# title: String (Title)
+			# message: String
+			# to: Array
+			# exclude_ids: Array
+			# max_recipients: Number
+			# data: Object
+			# callback: Function
+			###
 
-		@shareOptions.method = 'share_open_graph'
-		@shareOptions.callback ?= (response) ->
-		@shareOptions.action_properties = JSON.stringify(@shareOptions.action_properties)
+			@inviteOptions.method = 'apprequests'
 
-		that = @
-		FB.ui @shareOptions, (response) ->
-			if response?
-				that.shareOptions.callback?.call this, response
+			that = @
+			FB.ui @inviteOptions, (response) ->
+				if response?
+					that.inviteOptions.callback?.call this, response
 
-	### Facebook share function (Legacy support) ###
-	Feed: (@shareOptions = { }) ->
+		### Facebook add to page tab function ###
+		AddToPage: () ->
+			FB.ui method: 'pagetab', ->
 
-		###
-		# Default options
-		#
-		# method: 'feed'
-		# name: String (Title)
-		# link: Absolute URL
-		# picture: Absolute URL
-		# caption: String
-		# description: String
-		# callback: Function
-		###
+		### Facebook add friend function ###
+		AddFriend: (@friendOptions = { }) ->
 
-		throw new TypeError 'name attribute is missing' unless @shareOptions.name?
-		throw new TypeError 'link attribute is missing' unless @shareOptions.link?
+			###
+			# Default options
+			#
+			# method: 'friends'
+			# id: Facebook ID or username
+			# callback: Function
+			###
 
-		@shareOptions.method = 'feed'
-		@shareOptions.callback ?= (response) ->
+			@friendOptions.method = 'friends'
 
-		that = @
-		FB.ui @shareOptions, (response) ->
-			if response?
-				that.shareOptions.callback?.call this, response
+			that = @
+			FB.ui @friendOptions, (response) ->
+				if response?
+					that.friendOptions.callback?.call this, response
 
-	### Facebook invite function ###
-	Invite: (@inviteOptions = { }) ->
+		### Facebook send function ###
+		Send: (@sendOptions = { }) ->
 
-		###
-		# Default options
-		#
-		# method: 'apprequests'
-		# title: String (Title)
-		# message: String
-		# to: Array
-		# exclude_ids: Array
-		# max_recipients: Number
-		# data: Object
-		# callback: Function
-		###
+			###
+			# Default options
+			#
+			# method: 'send'
+			# link: Absolute URL
+			###
 
-		@inviteOptions.method = 'apprequests'
+			@sendOptions.method = 'send'
 
-		that = @
-		FB.ui @inviteOptions, (response) ->
-			if response?
-				that.inviteOptions.callback?.call this, response
+			FB.ui @sendOptions
 
-	### Facebook add to page tab function ###
-	AddToPage: () ->
-		FB.ui method: 'pagetab', ->
+		### Facebook pay function ###
+		Pay: (@payOptions = { }) ->
 
-	### Facebook add friend function ###
-	AddFriend: (@friendOptions = { }) ->
+			###
+			# Default options
+			#
+			# method: 'pay'
+			# action: 'purchaseitem'
+			# product: Absolute URL
+			# callback: Function
+			###
 
-		###
-		# Default options
-		#
-		# method: 'friends'
-		# id: Facebook ID or username
-		# callback: Function
-		###
+			@payOptions.method = 'pay'
+			@payOptions.action = 'purchaseitem'
 
-		@friendOptions.method = 'friends'
-
-		that = @
-		FB.ui @friendOptions, (response) ->
-			if response?
-				that.friendOptions.callback?.call this, response
-
-	### Facebook send function ###
-	Send: (@sendOptions = { }) ->
-
-		###
-		# Default options
-		#
-		# method: 'send'
-		# link: Absolute URL
-		###
-
-		@sendOptions.method = 'send'
-
-		FB.ui @sendOptions
-
-	### Facebook pay function ###
-	Pay: (@payOptions = { }) ->
-
-		###
-		# Default options
-		#
-		# method: 'pay'
-		# action: 'purchaseitem'
-		# product: Absolute URL
-		# callback: Function
-		###
-
-		@payOptions.method = 'pay'
-		@payOptions.action = 'purchaseitem'
-
-		that = @
-		FB.ui @payOptions, (data) ->
-			if data?
-				that.payOptions? and payOptions.callback?.call this, data
+			that = @
+			FB.ui @payOptions, (data) ->
+				if data?
+					that.payOptions? and payOptions.callback?.call this, data
+	return

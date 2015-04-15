@@ -1,15 +1,23 @@
-! do (root = this, factory = do ->
+! do (root = @, factory = (root) ->
 
 	'use strict';
 
 	### Setup current or default protocol ###
-	defaultProtocol = if window.location.protocol is 'file:' then 'http:' else window.location.protocol
+	defaultProtocol = if root.location and root.location.protocol is 'file:' then 'http:' else ''
 
-	### Global object with unique identifier ###
-	Socialmedia =
+	### Save the reference to previous owner ###
+	haveSocialmedia = root.Socialmedia
 
-		### Version ###
-		version: "1.8.6",
+	### Locally scoped object literal ###
+	app =
+
+		### noConflict to return the reference to previous owner ###
+		noConflict: ->
+			root.Socialmedia = haveSocialmedia
+			return @
+
+		### Current stable version. Keep it in sync with package.json ###
+		VERSION: "1.8.6",
 
 		### Setup SDK sources ###
 		SDK:
@@ -35,10 +43,10 @@
 				]
 				getFeatures: ->
 					s = "width=#{this.width},height=#{this.height}"
-					s += ",left=#{(window.outerWidth / 2) - (this.width / 2)}"
-					s += ",top=#{(window.outerHeight / 2) - (this.height / 2)}"
+					s += ",left=#{(root.outerWidth / 2) - (this.width / 2)}"
+					s += ",top=#{(root.outerHeight / 2) - (this.height / 2)}"
 					s += ",#{this.features.join ','}"
-			_popup = window.open url, '_w_' + new Date().getUTCMilliseconds(), options.getFeatures()
+			_popup = root.open url, '_w_' + new Date().getUTCMilliseconds(), options.getFeatures()
 			if _popup then _popup.focus();
 
 		### Global method to load required SDK ###
@@ -58,20 +66,22 @@
 				ref.parentNode.insertBefore div, ref
 			return
 
-	Socialmedia
+	# Return app
+	app
 
 	)->
-		### Setup modular support ###
-		if typeof define is 'function' and typeof define.amd is 'object' and define.amd
-			define ['Socialmedia'], factory
+		### Setup AMD global ###
+		if typeof define is 'function' and define.amd
+			define ['Socialmedia'], ->
+				root.Socialmedia = factory root
+				return
 
-		else if typeof module isnt 'undefined' and typeof exports is 'object'
-			module.exports = factory
+		else if typeof exports isnt 'undefined'
+			### Setup Node.js, Common.js global ###
+			factory root
 
 		else
-			window.Socialmedia ?= factory
+			### Setup browser global ###
+			root.Socialmedia = factory root
 
 		return
-
-
-### Global init method ###

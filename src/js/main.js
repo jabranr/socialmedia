@@ -1,27 +1,40 @@
 !(function(root, factory) {
 
-  /* Setup modular support */
-  if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
-    define(['Socialmedia'], factory);
-  } else if (typeof module !== 'undefined' && typeof exports === 'object') {
-    module.exports = factory;
+  /* Setup AMD global */
+  if (typeof define === 'function' && define.amd) {
+    define(['Socialmedia'], function() {
+      root.Socialmedia = factory(root);
+    });
+  } else if (typeof exports !== 'undefined') {
+
+    /* Setup Node.js, Common.js global */
+    factory(root);
   } else {
-    if (window.Socialmedia == null) {
-      window.Socialmedia = factory;
-    }
+
+    /* Setup browser global */
+    root.Socialmedia = factory(root);
   }
-})(this, (function() {
+})(this, function(root) {
   'use strict';
 
   /* Setup current or default protocol */
-  var Socialmedia, defaultProtocol;
-  defaultProtocol = window.location.protocol === 'file:' ? 'http:' : window.location.protocol;
+  var app, defaultProtocol, haveSocialmedia;
+  defaultProtocol = root.location && root.location.protocol === 'file:' ? 'http:' : '';
 
-  /* Global object with unique identifier */
-  Socialmedia = {
+  /* Save the reference to previous owner */
+  haveSocialmedia = root.Socialmedia;
 
-    /* Version */
-    version: "1.8.6",
+  /* Locally scoped object literal */
+  app = {
+
+    /* noConflict to return the reference to previous owner */
+    noConflict: function() {
+      root.Socialmedia = haveSocialmedia;
+      return this;
+    },
+
+    /* Current stable version. Keep it in sync with package.json */
+    VERSION: "1.8.6",
 
     /* Setup SDK sources */
     SDK: {
@@ -52,12 +65,12 @@
         getFeatures: function() {
           var s;
           s = "width=" + this.width + ",height=" + this.height;
-          s += ",left=" + ((window.outerWidth / 2) - (this.width / 2));
-          s += ",top=" + ((window.outerHeight / 2) - (this.height / 2));
+          s += ",left=" + ((root.outerWidth / 2) - (this.width / 2));
+          s += ",top=" + ((root.outerHeight / 2) - (this.height / 2));
           return s += "," + (this.features.join(','));
         }
       };
-      _popup = window.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getFeatures());
+      _popup = root.open(url, '_w_' + new Date().getUTCMilliseconds(), options.getFeatures());
       if (_popup) {
         return _popup.focus();
       }
@@ -82,8 +95,5 @@
       }
     }
   };
-  return Socialmedia;
-})());
-
-
-/* Global init method */
+  return app;
+});
