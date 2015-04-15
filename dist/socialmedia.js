@@ -20,7 +20,7 @@
 
   /* Setup current or default protocol */
   var app, defaultProtocol, haveSocialmedia;
-  defaultProtocol = root.location && root.location.protocol === 'file:' ? 'http:' : '';
+  defaultProtocol = root.location && root.location.protocol === 'https:' ? 'https:' : 'http:';
 
   /* Save the reference to previous owner */
   haveSocialmedia = root.Socialmedia;
@@ -146,7 +146,11 @@
 
       /* Load Parse SDK if required and initialize Parse */
       if (that.parse) {
-        Parse.initialize(that.parseId, that.parseKey);
+        if (typeof Parse === "undefined" || Parse === null) {
+          throw new Error('Parse not found');
+        } else {
+          Parse.initialize(that.parseId, that.parseKey);
+        }
       }
       root.fbAsyncInit = function() {
         var opts;

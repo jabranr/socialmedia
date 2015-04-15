@@ -37,7 +37,10 @@
 
 			### Load Parse SDK if required and initialize Parse ###
 			if that.parse
-				Parse.initialize that.parseId, that.parseKey
+				if !Parse?
+					throw new Error 'Parse not found'
+				else
+					Parse.initialize that.parseId, that.parseKey
 
 			root.fbAsyncInit = ->
 				opts =

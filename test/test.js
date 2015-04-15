@@ -12,10 +12,15 @@ else {
 // Global obejct test
 describe('Socialmedia', function()	{
 
+	describe('version', function()	{
+		it('should return current version', function() {
+			expect(Socialmedia.VERSION).to.equal('1.8.6');
+		});
+	});
+
 	describe('constructor', function()	{
 		it('should return an object', function() {
-			var socialmedia = window.Socialmedia;
-			expect(typeof socialmedia).to.equal('object');
+			expect(typeof Socialmedia).to.equal('object');
 		});
 	});
 
@@ -23,7 +28,7 @@ describe('Socialmedia', function()	{
 	describe('Facebook', function()	{
 		describe('constructor', function()	{
 
-			it('should load latest Facebook SDK', function()	{
+			it('should load latest Facebook SDK by default', function()	{
 				(new Socialmedia.Facebook({
 					appid: '1234567890'
 				}));
@@ -223,7 +228,7 @@ describe('Socialmedia', function()	{
 						appid: '1234567890'
 					});
 					expect(fb.parse).to.equal(false);
-					expect(fb.parseId).to.equal('');
+					expect(fb.parseId).to.equal(null);
 				});
 
 				it('should set to default if no Parse JavaScript Key given', function()	{
@@ -231,7 +236,7 @@ describe('Socialmedia', function()	{
 						appid: '1234567890'
 					});
 					expect(fb.parse).to.equal(false);
-					expect(fb.parseKey).to.equal('');
+					expect(fb.parseKey).to.equal(null);
 				});
 
 				it('should set to default if either Parse app ID or JavaScript Key missing', function()	{
@@ -242,13 +247,14 @@ describe('Socialmedia', function()	{
 					expect(fb.parse).to.equal(false);
 				});
 
-				it('should support Parse if Parse app ID and JavaScript Key given', function()	{
-					var fb = new Socialmedia.Facebook({
-						appid: '1234567890',
-						parseId: '1234567890',
-						parseKey: '1234567890',
-					});
-					expect(fb.parse).to.equal(true);
+				it('should throw error if Parse app ID and JavaScript Key given but Parse not found', function()	{
+					expect(function() {
+						(new Socialmedia.Facebook({
+							appid: '1234567890',
+							parseId: '1234567890',
+							parseKey: '1234567890'
+						}))
+					}).to.throw(Error);
 				});
 			});
 		});

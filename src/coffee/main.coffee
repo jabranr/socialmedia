@@ -3,7 +3,7 @@
 	'use strict';
 
 	### Setup current or default protocol ###
-	defaultProtocol = if root.location and root.location.protocol is 'file:' then 'http:' else ''
+	defaultProtocol = if root.location and root.location.protocol is 'https:' then 'https:' else 'http:'
 
 	### Save the reference to previous owner ###
 	haveSocialmedia = root.Socialmedia

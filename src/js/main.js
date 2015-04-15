@@ -19,7 +19,7 @@
 
   /* Setup current or default protocol */
   var app, defaultProtocol, haveSocialmedia;
-  defaultProtocol = root.location && root.location.protocol === 'file:' ? 'http:' : '';
+  defaultProtocol = root.location && root.location.protocol === 'https:' ? 'https:' : 'http:';
 
   /* Save the reference to previous owner */
   haveSocialmedia = root.Socialmedia;
