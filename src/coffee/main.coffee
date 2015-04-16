@@ -71,17 +71,19 @@
 
 	)->
 		### Setup AMD global ###
+		### Setup Node.js, Common.js global ###
+		### Setup browser global ###
 		if typeof define is 'function' and define.amd
-			define ['Socialmedia'], ->
+			define 'Socialmedia', [], ->
 				root.Socialmedia = factory root
 				return
 
 		else if typeof exports isnt 'undefined'
-			### Setup Node.js, Common.js global ###
-			factory root
+			if typeof module isnt 'undefined' and module.exports
+				exports = module.exports = factory root
+			exports = factory root
 
 		else
-			### Setup browser global ###
 			root.Socialmedia = factory root
 
 		return

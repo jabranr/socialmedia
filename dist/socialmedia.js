@@ -2,17 +2,21 @@
 !(function(root, factory) {
 
   /* Setup AMD global */
+
+  /* Setup Node.js, Common.js global */
+
+  /* Setup browser global */
+  var exports;
   if (typeof define === 'function' && define.amd) {
-    define(['Socialmedia'], function() {
+    define('Socialmedia', [], function() {
       root.Socialmedia = factory(root);
     });
   } else if (typeof exports !== 'undefined') {
-
-    /* Setup Node.js, Common.js global */
-    factory(root);
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = factory(root);
+    }
+    exports = factory(root);
   } else {
-
-    /* Setup browser global */
     root.Socialmedia = factory(root);
   }
 })(this, function(root) {
