@@ -47,7 +47,7 @@
       facebookv2: defaultProtocol + '//connect.facebook.net/en_US/sdk.js',
       facebook_debugv2: defaultProtocol + '//connect.facebook.net/en_US/sdk/debug.js',
       twitter: defaultProtocol + '//platform.twitter.com/widgets.js',
-      googleplus: defaultProtocol + '//apis.google.com/js/platform.js',
+      googleplus: defaultProtocol + '//apis.google.com/js/client:platform.js',
       pinterest: defaultProtocol + '//assets.pinterest.com/js/pinit.js',
       parse_debug: defaultProtocol + '//www.parsecdn.com/js/parse-1.4.2.js',
       parse: defaultProtocol + '//www.parsecdn.com/js/parse-1.4.2.min.js'
