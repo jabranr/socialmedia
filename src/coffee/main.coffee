@@ -55,14 +55,15 @@
 			sdk = document.createElement 'script'
 			sdk.id = id
 			sdk.async = true
+			sdk.defer = true
 			sdk.src = src
 
 			ref = document.getElementsByTagName('script')[0]
 			ref.parentNode.insertBefore sdk, ref
 
-			if  id == 'facebook-jssdk'
+			if  id == 'facebook-jssdk' or 'gplus-jssdk'
 				div = document.createElement 'div'
-				div.id = 'fb-root'
+				div.id = if id is 'facebook-jssdk' then 'fb-root' else 'gplus-root'
 				ref.parentNode.insertBefore div, ref
 			return
 

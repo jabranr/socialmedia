@@ -2,7 +2,13 @@
 
   /* Google+ object */
   Socialmedia.GooglePlus = (function() {
-    function GooglePlus() {
+    function GooglePlus(settings) {
+      if (settings == null) {
+        settings = {};
+      }
+      this.clientid = settings.appid || null;
+      this.cookiepolicy = settings.cookiepolicy || 'single_host_origin';
+      this.callback = settings.callback || function() {};
       this.init();
       return this;
     }
@@ -13,7 +19,40 @@
     GooglePlus.prototype.init = function() {
       var that;
       that = this;
-      return Socialmedia.LoadSDK('gplus-jssdk', Socialmedia.SDK.googleplus);
+      root.___gcfg = {
+        lang: 'en-US',
+        parsetags: 'onload'
+      };
+      root.gplusCallback = function() {
+        return root.gapi.auth.checkSessionState({
+          clientid: that.clientid,
+          session_state: null
+        }, that.callback);
+      };
+      if (that.clientid) {
+        return Socialmedia.LoadSDK('gplus-jssdk', Socialmedia.SDK.googleplus + '?onload=gplusCallback');
+      } else {
+        return Socialmedia.LoadSDK('gplus-jssdk', Socialmedia.SDK.googleplus);
+      }
+    };
+
+
+    /* Sign in with Google */
+
+    GooglePlus.prototype.SignIn = function(callback) {
+      var that;
+      if (callback == null) {
+        callback = function() {};
+      }
+      if (root.gapi == null) {
+        return false;
+      }
+      that = this;
+      return root.gapi.auth.signIn({
+        clientid: that.clientid,
+        cookiepolicy: that.cookiepolicy,
+        callback: callback
+      });
     };
 
 
