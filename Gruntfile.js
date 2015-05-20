@@ -93,11 +93,7 @@ module.exports = function(grunt)	{
 					'<%= project.path.to.dev.coffee.core %>/*.coffee',
 					'<%= project.path.to.dev.coffee.platforms %>/*.coffee',
 				],
-				tasks: [
-					'coffee',
-					'concat',
-					'uglify'
-				],
+				tasks: ['coffee', 'concat'],
 				options: {
 					spawn: false
 				}
@@ -109,10 +105,7 @@ module.exports = function(grunt)	{
 					'<%= project.path.to.dev.js.core %>/*.js',
 					'<%= project.path.to.dev.js.platforms %>/*.js',
 				],
-				tasks: [
-					'concat',
-					'uglify'
-				],
+				tasks: ['concat'],
 				options: {
 					spawn: false
 				}
@@ -128,11 +121,10 @@ module.exports = function(grunt)	{
 	});
 
 	grunt.registerTask(
-		'default', [
-			'coffee',
-			'concat',
-			'uglify',
-			'watch'
-		]
+		'default', ['watch']
+	);
+
+	grunt.registerTask(
+		'build', ['coffee', 'concat', 'uglify']
 	);
 };
