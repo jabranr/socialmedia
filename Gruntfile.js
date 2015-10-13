@@ -120,11 +120,9 @@ module.exports = function(grunt)	{
 		}
 	});
 
-	grunt.registerTask(
-		'default', ['watch']
-	);
+	// Default watch task
+	grunt.registerTask('default', ['watch']);
 
-	grunt.registerTask(
-		'build', ['coffee', 'concat', 'uglify']
-	);
+	// Build task
+	grunt.registerTask('build', ['coffee', 'concat', 'uglify']);
 };

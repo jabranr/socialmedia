@@ -1,25 +1,15 @@
-/*! socialmedia | v1.8.6 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
-!(function(root, factory) {
-
-  /* Setup AMD global */
+/*! socialmedia | v1.7.7 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
+!(function(root, doc, factory) {
 
   /* Setup Node.js, Common.js global */
 
   /* Setup browser global */
-  var exports;
-  if (typeof define === 'function' && define.amd) {
-    define('Socialmedia', [], function() {
-      root.Socialmedia = factory(root);
-    });
-  } else if (typeof exports !== 'undefined') {
-    if (typeof module !== 'undefined' && module.exports) {
-      exports = module.exports = factory(root);
-    }
-    exports = factory(root);
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory(root, doc);
   } else {
-    root.Socialmedia = factory(root);
+    root.Socialmedia = factory(root, doc);
   }
-})(this, function(root) {
+})(this, document, function(root, doc) {
   'use strict';
 
   /* Setup current or default protocol */
@@ -39,7 +29,10 @@
     },
 
     /* Current stable version. Keep it in sync with package.json */
-    VERSION: "1.8.6",
+    VERSION: "1.7.7",
+
+    /* Current Facebook Graph API version. */
+    GRAPH_API_VERSION: "v2.5",
 
     /* Setup SDK sources */
     SDK: {
@@ -84,18 +77,18 @@
     /* Global method to load required SDK */
     LoadSDK: function(id, src) {
       var div, ref, sdk;
-      if (document.getElementById(id)) {
+      if (doc.getElementById(id)) {
         return;
       }
-      sdk = document.createElement('script');
+      sdk = doc.createElement('script');
       sdk.id = id;
       sdk.async = true;
       sdk.defer = true;
       sdk.src = src;
-      ref = document.getElementsByTagName('script')[0];
+      ref = doc.getElementsByTagName('script')[0];
       ref.parentNode.insertBefore(sdk, ref);
       if (id === 'facebook-jssdk' || 'gplus-jssdk') {
-        div = document.createElement('div');
+        div = doc.createElement('div');
         div.id = id === 'facebook-jssdk' ? 'fb-root' : 'gplus-root';
         ref.parentNode.insertBefore(div, ref);
       }
@@ -104,10 +97,19 @@
   return app;
 });
 
-!(function(root, Socialmedia) {
+!(function(root, doc, factory) {
+
+  /* Add to global object */
+  root.Socialmedia.Facebook = factory(root, doc);
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory(root, doc);
+  }
+})(this, document, function(root, doc) {
+  'use strict';
 
   /* Facebook object */
-  Socialmedia.Facebook = (function() {
+  var Facebook;
+  Facebook = (function() {
 
     /* Constructor method */
     function Facebook(settings) {
@@ -137,7 +139,7 @@
       this.xfbml = settings.xfbml || !this.parse;
       this.cookie = settings.cookie || true;
       this.requests = settings.requests || false;
-      this.version = settings.version || 'v2.3';
+      this.version = settings.version || Socialmedia.GRAPH_API_VERSION;
       this.debug = settings.debug || false;
       this.autogrow = settings.autogrow || !this.parse;
       this.callback = settings.callback || function() {};
@@ -175,7 +177,7 @@
         }
 
         /* Setup FB SDK script source */
-        that.fbsdk = document.getElementById('facebook-jssdk');
+        that.fbsdk = document.getElementById('facebook-js, docsdk');
 
         /* Append app_id to fbsdk source */
         if ((that.fbsdk != null) && !that.parse) {
@@ -194,11 +196,11 @@
       /* Move the auto-generated fb-root DOM element to appropriate position */
       if (typeof addEventListener !== "undefined" && addEventListener !== null) {
         root.addEventListener('load', function() {
-          document.body.appendChild(document.getElementById('fb-root'));
+          document.body.appendChild(document.getElementById('fb-r, docoot'));
         });
       } else if (typeof attachEvent !== "undefined" && attachEvent !== null) {
         root.attachEvent('onload', function() {
-          document.body.appendChild(document.getElementById('fb-root'));
+          document.body.appendChild(document.getElementById('fb-r, docoot'));
         });
       }
 
@@ -462,19 +464,37 @@
     return Facebook;
 
   })();
-})(this, Socialmedia);
+  return Facebook;
+});
 
-!(function(root, Socialmedia) {
+!(function(root, doc, factory) {
+
+  /* Add to global object */
+  root.Socialmedia.GooglePlus = factory(root, doc);
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory(root, doc);
+  }
+})(this, document, function(root, doc) {
+  'use strict';
 
   /* Google+ object */
-  Socialmedia.GooglePlus = (function() {
+  var GooglePlus;
+  GooglePlus = (function() {
     function GooglePlus(settings) {
       if (settings == null) {
         settings = {};
       }
-      this.clientid = settings.appid || null;
+      this.client_id = settings.appid || settings.client_id || null;
       this.cookiepolicy = settings.cookiepolicy || 'single_host_origin';
+      this.scope = settings.scope || 'https://www.googleapis.com/auth/plus.login';
       this.callback = settings.callback || function() {};
+
+      /* Throw error if client_id / appid is not a string */
+      if (this.client_id !== null) {
+        if (typeof this.client_id !== 'string') {
+          throw new TypeError('Google client_id/appid must be a string');
+        }
+      }
       this.init();
       return this;
     }
@@ -489,13 +509,19 @@
         lang: 'en-US',
         parsetags: 'onload'
       };
-      root.gplusCallback = function() {
-        return root.gapi.auth.checkSessionState({
-          clientid: that.clientid,
-          session_state: null
+      root.gplusCallback = function(authResponse) {
+
+        /* Throw error if client_id is not provided */
+        if (that.client_id == null) {
+          throw new TypeError('Google app/client ID is required');
+        }
+        return root.gapi.auth.authorize({
+          client_id: that.client_id,
+          scope: that.scope,
+          immediate: true
         }, that.callback);
       };
-      if (that.clientid) {
+      if (that.client_id) {
         return Socialmedia.LoadSDK('gplus-jssdk', Socialmedia.SDK.googleplus + '?onload=gplusCallback');
       } else {
         return Socialmedia.LoadSDK('gplus-jssdk', Socialmedia.SDK.googleplus);
@@ -510,15 +536,14 @@
       if (callback == null) {
         callback = function() {};
       }
-      if (root.gapi == null) {
-        return false;
+      if (!root.gapi || !this.client_id) {
+        throw TypeError('Requires Client/App ID');
       }
       that = this;
-      return root.gapi.auth.signIn({
-        clientid: that.clientid,
-        cookiepolicy: that.cookiepolicy,
-        callback: callback
-      });
+      root.gapi.auth.authorize({
+        client_id: that.client_id,
+        scope: that.scope
+      }, that.callback);
     };
 
 
@@ -538,12 +563,22 @@
     return GooglePlus;
 
   })();
-})(this, Socialmedia);
+  return GooglePlus;
+});
 
-!(function(root, Socialmedia) {
+!(function(root, doc, factory) {
+
+  /* Add to global object */
+  root.Socialmedia.Pinterest = factory(root, doc);
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory(root, doc);
+  }
+})(this, document, function(root, doc) {
+  'use strict';
 
   /* Pinterest object */
-  Socialmedia.Pinterest = (function() {
+  var Pinterest;
+  Pinterest = (function() {
     function Pinterest() {
       this.init();
       return this;
@@ -569,7 +604,7 @@
       platformUrl = '//pinterest.com/pin/create/button/?';
       data = (options.link != null) && ("url=" + (encodeURIComponent(options.link))) || ("url=" + (encodeURIComponent(root.location.href)));
       data += (options.image != null) && ("&media=" + (encodeURIComponent(options.image))) || "";
-      data += (options.description != null) && ("&description=" + (encodeURIComponent(options.description))) || ("&description=" + (encodeURIComponent(document.title)));
+      data += (options.description != null) && ("&description=" + (encodeURIComponent(options.description))) || ("&description=" + (encodeURIComponent(doc.title)));
       return Socialmedia.Popup.apply(this, [
         platformUrl + data, {
           width: 765,
@@ -581,12 +616,22 @@
     return Pinterest;
 
   })();
-})(this, Socialmedia);
+  return Pinterest;
+});
 
-!(function(root, Socialmedia) {
+!(function(root, doc, factory) {
+
+  /* Add to global object */
+  root.Socialmedia.Twitter = factory(root, doc);
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory(root, doc);
+  }
+})(this, document, function(root, doc) {
+  'use strict';
 
   /* Twitter object */
-  Socialmedia.Twitter = (function() {
+  var Twitter;
+  Twitter = (function() {
     function Twitter() {
       this.init();
       return this;
@@ -610,7 +655,7 @@
         options = {};
       }
       intentShareUrl = '//twitter.com/intent/tweet?';
-      data = options.tweet ? "text=" + (encodeURIComponent(options.tweet)) : "text=" + (encodeURIComponent(document.title)) + " ";
+      data = options.tweet ? "text=" + (encodeURIComponent(options.tweet)) : "text=" + (encodeURIComponent(doc.title)) + " ";
       data += options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag.replace('/#/', ''))) + " " : '';
       data += options.recommend ? "&related=" + (encodeURIComponent(options.recommend.replace('/@/', ''))) + " " : '';
       data += options.via ? "&via=" + (encodeURIComponent(options.via.replace('/@/', ''))) + " " : '';
@@ -676,4 +721,5 @@
     return Twitter;
 
   })();
-})(this, Socialmedia);
+  return Twitter;
+});

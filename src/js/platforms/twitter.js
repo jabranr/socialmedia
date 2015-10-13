@@ -1,7 +1,16 @@
-!(function(root, Socialmedia) {
+!(function(root, doc, factory) {
+
+  /* Add to global object */
+  root.Socialmedia.Twitter = factory(root, doc);
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory(root, doc);
+  }
+})(this, document, function(root, doc) {
+  'use strict';
 
   /* Twitter object */
-  Socialmedia.Twitter = (function() {
+  var Twitter;
+  Twitter = (function() {
     function Twitter() {
       this.init();
       return this;
@@ -25,7 +34,7 @@
         options = {};
       }
       intentShareUrl = '//twitter.com/intent/tweet?';
-      data = options.tweet ? "text=" + (encodeURIComponent(options.tweet)) : "text=" + (encodeURIComponent(document.title)) + " ";
+      data = options.tweet ? "text=" + (encodeURIComponent(options.tweet)) : "text=" + (encodeURIComponent(doc.title)) + " ";
       data += options.hashtag ? "&hashtags=" + (encodeURIComponent(options.hashtag.replace('/#/', ''))) + " " : '';
       data += options.recommend ? "&related=" + (encodeURIComponent(options.recommend.replace('/@/', ''))) + " " : '';
       data += options.via ? "&via=" + (encodeURIComponent(options.via.replace('/@/', ''))) + " " : '';
@@ -91,4 +100,5 @@
     return Twitter;
 
   })();
-})(this, Socialmedia);
+  return Twitter;
+});

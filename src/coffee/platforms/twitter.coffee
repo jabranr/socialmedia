@@ -1,7 +1,9 @@
-!do (root = @, Socialmedia) ->
+! do (root = @, doc = document, factory = (root, doc) ->
+
+	'use strict';
 
 	### Twitter object ###
-	class Socialmedia.Twitter
+	class Twitter
 		constructor: ->
 			@init()
 			return @
@@ -14,7 +16,7 @@
 		### Twitter share link method ###
 		Tweet: (options = { }) ->
 			intentShareUrl = '//twitter.com/intent/tweet?'
-			data = if options.tweet then "text=#{encodeURIComponent options.tweet}" else "text=#{encodeURIComponent document.title} "
+			data = if options.tweet then "text=#{encodeURIComponent options.tweet}" else "text=#{encodeURIComponent doc.title} "
 			data += if options.hashtag then "&hashtags=#{encodeURIComponent options.hashtag.replace '/#/', ''} " else ''
 			data += if options.recommend then "&related=#{encodeURIComponent options.recommend.replace '/@/', ''} " else ''
 			data += if options.via then "&via=#{encodeURIComponent options.via.replace '/@/', ''} " else ''
@@ -52,4 +54,16 @@
 			data += options.tweet and "&text=#{encodeURIComponent options.tweet}" or ''
 			data += options.link and "&url=#{encodeURIComponent options.link}" or ''
 			Socialmedia.Popup.apply @, [intentHashtagUrl + data]
-	return
+
+	# Return Twitter
+	Twitter
+
+	)->
+		### Add to global object ###
+		root.Socialmedia.Twitter = factory root, doc
+
+		if typeof module isnt 'undefined' and module.exports
+			module.exports = factory root, doc
+
+		return
+

@@ -1,14 +1,31 @@
-!(function(root, Socialmedia) {
+!(function(root, doc, factory) {
+
+  /* Add to global object */
+  root.Socialmedia.GooglePlus = factory(root, doc);
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory(root, doc);
+  }
+})(this, document, function(root, doc) {
+  'use strict';
 
   /* Google+ object */
-  Socialmedia.GooglePlus = (function() {
+  var GooglePlus;
+  GooglePlus = (function() {
     function GooglePlus(settings) {
       if (settings == null) {
         settings = {};
       }
-      this.clientid = settings.appid || null;
+      this.client_id = settings.appid || settings.client_id || null;
       this.cookiepolicy = settings.cookiepolicy || 'single_host_origin';
+      this.scope = settings.scope || 'https://www.googleapis.com/auth/plus.login';
       this.callback = settings.callback || function() {};
+
+      /* Throw error if client_id / appid is not a string */
+      if (this.client_id !== null) {
+        if (typeof this.client_id !== 'string') {
+          throw new TypeError('Google client_id/appid must be a string');
+        }
+      }
       this.init();
       return this;
     }
@@ -23,13 +40,19 @@
         lang: 'en-US',
         parsetags: 'onload'
       };
-      root.gplusCallback = function() {
-        return root.gapi.auth.checkSessionState({
-          clientid: that.clientid,
-          session_state: null
+      root.gplusCallback = function(authResponse) {
+
+        /* Throw error if client_id is not provided */
+        if (that.client_id == null) {
+          throw new TypeError('Google app/client ID is required');
+        }
+        return root.gapi.auth.authorize({
+          client_id: that.client_id,
+          scope: that.scope,
+          immediate: true
         }, that.callback);
       };
-      if (that.clientid) {
+      if (that.client_id) {
         return Socialmedia.LoadSDK('gplus-jssdk', Socialmedia.SDK.googleplus + '?onload=gplusCallback');
       } else {
         return Socialmedia.LoadSDK('gplus-jssdk', Socialmedia.SDK.googleplus);
@@ -44,15 +67,14 @@
       if (callback == null) {
         callback = function() {};
       }
-      if (root.gapi == null) {
-        return false;
+      if (!root.gapi || !this.client_id) {
+        throw TypeError('Requires Client/App ID');
       }
       that = this;
-      return root.gapi.auth.signIn({
-        clientid: that.clientid,
-        cookiepolicy: that.cookiepolicy,
-        callback: callback
-      });
+      root.gapi.auth.authorize({
+        client_id: that.client_id,
+        scope: that.scope
+      }, that.callback);
     };
 
 
@@ -72,4 +94,5 @@
     return GooglePlus;
 
   })();
-})(this, Socialmedia);
+  return GooglePlus;
+});

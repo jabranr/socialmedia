@@ -1,7 +1,16 @@
-!(function(root, Socialmedia) {
+!(function(root, doc, factory) {
+
+  /* Add to global object */
+  root.Socialmedia.Facebook = factory(root, doc);
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory(root, doc);
+  }
+})(this, document, function(root, doc) {
+  'use strict';
 
   /* Facebook object */
-  Socialmedia.Facebook = (function() {
+  var Facebook;
+  Facebook = (function() {
 
     /* Constructor method */
     function Facebook(settings) {
@@ -31,7 +40,7 @@
       this.xfbml = settings.xfbml || !this.parse;
       this.cookie = settings.cookie || true;
       this.requests = settings.requests || false;
-      this.version = settings.version || 'v2.3';
+      this.version = settings.version || Socialmedia.GRAPH_API_VERSION;
       this.debug = settings.debug || false;
       this.autogrow = settings.autogrow || !this.parse;
       this.callback = settings.callback || function() {};
@@ -69,7 +78,7 @@
         }
 
         /* Setup FB SDK script source */
-        that.fbsdk = document.getElementById('facebook-jssdk');
+        that.fbsdk = document.getElementById('facebook-js, docsdk');
 
         /* Append app_id to fbsdk source */
         if ((that.fbsdk != null) && !that.parse) {
@@ -88,11 +97,11 @@
       /* Move the auto-generated fb-root DOM element to appropriate position */
       if (typeof addEventListener !== "undefined" && addEventListener !== null) {
         root.addEventListener('load', function() {
-          document.body.appendChild(document.getElementById('fb-root'));
+          document.body.appendChild(document.getElementById('fb-r, docoot'));
         });
       } else if (typeof attachEvent !== "undefined" && attachEvent !== null) {
         root.attachEvent('onload', function() {
-          document.body.appendChild(document.getElementById('fb-root'));
+          document.body.appendChild(document.getElementById('fb-r, docoot'));
         });
       }
 
@@ -356,4 +365,5 @@
     return Facebook;
 
   })();
-})(this, Socialmedia);
+  return Facebook;
+});

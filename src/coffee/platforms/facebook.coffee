@@ -1,8 +1,9 @@
-!do (root = @, Socialmedia) ->
+! do (root = @, doc = document, factory = (root, doc) ->
+
+	'use strict';
 
 	### Facebook object ###
-
-	class Socialmedia.Facebook
+	class Facebook
 		### Constructor method ###
 		constructor: (settings = { })->
 
@@ -24,7 +25,7 @@
 			@xfbml		= settings.xfbml		or !@parse
 			@cookie		= settings.cookie		or true
 			@requests	= settings.requests		or false
-			@version	= settings.version		or 'v2.3'
+			@version	= settings.version		or Socialmedia.GRAPH_API_VERSION
 			@debug		= settings.debug		or false
 			@autogrow 	= settings.autogrow 	or !@parse
 			@callback	= settings.callback		or ->
@@ -58,7 +59,7 @@
 					FB.init opts
 
 				### Setup FB SDK script source ###
-				that.fbsdk = document.getElementById 'facebook-jssdk'
+				that.fbsdk = document.getElementById 'facebook-js, docsdk'
 
 
 				### Append app_id to fbsdk source ###
@@ -77,12 +78,12 @@
 			### Move the auto-generated fb-root DOM element to appropriate position ###
 			if addEventListener?
 				root.addEventListener 'load', ->
-					document.body.appendChild document.getElementById 'fb-root'
+					document.body.appendChild document.getElementById 'fb-r, docoot'
 					return
 
 			else if attachEvent?
 				root.attachEvent 'onload', ->
-					document.body.appendChild document.getElementById 'fb-root'
+					document.body.appendChild document.getElementById 'fb-r, docoot'
 					return
 
 			### Load the Facebook JavaScript SDK ###
@@ -263,4 +264,15 @@
 			FB.ui @payOptions, (data) ->
 				if data?
 					that.payOptions? and payOptions.callback?.call this, data
-	return
+
+	# Return Facebook
+	Facebook
+
+	)->
+		### Add to global object ###
+		root.Socialmedia.Facebook = factory root, doc
+
+		if typeof module isnt 'undefined' and module.exports
+			module.exports = factory root, doc
+
+		return

@@ -1,4 +1,4 @@
-! do (root = @, factory = (root) ->
+! do (root = @, doc = document, factory = (root, doc) ->
 
 	'use strict';
 
@@ -17,7 +17,10 @@
 			return @
 
 		### Current stable version. Keep it in sync with package.json ###
-		VERSION: "1.8.6",
+		VERSION: "1.7.7",
+
+		### Current Facebook Graph API version. ###
+		GRAPH_API_VERSION: "v2.5",
 
 		### Setup SDK sources ###
 		SDK:
@@ -51,18 +54,18 @@
 
 		### Global method to load required SDK ###
 		LoadSDK: (id, src) ->
-			return if document.getElementById id
-			sdk = document.createElement 'script'
+			return if doc.getElementById id
+			sdk = doc.createElement 'script'
 			sdk.id = id
 			sdk.async = true
 			sdk.defer = true
 			sdk.src = src
 
-			ref = document.getElementsByTagName('script')[0]
+			ref = doc.getElementsByTagName('script')[0]
 			ref.parentNode.insertBefore sdk, ref
 
 			if  id == 'facebook-jssdk' or 'gplus-jssdk'
-				div = document.createElement 'div'
+				div = doc.createElement 'div'
 				div.id = if id is 'facebook-jssdk' then 'fb-root' else 'gplus-root'
 				ref.parentNode.insertBefore div, ref
 			return
@@ -71,20 +74,10 @@
 	app
 
 	)->
-		### Setup AMD global ###
-		### Setup Node.js, Common.js global ###
+		### Setup Node.js, Common.js global ###
 		### Setup browser global ###
-		if typeof define is 'function' and define.amd
-			define 'Socialmedia', [], ->
-				root.Socialmedia = factory root
-				return
-
-		else if typeof exports isnt 'undefined'
-			if typeof module isnt 'undefined' and module.exports
-				exports = module.exports = factory root
-			exports = factory root
-
+		if typeof module isnt 'undefined' and module.exports
+			module.exports = factory root, doc
 		else
-			root.Socialmedia = factory root
-
+			root.Socialmedia = factory root, doc
 		return

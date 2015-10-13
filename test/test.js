@@ -12,13 +12,19 @@ else {
 // Global obejct test
 describe('Socialmedia', function()	{
 
-	describe('version', function()	{
+	describe('Socialmedia version', function()	{
 		it('should return current version', function() {
-			expect(Socialmedia.VERSION).to.equal('1.8.6');
+			expect(Socialmedia.VERSION).to.equal('1.7.7');
 		});
 	});
 
-	describe('constructor', function()	{
+	describe('Facebook Graph API version', function()	{
+		it('should return latest Facebook Graph API version', function() {
+			expect(Socialmedia.GRAPH_API_VERSION).to.equal('v2.5');
+		});
+	});
+
+	describe('Setup Socialmedia', function()	{
 		it('should return an object', function() {
 			expect(typeof Socialmedia).to.equal('object');
 		});
@@ -67,7 +73,7 @@ describe('Socialmedia', function()	{
 					var fb = new Socialmedia.Facebook({
 						appid: '1234567890'
 					});
-					expect(fb.version).to.equal('v2.3');
+					expect(fb.version).to.equal(Socialmedia.GRAPH_API_VERSION);
 				});
 
 				it('should set Facebook SDK version if provided', function()	{
@@ -282,7 +288,27 @@ describe('Socialmedia', function()	{
 				var gplusSDK = document.getElementById('gplus-jssdk');
 				expect(gplusSDK.src).to.equal(Socialmedia.SDK.googleplus);
 			});
+
+			describe('App/Client ID', function()	{
+				it('should throw error if not a string', function()	{
+					expect(function() {
+						new Socialmedia.GooglePlus({
+							client_id: 12321312
+						})
+					}).to.throw(TypeError);
+				});
+			});
 		});
+
+		describe('Sign in with Google API', function()	{
+			it('should throw error if no client_id', function()	{
+				var gplus = new Socialmedia.GooglePlus();
+				expect(function() {
+					gplus.SignIn()
+				}).to.throw(TypeError);
+			});
+		});
+
 	});
 
 

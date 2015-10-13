@@ -1,24 +1,14 @@
-!(function(root, factory) {
-
-  /* Setup AMD global */
+!(function(root, doc, factory) {
 
   /* Setup Node.js, Common.js global */
 
   /* Setup browser global */
-  var exports;
-  if (typeof define === 'function' && define.amd) {
-    define('Socialmedia', [], function() {
-      root.Socialmedia = factory(root);
-    });
-  } else if (typeof exports !== 'undefined') {
-    if (typeof module !== 'undefined' && module.exports) {
-      exports = module.exports = factory(root);
-    }
-    exports = factory(root);
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory(root, doc);
   } else {
-    root.Socialmedia = factory(root);
+    root.Socialmedia = factory(root, doc);
   }
-})(this, function(root) {
+})(this, document, function(root, doc) {
   'use strict';
 
   /* Setup current or default protocol */
@@ -38,7 +28,10 @@
     },
 
     /* Current stable version. Keep it in sync with package.json */
-    VERSION: "1.8.6",
+    VERSION: "1.7.7",
+
+    /* Current Facebook Graph API version. */
+    GRAPH_API_VERSION: "v2.5",
 
     /* Setup SDK sources */
     SDK: {
@@ -83,18 +76,18 @@
     /* Global method to load required SDK */
     LoadSDK: function(id, src) {
       var div, ref, sdk;
-      if (document.getElementById(id)) {
+      if (doc.getElementById(id)) {
         return;
       }
-      sdk = document.createElement('script');
+      sdk = doc.createElement('script');
       sdk.id = id;
       sdk.async = true;
       sdk.defer = true;
       sdk.src = src;
-      ref = document.getElementsByTagName('script')[0];
+      ref = doc.getElementsByTagName('script')[0];
       ref.parentNode.insertBefore(sdk, ref);
       if (id === 'facebook-jssdk' || 'gplus-jssdk') {
-        div = document.createElement('div');
+        div = doc.createElement('div');
         div.id = id === 'facebook-jssdk' ? 'fb-root' : 'gplus-root';
         ref.parentNode.insertBefore(div, ref);
       }
