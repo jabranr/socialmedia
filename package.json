@@ -1,22 +1,24 @@
 {
   "name": "socialmedia",
   "author": "Jabran Rafique <hello@jabran.me>",
-  "version": "1.7.6",
+  "version": "1.7.7",
   "license": "MIT License",
   "repo": "https://github.com/jabranr/Socialmedia.js",
   "scripts": {
     "test": "make test"
   },
   "devDependencies": {
+    "chai": "~1.9.1",
     "grunt": "~0.4.4",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-coffee": "~0.10.1",
     "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-uglify": "~0.4.0",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-contrib-coffee": "~0.10.1",
-    "grunt-contrib-jshint": "~0.10.0",
+    "load-grunt-tasks": "^3.1.0",
     "mocha": "~1.21.4",
-    "chai": "~1.9.1",
-    "grunt-cli": "~0.1.13"
+    "time-grunt": "^1.1.0"
   },
   "dependencies": {
     "phantomjs": "~1.9.7-15",

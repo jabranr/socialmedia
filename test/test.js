@@ -12,10 +12,21 @@ else {
 // Global obejct test
 describe('Socialmedia', function()	{
 
-	describe('constructor', function()	{
+	describe('Socialmedia version', function()	{
+		it('should return current version', function() {
+			expect(Socialmedia.VERSION).to.equal('1.7.7');
+		});
+	});
+
+	describe('Facebook Graph API version', function()	{
+		it('should return latest Facebook Graph API version', function() {
+			expect(Socialmedia.GRAPH_API_VERSION).to.equal('v2.5');
+		});
+	});
+
+	describe('Setup Socialmedia', function()	{
 		it('should return an object', function() {
-			var socialmedia = window.Socialmedia;
-			expect(typeof socialmedia).to.equal('object');
+			expect(typeof Socialmedia).to.equal('object');
 		});
 	});
 
@@ -23,7 +34,7 @@ describe('Socialmedia', function()	{
 	describe('Facebook', function()	{
 		describe('constructor', function()	{
 
-			it('should load latest Facebook SDK', function()	{
+			it('should load latest Facebook SDK by default', function()	{
 				(new Socialmedia.Facebook({
 					appid: '1234567890'
 				}));
@@ -36,7 +47,7 @@ describe('Socialmedia', function()	{
 				it('should throw error if no Facebook app ID', function()	{
 					expect(function()	{
 						(new Socialmedia.Facebook());
-					}).to.throw(Error);
+					}).to.throw(TypeError);
 				});
 
 				it('should throw error if Facebook app ID is not a string', function()	{
@@ -44,7 +55,7 @@ describe('Socialmedia', function()	{
 						new Socialmedia.Facebook({
 							appid: 1234567890
 						});
-					}).to.throw(Error);
+					}).to.throw(TypeError);
 				});
 
 				it('should set Facebook app id if provided', function()	{
@@ -62,7 +73,7 @@ describe('Socialmedia', function()	{
 					var fb = new Socialmedia.Facebook({
 						appid: '1234567890'
 					});
-					expect(fb.version).to.equal('v2.3');
+					expect(fb.version).to.equal(Socialmedia.GRAPH_API_VERSION);
 				});
 
 				it('should set Facebook SDK version if provided', function()	{
@@ -216,6 +227,42 @@ describe('Socialmedia', function()	{
 					expect(typeof fb.callback).to.equal('function');
 				});
 			});
+
+			describe('Parse', function() {
+				it('should set to default if no Parse app ID given', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '1234567890'
+					});
+					expect(fb.parse).to.equal(false);
+					expect(fb.parseId).to.equal(null);
+				});
+
+				it('should set to default if no Parse JavaScript Key given', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '1234567890'
+					});
+					expect(fb.parse).to.equal(false);
+					expect(fb.parseKey).to.equal(null);
+				});
+
+				it('should set to default if either Parse app ID or JavaScript Key missing', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '1234567890',
+						parseId: '1234567890'
+					});
+					expect(fb.parse).to.equal(false);
+				});
+
+				it('should throw error if Parse app ID and JavaScript Key given but Parse not found', function()	{
+					expect(function() {
+						(new Socialmedia.Facebook({
+							appid: '1234567890',
+							parseId: '1234567890',
+							parseKey: '1234567890'
+						}))
+					}).to.throw(Error);
+				});
+			});
 		});
 
 	});
@@ -241,7 +288,27 @@ describe('Socialmedia', function()	{
 				var gplusSDK = document.getElementById('gplus-jssdk');
 				expect(gplusSDK.src).to.equal(Socialmedia.SDK.googleplus);
 			});
+
+			describe('App/Client ID', function()	{
+				it('should throw error if not a string', function()	{
+					expect(function() {
+						new Socialmedia.GooglePlus({
+							client_id: 12321312
+						})
+					}).to.throw(TypeError);
+				});
+			});
 		});
+
+		describe('Sign in with Google API', function()	{
+			it('should throw error if no client_id', function()	{
+				var gplus = new Socialmedia.GooglePlus();
+				expect(function() {
+					gplus.SignIn()
+				}).to.throw(TypeError);
+			});
+		});
+
 	});
 
 

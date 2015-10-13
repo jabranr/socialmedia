@@ -2,6 +2,9 @@ module.exports = function(grunt)	{
 
 	'use strict';
 
+	require('time-grunt')(grunt);
+	require('load-grunt-tasks')(grunt);
+
 	grunt.initConfig({
 
 		pkg: grunt.file.readJSON('package.json'),
@@ -14,11 +17,11 @@ module.exports = function(grunt)	{
 					dev: {
 						basedir: 'src',
 						coffee: {
-							core: 'src/coffee/core',
+							core: 'src/coffee',
 							platforms: 'src/coffee/platforms'
 						},
 						js: {
-							core: 'src/js/core',
+							core: 'src/js',
 							platforms: 'src/js/platforms'
 						}
 					}
@@ -54,7 +57,7 @@ module.exports = function(grunt)	{
 			},
 			dist: {
 				src: [
-					'<%= project.path.to.dev.js.core %>/core.js',
+					'<%= project.path.to.dev.js.core %>/main.js',
 					'<%= project.path.to.dev.js.platforms %>/*.js'
 				],
 				dest: '<%= project.path.to.dist %><%= pkg.name %>.js'
@@ -90,11 +93,7 @@ module.exports = function(grunt)	{
 					'<%= project.path.to.dev.coffee.core %>/*.coffee',
 					'<%= project.path.to.dev.coffee.platforms %>/*.coffee',
 				],
-				tasks: [
-					'coffee',
-					'concat',
-					'uglify'
-				],
+				tasks: ['coffee', 'concat'],
 				options: {
 					spawn: false
 				}
@@ -106,10 +105,14 @@ module.exports = function(grunt)	{
 					'<%= project.path.to.dev.js.core %>/*.js',
 					'<%= project.path.to.dev.js.platforms %>/*.js',
 				],
-				tasks: [
-					'concat',
-					'uglify'
-				],
+				tasks: ['concat'],
+				options: {
+					spawn: false
+				}
+			},
+
+			config: {
+				files: ['./Gruntfile.js', './package.json', './bower.json'],
 				options: {
 					spawn: false
 				}
@@ -117,18 +120,9 @@ module.exports = function(grunt)	{
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-coffee');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
+	// Default watch task
+	grunt.registerTask('default', ['watch']);
 
-	grunt.registerTask(
-		'default', [
-			'coffee',
-			'concat',
-			'uglify',
-			'watch'
-		]
-	);
+	// Build task
+	grunt.registerTask('build', ['coffee', 'concat', 'uglify']);
 };
