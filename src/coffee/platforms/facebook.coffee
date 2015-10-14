@@ -78,12 +78,12 @@
 			### Move the auto-generated fb-root DOM element to appropriate position ###
 			if addEventListener?
 				root.addEventListener 'load', ->
-					doc.body.appendChild doc.getElementById 'fb-r, docoot'
+					doc.body.appendChild doc.getElementById 'fb-root'
 					return
 
 			else if attachEvent?
 				root.attachEvent 'onload', ->
-					doc.body.appendChild doc.getElementById 'fb-r, docoot'
+					doc.body.appendChild doc.getElementById 'fb-root'
 					return
 
 			### Load the Facebook JavaScript SDK ###

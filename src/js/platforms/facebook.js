@@ -97,11 +97,11 @@
       /* Move the auto-generated fb-root DOM element to appropriate position */
       if (typeof addEventListener !== "undefined" && addEventListener !== null) {
         root.addEventListener('load', function() {
-          doc.body.appendChild(doc.getElementById('fb-r, docoot'));
+          doc.body.appendChild(doc.getElementById('fb-root'));
         });
       } else if (typeof attachEvent !== "undefined" && attachEvent !== null) {
         root.attachEvent('onload', function() {
-          doc.body.appendChild(doc.getElementById('fb-r, docoot'));
+          doc.body.appendChild(doc.getElementById('fb-root'));
         });
       }
 
