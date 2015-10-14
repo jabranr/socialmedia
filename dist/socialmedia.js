@@ -177,7 +177,7 @@
         }
 
         /* Setup FB SDK script source */
-        that.fbsdk = document.getElementById('facebook-js, docsdk');
+        that.fbsdk = doc.getElementById('facebook-js, docsdk');
 
         /* Append app_id to fbsdk source */
         if ((that.fbsdk != null) && !that.parse) {
@@ -196,11 +196,11 @@
       /* Move the auto-generated fb-root DOM element to appropriate position */
       if (typeof addEventListener !== "undefined" && addEventListener !== null) {
         root.addEventListener('load', function() {
-          document.body.appendChild(document.getElementById('fb-r, docoot'));
+          doc.body.appendChild(doc.getElementById('fb-r, docoot'));
         });
       } else if (typeof attachEvent !== "undefined" && attachEvent !== null) {
         root.attachEvent('onload', function() {
-          document.body.appendChild(document.getElementById('fb-r, docoot'));
+          doc.body.appendChild(doc.getElementById('fb-r, docoot'));
         });
       }
 

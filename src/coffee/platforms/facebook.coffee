@@ -59,7 +59,7 @@
 					FB.init opts
 
 				### Setup FB SDK script source ###
-				that.fbsdk = document.getElementById 'facebook-js, docsdk'
+				that.fbsdk = doc.getElementById 'facebook-js, docsdk'
 
 
 				### Append app_id to fbsdk source ###
@@ -78,12 +78,12 @@
 			### Move the auto-generated fb-root DOM element to appropriate position ###
 			if addEventListener?
 				root.addEventListener 'load', ->
-					document.body.appendChild document.getElementById 'fb-r, docoot'
+					doc.body.appendChild doc.getElementById 'fb-r, docoot'
 					return
 
 			else if attachEvent?
 				root.attachEvent 'onload', ->
-					document.body.appendChild document.getElementById 'fb-r, docoot'
+					doc.body.appendChild doc.getElementById 'fb-r, docoot'
 					return
 
 			### Load the Facebook JavaScript SDK ###
