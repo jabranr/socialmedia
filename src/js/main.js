@@ -28,7 +28,7 @@
     },
 
     /* Current stable version. Keep it in sync with package.json */
-    VERSION: "1.7.7",
+    VERSION: "1.7.8",
 
     /* Current Facebook Graph API version. */
     GRAPH_API_VERSION: "v2.5",

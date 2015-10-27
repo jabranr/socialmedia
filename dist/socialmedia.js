@@ -1,4 +1,4 @@
-/*! socialmedia | v1.7.7 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
+/*! socialmedia | v1.7.8 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
 !(function(root, doc, factory) {
 
   /* Setup Node.js, Common.js global */
@@ -29,7 +29,7 @@
     },
 
     /* Current stable version. Keep it in sync with package.json */
-    VERSION: "1.7.7",
+    VERSION: "1.7.8",
 
     /* Current Facebook Graph API version. */
     GRAPH_API_VERSION: "v2.5",
@@ -134,6 +134,7 @@
 
       /* Setup default options */
       this.appid = settings.appid;
+      this.locale = settings.locale || 'en_US';
       this.status = settings.status || false;
       this.channel = settings.channel || '';
       this.xfbml = settings.xfbml || !this.parse;
@@ -143,6 +144,11 @@
       this.debug = settings.debug || false;
       this.autogrow = settings.autogrow || !this.parse;
       this.callback = settings.callback || function() {};
+
+      /* Throw error if locale is not a string */
+      if (typeof this.locale !== 'string') {
+        throw new TypeError('Locale must be a ISO string i.e. en_US. More at https://developers.facebook.com/docs/plugins/like-button#language');
+      }
       this.init();
       return this;
     }
@@ -207,15 +213,15 @@
       /* Load the Facebook JavaScript SDK */
       if (that.debug) {
         if (that.version === 'v1.0') {
-          src = Socialmedia.SDK.facebook_debug;
+          src = Socialmedia.SDK.facebook_debug.replace('en_US', that.locale);
         } else {
-          src = Socialmedia.SDK.facebook_debugv2;
+          src = Socialmedia.SDK.facebook_debugv2.replace('en_US', that.locale);
         }
       } else {
         if (that.version === 'v1.0') {
-          src = Socialmedia.SDK.facebook;
+          src = Socialmedia.SDK.facebook.replace('en_US', that.locale);
         } else {
-          src = Socialmedia.SDK.facebookv2;
+          src = Socialmedia.SDK.facebookv2.replace('en_US', that.locale);
         }
       }
 

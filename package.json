@@ -1,7 +1,7 @@
 {
   "name": "socialmedia",
   "author": "Jabran Rafique <hello@jabran.me>",
-  "version": "1.7.7",
+  "version": "1.7.8",
   "license": "MIT License",
   "repo": "https://github.com/jabranr/Socialmedia.js",
   "scripts": {

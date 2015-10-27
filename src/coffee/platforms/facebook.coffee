@@ -20,6 +20,7 @@
 
 			### Setup default options ###
 			@appid		= settings.appid
+			@locale		= settings.locale		or 'en_US'
 			@status		= settings.status		or false
 			@channel	= settings.channel		or ''
 			@xfbml		= settings.xfbml		or !@parse
@@ -29,6 +30,9 @@
 			@debug		= settings.debug		or false
 			@autogrow 	= settings.autogrow 	or !@parse
 			@callback	= settings.callback		or ->
+
+			### Throw error if locale is not a string ###
+			throw new TypeError 'Locale must be a ISO string i.e. en_US. More at https://developers.facebook.com/docs/plugins/like-button#language' unless typeof @locale is 'string'
 
 			@init()
 			return @
@@ -89,14 +93,14 @@
 			### Load the Facebook JavaScript SDK ###
 			if that.debug
 				if that.version is 'v1.0'
-					src = Socialmedia.SDK.facebook_debug
+					src = Socialmedia.SDK.facebook_debug.replace 'en_US', that.locale
 				else
-					src = Socialmedia.SDK.facebook_debugv2
+					src = Socialmedia.SDK.facebook_debugv2.replace 'en_US', that.locale
 			else
 				if that.version is 'v1.0'
-					src = Socialmedia.SDK.facebook
+					src = Socialmedia.SDK.facebook.replace 'en_US', that.locale
 				else
-					src = Socialmedia.SDK.facebookv2
+					src = Socialmedia.SDK.facebookv2.replace 'en_US', that.locale
 
 			### Load Facebook SDK ###
 			Socialmedia.LoadSDK 'facebook-jssdk', src

@@ -67,6 +67,18 @@ describe('Socialmedia', function()	{
 
 			});
 
+			describe('Locale', function()	{
+
+				it('should throw error if locale is not string', function()	{
+					expect(function()	{
+						(new Socialmedia.Facebook({
+							appid: '1234567890',
+							locale: 123
+						}));
+					}).to.throw(TypeError);
+				});
+			});
+
 			describe('SDK Version', function()	{
 
 				it('should set default Facebook SDK version to latest', function()	{
