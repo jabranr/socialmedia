@@ -3,7 +3,7 @@
   "author": "Jabran Rafique <hello@jabran.me>",
   "version": "1.7.8",
   "license": "MIT License",
-  "repo": "https://github.com/jabranr/Socialmedia.js",
+  "repository": "https://github.com/jabranr/socialmedia.js",
   "scripts": {
     "test": "make test"
   },
