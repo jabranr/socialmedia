@@ -1,5 +1,11 @@
-!(function(root, doc, app) {
-  "user strict";
+(function(root) {
+  'use strict';
+
+  if (typeof root.Socialmedia === 'undefined') {
+    throw new Error('Core module not found.');
+  }
+
+  var app = root.Socialmedia;
 
   function GooglePlus(options) {
     var opts = options || {};
@@ -34,15 +40,14 @@
         client_id: self.client_id,
         scope: self.scope,
         immediate: true
-      }, self.callback);
-    }
+      }, self.callback.call(this, authResponse));
+    };
 
     return app.LoadSDK('gplus-jssdk', app.SDK.googleplus + (self.client_id ? '?onload=gplusCallback' : ''));
   };
 
   GooglePlus.prototype.SignIn = function(callback) {
     var self = this;
-    var cb = callback || function() {};
 
     if (!root.gapi || !this.client_id) {
       throw new TypeError('Google client/app id is required.');
@@ -51,7 +56,7 @@
     return root.gapi.auth.authorize({
       client_id: self.client_id,
       scope: self.scope
-    }, self.callback);
+    }, callback);
   };
 
   GooglePlus.prototype.Share = function(options) {
@@ -74,4 +79,4 @@
 
   return app;
 
-})(window, document, Socialmedia);
+})(window);

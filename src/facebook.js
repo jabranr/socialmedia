@@ -1,38 +1,45 @@
-!(function(root, doc, app) {
-  "user strict";
+(function(root) {
+  'use strict';
+
+  if (typeof root.Socialmedia === 'undefined') {
+    throw new Error('Core module not found.');
+  }
+
+  var doc = root.document;
+  var app = root.Socialmedia;
 
   function isArray(obj) {
-    return Object.prototype.toString.call(obj) !== '[object Array]';
+    return Object.prototype.toString.call(obj) === '[object Array]';
   }
 
   function isString(obj) {
-    return Object.prototype.toString.call(obj) !== '[object String]';
+    return Object.prototype.toString.call(obj) === '[object String]';
   }
 
   function isObject(obj) {
-    return Object.prototype.toString.call(obj) !== '[object Object]';
+    return Object.prototype.toString.call(obj) === '[object Object]';
   }
 
   function isFunction(obj) {
-    return Object.prototype.toString.call(obj) !== '[object Function]';
+    return Object.prototype.toString.call(obj) === '[object Function]';
   }
 
   function isNumber(obj) {
-    return Object.prototype.toString.call(obj) !== '[object Number]';
+    return Object.prototype.toString.call(obj) === '[object Number]';
   }
 
   function _fbCallback(options) {
-    if (!isObject(FB)) {
+    if (!isObject(root.FB)) {
       throw new Error('Facebook SDK not ready yet.');
     }
 
     if (!options.callback) {
-      return FB.ui(options);
+      return root.FB.ui(options);
     }
 
     var callback = options.callback;
     delete options.callback;
-    return FB.ui(options, callback);
+    return root.FB.ui(options, callback);
   }
 
   function _repositionFBRoot() {
@@ -46,12 +53,12 @@
     this.locale     =   opts.locale || 'en_US';
     this.status     =   opts.status || false;
     this.channel    =   opts.channel || '';
-    this.xfbml      =   opts.xfbml || false;
+    this.xfbml      =   opts.xfbml || true;
     this.cookie     =   opts.cookie || true;
     this.requests   =   opts.requests || false;
     this.version    =   opts.version || app.GRAPH_API_VERSION;
     this.debug      =   opts.debug || false;
-    this.autogrow   =   opts.autogrow || false;
+    this.autogrow   =   opts.autogrow || true;
     this.callback   =   opts.callback || function() {};
 
     if (!this.appid) {
@@ -75,11 +82,11 @@
     var src;
 
     root.fbAsyncInit = function() {
-      if (!isObject(FB)) {
+      if (!isObject(root.FB)) {
         throw new Error('Facebook SDK not ready yet.');
       }
 
-      FB.init({
+      root.FB.init({
         appId: self.appid,
         status: self.status,
         channelUrl: self.channel,
@@ -95,10 +102,10 @@
         self.fbsdk.src += ('#xfbml=1&appId' + self.appid);
       }
 
-      FB.Canvas.setAutoGrow(self.autogrow);
+      root.FB.Canvas.setAutoGrow(self.autogrow);
 
       if (self.callback && isFunction(self.callback)) {
-        FB.getLoginStatus(self.callback);
+        root.FB.getLoginStatus(self.callback);
       }
     };
 
@@ -109,10 +116,10 @@
     }
 
     if (self.locale !== 'en_US') {
-      app.SDK.facebook_debug = app.SDK.facebook_debug.replace('en_US', that.locale);
-      app.SDK.facebook_debugv2 = app.SDK.facebook_debugv2.replace('en_US', that.locale);
-      app.SDK.facebook = app.SDK.facebook.replace('en_US', that.locale);
-      app.SDK.facebookv2 = app.SDK.facebookv2.replace('en_US', that.locale);
+      app.SDK.facebook_debug = app.SDK.facebook_debug.replace('en_US', self.locale);
+      app.SDK.facebook_debugv2 = app.SDK.facebook_debugv2.replace('en_US', self.locale);
+      app.SDK.facebook = app.SDK.facebook.replace('en_US', self.locale);
+      app.SDK.facebookv2 = app.SDK.facebookv2.replace('en_US', self.locale);
     }
 
     if (self.debug) {
@@ -134,12 +141,12 @@
 
   Facebook.prototype.setSize = function() {
     if (arguments.length > 0 && arguments.length < 3) {
-      return FB.Canvas.setSize({
+      return root.FB.Canvas.setSize({
         width: parseInt(arguments[0]) || 810,
         height: parseInt(arguments[1]) || 800
       });
     } else {
-      return FB.Canvas.setSize();
+      return root.FB.Canvas.setSize();
     }
   };
 
@@ -148,9 +155,9 @@
       var x = parseInt(arguments[0]) || 0;
       var y = parseInt(arguments[1]) || 1;
 
-      return FB.Canvas.scrollTo(x, y);
+      return root.FB.Canvas.scrollTo(x, y);
     } else {
-      return FB.Canvas.scrollTo();
+      return root.FB.Canvas.scrollTo();
     }
   };
 
@@ -178,12 +185,12 @@
     }
 
     if (!opts.action_type || !isString(opts.action_type)) {
-      throw new TypeError('"action_type" option is required.');
+      throw new TypeError('action_type option is required.');
     }
 
     if (opts.action_properties) {
      if (!isObject(opts.action_properties)) {
-        throw new TypeError('"action_properties" must be an object.');
+        throw new TypeError('action_properties must be an object.');
       }
 
       opts.action_properties = JSON.stringify(opts.action_properties);
@@ -201,11 +208,11 @@
     }
 
     if (!opts.name || !isString(opts.name)) {
-      throw new TypeError('"name" option is required.');
+      throw new TypeError('name option is required.');
     }
 
     if (!opts.link || !isString(opts.link)) {
-      throw new TypeError('"link" option is required.');
+      throw new TypeError('link option is required.');
     }
 
     return _fbCallback(opts);
@@ -220,27 +227,27 @@
     }
 
     if (!opts.title || !isString(opts.title)) {
-      throw new TypeError('"title" option is required.');
+      throw new TypeError('title option is required.');
     }
 
     if (opts.message && !isString(opts.message)) {
-      throw new TypeError('"message" option must be a string.');
+      throw new TypeError('message option must be a string.');
     }
 
     if (opts.to && !isArray(opts.to)) {
-      throw new TypeError('"to" option must be an array.');
+      throw new TypeError('to option must be an array.');
     }
 
     if (opts.exclude_ids && !isArray(opts.exclude_ids)) {
-      throw new TypeError('"exclude_ids" option must be an array.');
+      throw new TypeError('exclude_ids option must be an array.');
     }
 
     if (opts.max_recipients && !isNumber(opts.max_recipients)) {
-      throw new TypeError('"max_recipients" option must be an integer.');
+      throw new TypeError('max_recipients option must be an integer.');
     }
 
     if (opts.data && !isObject(opts.data)) {
-      throw new TypeError('"data" option must be an integer.');
+      throw new TypeError('data option must be an integer.');
     }
 
     return _fbCallback(opts);
@@ -268,7 +275,7 @@
     opts.method = 'send';
 
     if (!opts.link || !isString(opts.link)) {
-      throw new TypeError('"link" option is required.');
+      throw new TypeError('link option is required.');
     }
 
     return _fbCallback(opts);
@@ -284,7 +291,7 @@
     }
 
     if (!opts.product || !isString(opts.product)) {
-      throw new TypeError('"product" option is required.');
+      throw new TypeError('product option is required.');
     }
 
     return _fbCallback(opts);
@@ -299,4 +306,4 @@
 
   return app;
 
-})(window, document, Socialmedia);
+})(window);

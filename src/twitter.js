@@ -1,14 +1,21 @@
-!(function(root, doc, app) {
-  "use strict";
+(function(root) {
+  'use strict';
+
+  if (typeof root.Socialmedia === 'undefined') {
+    throw new Error('Core module not found.');
+  }
+
+  var doc = root.document;
+  var app = root.Socialmedia;
 
   function Twitter() {
-    this.init;
+    this.init();
     return this;
   }
 
   Twitter.prototype.init = function() {
     return app.LoadSDK('twitter-wjs', app.SDK.twitter);
-  }
+  };
 
   Twitter.prototype.Tweet = function(options) {
     var opts = options || {};
@@ -34,18 +41,18 @@
     }
 
     return app.Popup.apply(this, [uri + dataArr.join('&')]);
-  }
+  };
 
   Twitter.prototype.Follow = function(username) {
     var uri = '//twitter.com/intent/follow?';
-    var username = username.replace('/@/', '') || 'socialmedia_js';
+    var screen_name = username.replace('/@/', '') || 'socialmedia_js';
     var dialogSize = {
       width: 700,
       height: 485
     };
 
-    return app.Popup.apply(this, [uri + ('screen_name=' + username), dialogSize]);
-  }
+    return app.Popup.apply(this, [uri + ('screen_name=' + screen_name), dialogSize]);
+  };
 
   Twitter.prototype.Mention = function(options) {
     var opts = options || {};
@@ -65,7 +72,7 @@
     }
 
     return app.Popup.apply(this, [uri + dataArr.join('&')]);
-  }
+  };
 
   Twitter.prototype.Hashtag = function(options) {
     var opts = options || {};
@@ -88,7 +95,7 @@
     }
 
     return app.Popup.apply(this, [uri + dataArr.join('&')]);
-  }
+  };
 
 
   // Export to module / global
@@ -100,4 +107,4 @@
 
   return app;
 
-})(window, document, Socialmedia);
+})(window);

@@ -1,6 +1,6 @@
 module.exports = function(grunt)	{
 
-	"use strict";
+	'use strict';
 
 	require('time-grunt')(grunt);
 	require('load-grunt-tasks')(grunt);
@@ -11,7 +11,14 @@ module.exports = function(grunt)	{
 
 		project: {
 			src: 'src/',
-			dist: 'dist/'
+			dist: 'dist/',
+			tests: 'test/'
+		},
+
+		clean: {
+			build: {
+				src: ['<%= project.dist %>']
+			}
 		},
 
 		concat: {
@@ -34,8 +41,10 @@ module.exports = function(grunt)	{
 	      },
 	      all: [
 	          'Gruntfile.js',
-	          '<%= project.dist %>/*.js',
-	          '!<%= project.dist %>/*.min.js'
+	          '<%= project.src %>/*.js'
+	          // '<%= project.dist %>/*.js',
+	          // '<%= project.tests %>/*.js',
+	          // '!<%= project.dist %>/*.min.js'
 	      ]
 	  },
 
@@ -55,6 +64,7 @@ module.exports = function(grunt)	{
 				files: ['<%= project.src %>/*.js'],
 				tasks: ['concat'],
 				options: {
+					livereload: true,
 					spawn: false
 				}
 			},
@@ -62,6 +72,15 @@ module.exports = function(grunt)	{
 			config: {
 				files: ['./Gruntfile.js', './package.json', './bower.json'],
 				options: {
+					livereload: true,
+					spawn: false
+				}
+			},
+
+			tests: {
+				files: ['<%= project.tests %>/*.{js,html}'],
+				options: {
+					livereload: true,
 					spawn: false
 				}
 			}
@@ -72,5 +91,6 @@ module.exports = function(grunt)	{
 	grunt.registerTask('default', ['watch']);
 
 	// Build task
-	grunt.registerTask('build', ['concat', 'uglify']);
+	grunt.registerTask('build', ['clean', 'concat', 'uglify', 'jshint']);
+
 };

@@ -1,9 +1,10 @@
 /*! socialmedia | v1.7.8 | Jabran Rafique <hello@jabran.me> | MIT License | https://github.com/jabranr/Socialmedia.js */
-!(function(root, doc) {
-  "use strict";
+(function(root) {
+  'use strict';
 
+  var doc = root.document;
   var appVersion = '2.0.0';
-  var graphApiVersion = 'v2.5';
+  var graphApiVersion = 'v2.7';
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
   var sdkList = {
     facebook: defaultProtocol + '//connect.facebook.net/en_US/all.js',
@@ -36,10 +37,10 @@
       features: settings.features || ['dialog', 'location', 'dependent'],
       getFeatures: function() {
         var str;
-        str = "width=" + this.width + ",height=" + this.height;
-        str += ",left=" + ((root.outerWidth / 2) - (this.width / 2));
-        str += ",top=" + ((root.outerHeight / 2) - (this.height / 2));
-        return str += "," + (this.features.join(','));
+        str = 'width=' + this.width + ',height=' + this.height;
+        str += ',left=' + ((root.outerWidth / 2) - (this.width / 2));
+        str += ',top=' + ((root.outerHeight / 2) - (this.height / 2));
+        return str += ',' + (this.features.join(','));
       }
     };
 
@@ -56,7 +57,9 @@
    */
   function _loadSDK(id, src) {
     var div, ref, sdk;
-    if (doc.getElementById(id)) return;
+    if (doc.getElementById(id)) {
+      return;
+    }
 
     sdk = doc.createElement('script');
     sdk.id = id;
@@ -86,42 +89,49 @@
     root.Socialmedia = root.Socialmedia || app.public;
   }
 
-})(window, document);
-!(function(root, doc, app) {
-  "user strict";
+})(window);
+(function(root) {
+  'use strict';
+
+  if (typeof root.Socialmedia === 'undefined') {
+    throw new Error('Core module not found.');
+  }
+
+  var doc = root.document;
+  var app = root.Socialmedia;
 
   function isArray(obj) {
-    return Object.prototype.toString.call(obj) !== '[object Array]';
+    return Object.prototype.toString.call(obj) === '[object Array]';
   }
 
   function isString(obj) {
-    return Object.prototype.toString.call(obj) !== '[object String]';
+    return Object.prototype.toString.call(obj) === '[object String]';
   }
 
   function isObject(obj) {
-    return Object.prototype.toString.call(obj) !== '[object Object]';
+    return Object.prototype.toString.call(obj) === '[object Object]';
   }
 
   function isFunction(obj) {
-    return Object.prototype.toString.call(obj) !== '[object Function]';
+    return Object.prototype.toString.call(obj) === '[object Function]';
   }
 
   function isNumber(obj) {
-    return Object.prototype.toString.call(obj) !== '[object Number]';
+    return Object.prototype.toString.call(obj) === '[object Number]';
   }
 
   function _fbCallback(options) {
-    if (!isObject(FB)) {
+    if (!isObject(root.FB)) {
       throw new Error('Facebook SDK not ready yet.');
     }
 
     if (!options.callback) {
-      return FB.ui(options);
+      return root.FB.ui(options);
     }
 
     var callback = options.callback;
     delete options.callback;
-    return FB.ui(options, callback);
+    return root.FB.ui(options, callback);
   }
 
   function _repositionFBRoot() {
@@ -135,12 +145,12 @@
     this.locale     =   opts.locale || 'en_US';
     this.status     =   opts.status || false;
     this.channel    =   opts.channel || '';
-    this.xfbml      =   opts.xfbml || false;
+    this.xfbml      =   opts.xfbml || true;
     this.cookie     =   opts.cookie || true;
     this.requests   =   opts.requests || false;
     this.version    =   opts.version || app.GRAPH_API_VERSION;
     this.debug      =   opts.debug || false;
-    this.autogrow   =   opts.autogrow || false;
+    this.autogrow   =   opts.autogrow || true;
     this.callback   =   opts.callback || function() {};
 
     if (!this.appid) {
@@ -164,11 +174,11 @@
     var src;
 
     root.fbAsyncInit = function() {
-      if (!isObject(FB)) {
+      if (!isObject(root.FB)) {
         throw new Error('Facebook SDK not ready yet.');
       }
 
-      FB.init({
+      root.FB.init({
         appId: self.appid,
         status: self.status,
         channelUrl: self.channel,
@@ -184,10 +194,10 @@
         self.fbsdk.src += ('#xfbml=1&appId' + self.appid);
       }
 
-      FB.Canvas.setAutoGrow(self.autogrow);
+      root.FB.Canvas.setAutoGrow(self.autogrow);
 
       if (self.callback && isFunction(self.callback)) {
-        FB.getLoginStatus(self.callback);
+        root.FB.getLoginStatus(self.callback);
       }
     };
 
@@ -198,10 +208,10 @@
     }
 
     if (self.locale !== 'en_US') {
-      app.SDK.facebook_debug = app.SDK.facebook_debug.replace('en_US', that.locale);
-      app.SDK.facebook_debugv2 = app.SDK.facebook_debugv2.replace('en_US', that.locale);
-      app.SDK.facebook = app.SDK.facebook.replace('en_US', that.locale);
-      app.SDK.facebookv2 = app.SDK.facebookv2.replace('en_US', that.locale);
+      app.SDK.facebook_debug = app.SDK.facebook_debug.replace('en_US', self.locale);
+      app.SDK.facebook_debugv2 = app.SDK.facebook_debugv2.replace('en_US', self.locale);
+      app.SDK.facebook = app.SDK.facebook.replace('en_US', self.locale);
+      app.SDK.facebookv2 = app.SDK.facebookv2.replace('en_US', self.locale);
     }
 
     if (self.debug) {
@@ -223,12 +233,12 @@
 
   Facebook.prototype.setSize = function() {
     if (arguments.length > 0 && arguments.length < 3) {
-      return FB.Canvas.setSize({
+      return root.FB.Canvas.setSize({
         width: parseInt(arguments[0]) || 810,
         height: parseInt(arguments[1]) || 800
       });
     } else {
-      return FB.Canvas.setSize();
+      return root.FB.Canvas.setSize();
     }
   };
 
@@ -237,9 +247,9 @@
       var x = parseInt(arguments[0]) || 0;
       var y = parseInt(arguments[1]) || 1;
 
-      return FB.Canvas.scrollTo(x, y);
+      return root.FB.Canvas.scrollTo(x, y);
     } else {
-      return FB.Canvas.scrollTo();
+      return root.FB.Canvas.scrollTo();
     }
   };
 
@@ -267,12 +277,12 @@
     }
 
     if (!opts.action_type || !isString(opts.action_type)) {
-      throw new TypeError('"action_type" option is required.');
+      throw new TypeError('action_type option is required.');
     }
 
     if (opts.action_properties) {
      if (!isObject(opts.action_properties)) {
-        throw new TypeError('"action_properties" must be an object.');
+        throw new TypeError('action_properties must be an object.');
       }
 
       opts.action_properties = JSON.stringify(opts.action_properties);
@@ -290,11 +300,11 @@
     }
 
     if (!opts.name || !isString(opts.name)) {
-      throw new TypeError('"name" option is required.');
+      throw new TypeError('name option is required.');
     }
 
     if (!opts.link || !isString(opts.link)) {
-      throw new TypeError('"link" option is required.');
+      throw new TypeError('link option is required.');
     }
 
     return _fbCallback(opts);
@@ -309,27 +319,27 @@
     }
 
     if (!opts.title || !isString(opts.title)) {
-      throw new TypeError('"title" option is required.');
+      throw new TypeError('title option is required.');
     }
 
     if (opts.message && !isString(opts.message)) {
-      throw new TypeError('"message" option must be a string.');
+      throw new TypeError('message option must be a string.');
     }
 
     if (opts.to && !isArray(opts.to)) {
-      throw new TypeError('"to" option must be an array.');
+      throw new TypeError('to option must be an array.');
     }
 
     if (opts.exclude_ids && !isArray(opts.exclude_ids)) {
-      throw new TypeError('"exclude_ids" option must be an array.');
+      throw new TypeError('exclude_ids option must be an array.');
     }
 
     if (opts.max_recipients && !isNumber(opts.max_recipients)) {
-      throw new TypeError('"max_recipients" option must be an integer.');
+      throw new TypeError('max_recipients option must be an integer.');
     }
 
     if (opts.data && !isObject(opts.data)) {
-      throw new TypeError('"data" option must be an integer.');
+      throw new TypeError('data option must be an integer.');
     }
 
     return _fbCallback(opts);
@@ -357,7 +367,7 @@
     opts.method = 'send';
 
     if (!opts.link || !isString(opts.link)) {
-      throw new TypeError('"link" option is required.');
+      throw new TypeError('link option is required.');
     }
 
     return _fbCallback(opts);
@@ -373,7 +383,7 @@
     }
 
     if (!opts.product || !isString(opts.product)) {
-      throw new TypeError('"product" option is required.');
+      throw new TypeError('product option is required.');
     }
 
     return _fbCallback(opts);
@@ -388,9 +398,15 @@
 
   return app;
 
-})(window, document, Socialmedia);
-!(function(root, doc, app) {
-  "user strict";
+})(window);
+(function(root) {
+  'use strict';
+
+  if (typeof root.Socialmedia === 'undefined') {
+    throw new Error('Core module not found.');
+  }
+
+  var app = root.Socialmedia;
 
   function GooglePlus(options) {
     var opts = options || {};
@@ -425,15 +441,14 @@
         client_id: self.client_id,
         scope: self.scope,
         immediate: true
-      }, self.callback);
-    }
+      }, self.callback.call(this, authResponse));
+    };
 
     return app.LoadSDK('gplus-jssdk', app.SDK.googleplus + (self.client_id ? '?onload=gplusCallback' : ''));
   };
 
   GooglePlus.prototype.SignIn = function(callback) {
     var self = this;
-    var cb = callback || function() {};
 
     if (!root.gapi || !this.client_id) {
       throw new TypeError('Google client/app id is required.');
@@ -442,7 +457,7 @@
     return root.gapi.auth.authorize({
       client_id: self.client_id,
       scope: self.scope
-    }, self.callback);
+    }, callback);
   };
 
   GooglePlus.prototype.Share = function(options) {
@@ -465,9 +480,16 @@
 
   return app;
 
-})(window, document, Socialmedia);
-!(function(root, doc, app) {
-  "use strict";
+})(window);
+(function(root) {
+  'use strict';
+
+  if (typeof root.Socialmedia === 'undefined') {
+    throw new Error('Core module not found.');
+  }
+
+  var doc = root.document;
+  var app = root.Socialmedia;
 
   function Pinterest() {
     this.init();
@@ -476,14 +498,14 @@
 
   Pinterest.prototype.init = function() {
     return app.LoadSDK('pinterest-jssdk', app.SDK.pinterest);
-  }
+  };
 
   Pinterest.prototype.Pinit = function(options) {
     var opts = options || {};
     var uri = '//pinterest.com/pin/create/button/?';
-    var data = (typeof opts.link !== 'undefined') && ("url=" + (encodeURIComponent(opts.link))) || ("url=" + (encodeURIComponent(root.location.href)));
-        data += (typeof opts.image !== 'undefined') && ("&media=" + (encodeURIComponent(opts.image))) || "";
-        data += (typeof opts.description !== 'undefined') && ("&description=" + (encodeURIComponent(opts.description))) || ("&description=" + (encodeURIComponent(doc.title)));
+    var data = (typeof opts.link !== 'undefined') && ('url=' + (encodeURIComponent(opts.link))) || ('url=' + (encodeURIComponent(root.location.href)));
+        data += (typeof opts.image !== 'undefined') && ('&media=' + (encodeURIComponent(opts.image))) || '';
+        data += (typeof opts.description !== 'undefined') && ('&description=' + (encodeURIComponent(opts.description))) || ('&description=' + (encodeURIComponent(doc.title)));
 
     return app.Popup.apply(this, [
       uri + data, {
@@ -491,7 +513,7 @@
         height: 325
       }
     ]);
-  }
+  };
 
   // Export to module / global
   if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
@@ -502,18 +524,25 @@
 
   return app;
 
-})(window, document, Socialmedia);
-!(function(root, doc, app) {
-  "use strict";
+})(window);
+(function(root) {
+  'use strict';
+
+  if (typeof root.Socialmedia === 'undefined') {
+    throw new Error('Core module not found.');
+  }
+
+  var doc = root.document;
+  var app = root.Socialmedia;
 
   function Twitter() {
-    this.init;
+    this.init();
     return this;
   }
 
   Twitter.prototype.init = function() {
     return app.LoadSDK('twitter-wjs', app.SDK.twitter);
-  }
+  };
 
   Twitter.prototype.Tweet = function(options) {
     var opts = options || {};
@@ -539,18 +568,18 @@
     }
 
     return app.Popup.apply(this, [uri + dataArr.join('&')]);
-  }
+  };
 
   Twitter.prototype.Follow = function(username) {
     var uri = '//twitter.com/intent/follow?';
-    var username = username.replace('/@/', '') || 'socialmedia_js';
+    var screen_name = username.replace('/@/', '') || 'socialmedia_js';
     var dialogSize = {
       width: 700,
       height: 485
     };
 
-    return app.Popup.apply(this, [uri + ('screen_name=' + username), dialogSize]);
-  }
+    return app.Popup.apply(this, [uri + ('screen_name=' + screen_name), dialogSize]);
+  };
 
   Twitter.prototype.Mention = function(options) {
     var opts = options || {};
@@ -570,7 +599,7 @@
     }
 
     return app.Popup.apply(this, [uri + dataArr.join('&')]);
-  }
+  };
 
   Twitter.prototype.Hashtag = function(options) {
     var opts = options || {};
@@ -593,7 +622,7 @@
     }
 
     return app.Popup.apply(this, [uri + dataArr.join('&')]);
-  }
+  };
 
 
   // Export to module / global
@@ -605,4 +634,4 @@
 
   return app;
 
-})(window, document, Socialmedia);
+})(window);

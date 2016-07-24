@@ -1,8 +1,9 @@
-!(function(root, doc) {
-  "use strict";
+(function(root) {
+  'use strict';
 
+  var doc = root.document;
   var appVersion = '2.0.0';
-  var graphApiVersion = 'v2.5';
+  var graphApiVersion = 'v2.7';
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
   var sdkList = {
     facebook: defaultProtocol + '//connect.facebook.net/en_US/all.js',
@@ -35,10 +36,10 @@
       features: settings.features || ['dialog', 'location', 'dependent'],
       getFeatures: function() {
         var str;
-        str = "width=" + this.width + ",height=" + this.height;
-        str += ",left=" + ((root.outerWidth / 2) - (this.width / 2));
-        str += ",top=" + ((root.outerHeight / 2) - (this.height / 2));
-        return str += "," + (this.features.join(','));
+        str = 'width=' + this.width + ',height=' + this.height;
+        str += ',left=' + ((root.outerWidth / 2) - (this.width / 2));
+        str += ',top=' + ((root.outerHeight / 2) - (this.height / 2));
+        return str += ',' + (this.features.join(','));
       }
     };
 
@@ -55,7 +56,9 @@
    */
   function _loadSDK(id, src) {
     var div, ref, sdk;
-    if (doc.getElementById(id)) return;
+    if (doc.getElementById(id)) {
+      return;
+    }
 
     sdk = doc.createElement('script');
     sdk.id = id;
@@ -85,4 +88,4 @@
     root.Socialmedia = root.Socialmedia || app.public;
   }
 
-})(window, document);
+})(window);

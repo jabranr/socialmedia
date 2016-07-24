@@ -14,13 +14,13 @@ describe('Socialmedia', function()	{
 
 	describe('Socialmedia version', function()	{
 		it('should return current version', function() {
-			expect(Socialmedia.VERSION).to.equal('1.7.8');
+			expect(Socialmedia.VERSION).to.equal('2.0.0');
 		});
 	});
 
 	describe('Facebook Graph API version', function()	{
 		it('should return latest Facebook Graph API version', function() {
-			expect(Socialmedia.GRAPH_API_VERSION).to.equal('v2.5');
+			expect(Socialmedia.GRAPH_API_VERSION).to.equal('v2.7');
 		});
 	});
 
@@ -38,7 +38,8 @@ describe('Socialmedia', function()	{
 				(new Socialmedia.Facebook({
 					appid: '1234567890'
 				}));
-				var fbsdk = document.getElementById('facebook-jssdk');
+				var fbsdk = document.getElementById('fb-jssdk');
+				console.log(fbsdk);
 				expect(fbsdk.src).to.equal(Socialmedia.SDK.facebookv2);
 			});
 
@@ -240,41 +241,41 @@ describe('Socialmedia', function()	{
 				});
 			});
 
-			describe('Parse', function() {
-				it('should set to default if no Parse app ID given', function()	{
-					var fb = new Socialmedia.Facebook({
-						appid: '1234567890'
-					});
-					expect(fb.parse).to.equal(false);
-					expect(fb.parseId).to.equal(null);
-				});
+			// describe('Parse', function() {
+			// 	it('should set to default if no Parse app ID given', function()	{
+			// 		var fb = new Socialmedia.Facebook({
+			// 			appid: '1234567890'
+			// 		});
+			// 		expect(fb.parse).to.equal(false);
+			// 		expect(fb.parseId).to.equal(null);
+			// 	});
 
-				it('should set to default if no Parse JavaScript Key given', function()	{
-					var fb = new Socialmedia.Facebook({
-						appid: '1234567890'
-					});
-					expect(fb.parse).to.equal(false);
-					expect(fb.parseKey).to.equal(null);
-				});
+			// 	it('should set to default if no Parse JavaScript Key given', function()	{
+			// 		var fb = new Socialmedia.Facebook({
+			// 			appid: '1234567890'
+			// 		});
+			// 		expect(fb.parse).to.equal(false);
+			// 		expect(fb.parseKey).to.equal(null);
+			// 	});
 
-				it('should set to default if either Parse app ID or JavaScript Key missing', function()	{
-					var fb = new Socialmedia.Facebook({
-						appid: '1234567890',
-						parseId: '1234567890'
-					});
-					expect(fb.parse).to.equal(false);
-				});
+			// 	it('should set to default if either Parse app ID or JavaScript Key missing', function()	{
+			// 		var fb = new Socialmedia.Facebook({
+			// 			appid: '1234567890',
+			// 			parseId: '1234567890'
+			// 		});
+			// 		expect(fb.parse).to.equal(false);
+			// 	});
 
-				it('should throw error if Parse app ID and JavaScript Key given but Parse not found', function()	{
-					expect(function() {
-						(new Socialmedia.Facebook({
-							appid: '1234567890',
-							parseId: '1234567890',
-							parseKey: '1234567890'
-						}))
-					}).to.throw(Error);
-				});
-			});
+			// 	it('should throw error if Parse app ID and JavaScript Key given but Parse not found', function()	{
+			// 		expect(function() {
+			// 			(new Socialmedia.Facebook({
+			// 				appid: '1234567890',
+			// 				parseId: '1234567890',
+			// 				parseKey: '1234567890'
+			// 			}))
+			// 		}).to.throw(Error);
+			// 	});
+			// });
 		});
 
 	});
