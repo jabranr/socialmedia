@@ -3,7 +3,7 @@
   "author": "Jabran Rafique <hello@jabran.me>",
   "version": "1.7.8",
   "license": "MIT License",
-  "repo": "https://github.com/jabranr/Socialmedia.js",
+  "repository": "https://github.com/jabranr/socialmedia.js",
   "scripts": {
     "test": "make test"
   },
@@ -11,7 +11,7 @@
     "chai": "~1.9.1",
     "grunt": "~0.4.4",
     "grunt-cli": "~0.1.13",
-    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "~0.4.0",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-uglify": "~0.4.0",
