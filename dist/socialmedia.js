@@ -1,9 +1,9 @@
-/*! socialmedia | v2.0.0 | Jabran Rafique <hello@jabran.me> | MIT License |  */
+/*! socialmedia | v2.0.1 | Jabran Rafique <hello@jabran.me> | MIT License |  */
 (function(root) {
   'use strict';
 
   var doc = root.document;
-  var appVersion = '2.0.0';
+  var appVersion = '2.0.1';
   var graphApiVersion = 'v2.7';
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
   var sdkList = {
@@ -14,14 +14,6 @@
     twitter: defaultProtocol + '//platform.twitter.com/widgets.js',
     googleplus: defaultProtocol + '//apis.google.com/js/client:platform.js',
     pinterest: defaultProtocol + '//assets.pinterest.com/js/pinit.js'
-  };
-
-  var app = {
-    public: {
-      GRAPH_API_VERSION: graphApiVersion,
-      VERSION: appVersion,
-      SDK: sdkList
-    }
   };
 
   /**
@@ -76,20 +68,33 @@
     }
   }
 
+  function _isType(obj, expectedType) {
+    var getType;
+    getType = Object.prototype.toString.call(obj).toLowerCase();
+    expectedType = expectedType.toLowerCase();
+    return getType === '[object ' + expectedType + ']';
+  }
+
   /**
    * Expose helper methods
    */
-  app.public.Popup = _makePopup;
-  app.public.LoadSDK = _loadSDK;
+  var app = {
+    GRAPH_API_VERSION: graphApiVersion,
+    VERSION: appVersion,
+    SDK: sdkList,
+    Popup: _makePopup,
+    LoadSDK: _loadSDK,
+    is: _isType
+  };
 
   // Export to module / global
   if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-    module.exports = app.public;
+    module.exports = app;
   } else {
-    root.Socialmedia = root.Socialmedia || app.public;
+    root.Socialmedia = root.Socialmedia || app;
   }
 
-})(window);
+})(this);
 (function(root) {
   'use strict';
 
@@ -100,28 +105,8 @@
   var doc = root.document;
   var app = root.Socialmedia;
 
-  function isArray(obj) {
-    return Object.prototype.toString.call(obj) === '[object Array]';
-  }
-
-  function isString(obj) {
-    return Object.prototype.toString.call(obj) === '[object String]';
-  }
-
-  function isObject(obj) {
-    return Object.prototype.toString.call(obj) === '[object Object]';
-  }
-
-  function isFunction(obj) {
-    return Object.prototype.toString.call(obj) === '[object Function]';
-  }
-
-  function isNumber(obj) {
-    return Object.prototype.toString.call(obj) === '[object Number]';
-  }
-
   function _fbCallback(options) {
-    if (!isObject(root.FB)) {
+    if (!app.is(root.FB, 'object')) {
       throw new Error('Facebook SDK not ready yet.');
     }
 
@@ -143,25 +128,25 @@
 
     this.appid      =   opts.appid || null;
     this.locale     =   opts.locale || 'en_US';
-    this.status     =   opts.status || false;
+    this.status     =   typeof opts.status !== 'undefined' ? opts.status : false;
     this.channel    =   opts.channel || '';
-    this.xfbml      =   opts.xfbml || true;
-    this.cookie     =   opts.cookie || true;
-    this.requests   =   opts.requests || false;
+    this.xfbml      =   typeof opts.xfbml !== 'undefined' ? opts.xfbml : true;
+    this.cookie     =   typeof opts.cookie !== 'undefined' ? opts.cookie : true;
+    this.requests   =   typeof opts.requests !== 'undefined' ? opts.requests : false;
     this.version    =   opts.version || app.GRAPH_API_VERSION;
-    this.debug      =   opts.debug || false;
-    this.autogrow   =   opts.autogrow || true;
+    this.debug      =   typeof opts.debug !== 'undefined' ? opts.debug : false;
+    this.autogrow   =   typeof opts.autogrow !== 'undefined' ? opts.autogrow : true;
     this.callback   =   opts.callback || function() {};
 
     if (!this.appid) {
       throw new TypeError('Facebook app ID is required.');
     }
 
-    if (this.appid && !isString(this.appid)) {
+    if (this.appid && !app.is(this.appid, 'string')) {
       throw new TypeError('Facebook app ID must be a string.');
     }
 
-    if (!isString(this.locale)) {
+    if (!app.is(this.locale, 'string')) {
       throw new TypeError('Locale must be an ISO string i.e. en_US. More at https://developers.facebook.com/docs/plugins/like-button#language');
     }
 
@@ -174,7 +159,7 @@
     var src;
 
     root.fbAsyncInit = function() {
-      if (!isObject(root.FB)) {
+      if (!app.is(root.FB, 'object')) {
         throw new Error('Facebook SDK not ready yet.');
       }
 
@@ -196,7 +181,7 @@
 
       root.FB.Canvas.setAutoGrow(self.autogrow);
 
-      if (self.callback && isFunction(self.callback)) {
+      if (self.callback && app.is(self.callback, 'function')) {
         root.FB.getLoginStatus(self.callback);
       }
     };
@@ -257,11 +242,11 @@
     var opts = options || {};
     opts.method = 'share';
 
-    if (!isFunction(opts.callback)) {
+    if (!app.is(opts.callback, 'function')) {
       opts.callback = function() {};
     }
 
-    if (!opts.href || !isString(opts.href)) {
+    if (!opts.href || !app.is(opts.href, 'string')) {
       throw new TypeError('href option is required.');
     }
 
@@ -272,16 +257,16 @@
     var opts = options || {};
     opts.method = 'share_open_graph';
 
-    if (!isFunction(opts.callback)) {
+    if (!app.is(opts.callback, 'function')) {
       opts.callback = function() {};
     }
 
-    if (!opts.action_type || !isString(opts.action_type)) {
+    if (!opts.action_type || !app.is(opts.action_type, 'string')) {
       throw new TypeError('action_type option is required.');
     }
 
     if (opts.action_properties) {
-     if (!isObject(opts.action_properties)) {
+     if (!app.is(opts.action_properties, 'object')) {
         throw new TypeError('action_properties must be an object.');
       }
 
@@ -295,15 +280,15 @@
     var opts = options || {};
     opts.method = 'feed';
 
-    if (!isFunction(opts.callback)) {
+    if (!app.is(opts.callback, 'function')) {
       opts.callback = function() {};
     }
 
-    if (!opts.name || !isString(opts.name)) {
+    if (!opts.name || !app.is(opts.name, 'string')) {
       throw new TypeError('name option is required.');
     }
 
-    if (!opts.link || !isString(opts.link)) {
+    if (!opts.link || !app.is(opts.link, 'string')) {
       throw new TypeError('link option is required.');
     }
 
@@ -314,31 +299,31 @@
     var opts = options || {};
     opts.method = 'apprequests';
 
-    if (!isFunction(opts.callback)) {
+    if (!app.is(opts.callback, 'function')) {
       opts.callback = function() {};
     }
 
-    if (!opts.title || !isString(opts.title)) {
+    if (!opts.title || !app.is(opts.title, 'string')) {
       throw new TypeError('title option is required.');
     }
 
-    if (opts.message && !isString(opts.message)) {
+    if (opts.message && !app.is(opts.message, 'string')) {
       throw new TypeError('message option must be a string.');
     }
 
-    if (opts.to && !isArray(opts.to)) {
+    if (opts.to && !app.is(opts.to, 'array')) {
       throw new TypeError('to option must be an array.');
     }
 
-    if (opts.exclude_ids && !isArray(opts.exclude_ids)) {
+    if (opts.exclude_ids && !app.is(opts.exclude_ids, 'array')) {
       throw new TypeError('exclude_ids option must be an array.');
     }
 
-    if (opts.max_recipients && !isNumber(opts.max_recipients)) {
+    if (opts.max_recipients && !app.is(opts.max_recipients, 'number')) {
       throw new TypeError('max_recipients option must be an integer.');
     }
 
-    if (opts.data && !isObject(opts.data)) {
+    if (opts.data && !app.is(opts.data, 'object')) {
       throw new TypeError('data option must be an integer.');
     }
 
@@ -355,7 +340,7 @@
     var opts = options || {};
     opts.method = 'friends';
 
-    if (!isFunction(opts.callback)) {
+    if (!app.is(opts.callback, 'function')) {
       opts.callback = function() {};
     }
 
@@ -366,7 +351,7 @@
     var opts = options || {};
     opts.method = 'send';
 
-    if (!opts.link || !isString(opts.link)) {
+    if (!opts.link || !app.is(opts.link, 'string')) {
       throw new TypeError('link option is required.');
     }
 
@@ -378,11 +363,11 @@
     opts.method = 'pay';
     opts.action = 'purchaseitem';
 
-    if (!isFunction(opts.callback)) {
+    if (!app.is(opts.callback, 'function')) {
       opts.callback = function() {};
     }
 
-    if (!opts.product || !isString(opts.product)) {
+    if (!opts.product || !app.is(opts.product, 'string')) {
       throw new TypeError('product option is required.');
     }
 
@@ -398,7 +383,7 @@
 
   return app;
 
-})(window);
+})(this);
 (function(root) {
   'use strict';
 
@@ -480,7 +465,7 @@
 
   return app;
 
-})(window);
+})(this);
 (function(root) {
   'use strict';
 
@@ -524,7 +509,7 @@
 
   return app;
 
-})(window);
+})(this);
 (function(root) {
   'use strict';
 
@@ -634,4 +619,4 @@
 
   return app;
 
-})(window);
+})(this);

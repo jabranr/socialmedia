@@ -14,7 +14,7 @@ describe('Socialmedia', function()	{
 
 	describe('Socialmedia version', function()	{
 		it('should return current version', function() {
-			expect(Socialmedia.VERSION).to.equal('2.0.0');
+			expect(Socialmedia.VERSION).to.equal('2.0.1');
 		});
 	});
 
@@ -22,6 +22,127 @@ describe('Socialmedia', function()	{
 		it('should return latest Facebook Graph API version', function() {
 			expect(Socialmedia.GRAPH_API_VERSION).to.equal('v2.7');
 		});
+	});
+
+	describe('SDKs & Helpers', function()	{
+		it('should return an object', function() {
+			expect(typeof Socialmedia.SDK).to.equal('object');
+		});
+
+		describe('Facebook SDKs', function()	{
+			it('should have "facebook" property', function() {
+				expect(Socialmedia.SDK).to.have.property('facebook');
+			});
+
+			it('should contain SDK v1 URL', function() {
+				expect(Socialmedia.SDK.facebook).to.contain('//connect.facebook.net/en_US/all.js');
+			});
+
+			it('should have "facebook_debug" property', function() {
+				expect(Socialmedia.SDK).to.have.property('facebook_debug');
+			});
+
+			it('should contain SDK v1 debug URL', function() {
+				expect(Socialmedia.SDK.facebook_debug).to.contain('//connect.facebook.net/en_US/all/debug.js');
+			});
+
+			it('should have "facebookv2" property', function() {
+				expect(Socialmedia.SDK).to.have.property('facebookv2');
+			});
+
+			it('should contain SDK v2 URL', function() {
+				expect(Socialmedia.SDK.facebookv2).to.contain('//connect.facebook.net/en_US/sdk.js');
+			});
+
+			it('should have "facebook_debugv2" property', function() {
+				expect(Socialmedia.SDK).to.have.property('facebook_debugv2');
+			});
+
+			it('should contain SDK v2 URL', function() {
+				expect(Socialmedia.SDK.facebook_debugv2).to.contain('//connect.facebook.net/en_US/sdk/debug.js');
+			});
+		});
+
+		describe('Twitter SDKs', function()	{
+			it('should have "twitter" property', function() {
+				expect(Socialmedia.SDK).to.have.property('twitter');
+			});
+
+			it('should contain SDK URL', function() {
+				expect(Socialmedia.SDK.twitter).to.contain('//platform.twitter.com/widgets.js');
+			});
+		});
+
+		describe('Google Plus SDKs', function()	{
+			it('should have "googleplus" property', function() {
+				expect(Socialmedia.SDK).to.have.property('googleplus');
+			});
+
+			it('should contain SDK URL', function() {
+				expect(Socialmedia.SDK.googleplus).to.contain('//apis.google.com/js/client:platform.js');
+			});
+		});
+
+		describe('Pinterest SDKs', function()	{
+			it('should have "pinterest" property', function() {
+				expect(Socialmedia.SDK).to.have.property('pinterest');
+			});
+
+			it('should contain SDK URL', function() {
+				expect(Socialmedia.SDK.pinterest).to.contain('//assets.pinterest.com/js/pinit.js');
+			});
+		});
+
+		describe('LoadSDK method', function()	{
+			it('should return a DOM script element', function() {
+				Socialmedia.LoadSDK('foo', Socialmedia.SDK.pinterest);
+				var sdkNode = document.getElementById('foo');
+				expect(sdkNode.toString()).to.equal('[object HTMLScriptElement]');
+			});
+
+			it('should return a DOM element with given ID', function() {
+				Socialmedia.LoadSDK('foo', Socialmedia.SDK.pinterest);
+				var sdkNode = document.getElementById('foo');
+				expect(sdkNode.id).to.equal('foo');
+			});
+
+			it('should return a DOM script element with given URL', function() {
+				Socialmedia.LoadSDK('foo', Socialmedia.SDK.pinterest);
+				var sdkNode = document.getElementById('foo');
+				expect(sdkNode.src).to.contain('pinit.js');
+			});
+		});
+
+		describe('is(Object) method', function()	{
+			it('should return true when tested for Object', function() {
+				expect(Socialmedia.is({}, 'object')).to.equal(true);
+			});
+		});
+
+		describe('is(Array) method', function()	{
+			it('should return true when tested for Array', function() {
+				expect(Socialmedia.is([], 'array')).to.equal(true);
+			});
+		});
+
+		describe('is(String) method', function()	{
+			it('should return true when tested for String', function() {
+				expect(Socialmedia.is('', 'string')).to.equal(true);
+			});
+		});
+
+		describe('is(Number) method', function()	{
+			it('should return true when tested for Number', function() {
+				expect(Socialmedia.is(100, 'number')).to.equal(true);
+			});
+		});
+
+		describe('is(Function) method', function()	{
+			it('should return true when tested for Function', function() {
+				expect(Socialmedia.is(function() {}, 'function')).to.equal(true);
+			});
+		});
+
 	});
 
 	describe('Setup Socialmedia', function()	{
@@ -39,7 +160,6 @@ describe('Socialmedia', function()	{
 					appid: '1234567890'
 				}));
 				var fbsdk = document.getElementById('fb-jssdk');
-				console.log(fbsdk);
 				expect(fbsdk.src).to.equal(Socialmedia.SDK.facebookv2);
 			});
 
@@ -127,17 +247,13 @@ describe('Socialmedia', function()	{
 					expect(fb.cookie).to.equal(true);
 				});
 
-				/**
-				 * Following test requires Facebook SDKs to be reset and reloaded
-				 */
-
-				// it('should set Facebook SDK cookie if provided', function()	{
-				// 	var fb = new Socialmedia.Facebook({
-				// 		appid: '1234567890',
-				// 		cookie: false
-				// 	});
-				// 	expect(fb.cookie).to.equal(false);
-				// });
+				it('should set Facebook SDK cookie if provided', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '1234567890',
+						cookie: false
+					});
+					expect(fb.cookie).to.equal(false);
+				});
 
 			});
 
@@ -150,17 +266,13 @@ describe('Socialmedia', function()	{
 					expect(fb.xfbml).to.equal(true);
 				});
 
-				/**
-				 * Following test requires Facebook SDKs to be reset and reloaded
-				 */
-
-				// it('should set Facebook SDK xfbml if provided', function()	{
-				// 	var fb = new Socialmedia.Facebook({
-				// 		appid: '1234567890',
-				// 		xfbml: false
-				// 	});
-				// 	expect(fb.xfbml).to.equal(false);
-				// });
+				it('should set Facebook SDK xfbml if provided', function()	{
+					var fb = new Socialmedia.Facebook({
+						appid: '1234567890',
+						xfbml: false
+					});
+					expect(fb.xfbml).to.equal(false);
+				});
 
 			});
 
@@ -241,41 +353,6 @@ describe('Socialmedia', function()	{
 				});
 			});
 
-			// describe('Parse', function() {
-			// 	it('should set to default if no Parse app ID given', function()	{
-			// 		var fb = new Socialmedia.Facebook({
-			// 			appid: '1234567890'
-			// 		});
-			// 		expect(fb.parse).to.equal(false);
-			// 		expect(fb.parseId).to.equal(null);
-			// 	});
-
-			// 	it('should set to default if no Parse JavaScript Key given', function()	{
-			// 		var fb = new Socialmedia.Facebook({
-			// 			appid: '1234567890'
-			// 		});
-			// 		expect(fb.parse).to.equal(false);
-			// 		expect(fb.parseKey).to.equal(null);
-			// 	});
-
-			// 	it('should set to default if either Parse app ID or JavaScript Key missing', function()	{
-			// 		var fb = new Socialmedia.Facebook({
-			// 			appid: '1234567890',
-			// 			parseId: '1234567890'
-			// 		});
-			// 		expect(fb.parse).to.equal(false);
-			// 	});
-
-			// 	it('should throw error if Parse app ID and JavaScript Key given but Parse not found', function()	{
-			// 		expect(function() {
-			// 			(new Socialmedia.Facebook({
-			// 				appid: '1234567890',
-			// 				parseId: '1234567890',
-			// 				parseKey: '1234567890'
-			// 			}))
-			// 		}).to.throw(Error);
-			// 	});
-			// });
 		});
 
 	});

@@ -79,4 +79,4 @@
 
   return app;
 
-})(window);
+})(this);

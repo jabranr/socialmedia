@@ -41,4 +41,4 @@
 
   return app;
 
-})(window);
+})(this);

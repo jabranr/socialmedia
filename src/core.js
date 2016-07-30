@@ -2,7 +2,7 @@
   'use strict';
 
   var doc = root.document;
-  var appVersion = '2.0.0';
+  var appVersion = '2.0.1';
   var graphApiVersion = 'v2.7';
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
   var sdkList = {
@@ -13,14 +13,6 @@
     twitter: defaultProtocol + '//platform.twitter.com/widgets.js',
     googleplus: defaultProtocol + '//apis.google.com/js/client:platform.js',
     pinterest: defaultProtocol + '//assets.pinterest.com/js/pinit.js'
-  };
-
-  var app = {
-    public: {
-      GRAPH_API_VERSION: graphApiVersion,
-      VERSION: appVersion,
-      SDK: sdkList
-    }
   };
 
   /**
@@ -75,17 +67,30 @@
     }
   }
 
+  function _isType(obj, expectedType) {
+    var getType;
+    getType = Object.prototype.toString.call(obj).toLowerCase();
+    expectedType = expectedType.toLowerCase();
+    return getType === '[object ' + expectedType + ']';
+  }
+
   /**
    * Expose helper methods
    */
-  app.public.Popup = _makePopup;
-  app.public.LoadSDK = _loadSDK;
+  var app = {
+    GRAPH_API_VERSION: graphApiVersion,
+    VERSION: appVersion,
+    SDK: sdkList,
+    Popup: _makePopup,
+    LoadSDK: _loadSDK,
+    is: _isType
+  };
 
   // Export to module / global
   if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-    module.exports = app.public;
+    module.exports = app;
   } else {
-    root.Socialmedia = root.Socialmedia || app.public;
+    root.Socialmedia = root.Socialmedia || app;
   }
 
-})(window);
+})(this);

@@ -107,4 +107,4 @@
 
   return app;
 
-})(window);
+})(this);
