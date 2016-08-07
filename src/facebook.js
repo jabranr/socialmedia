@@ -239,6 +239,10 @@
     }, function() {});
   };
 
+  /**
+   * @deprecated by Facebook. Only use for v2.4 and less SDK
+   * @todo remove method in next Facebook version upgrade
+   */
   Facebook.prototype.AddFriend = function(options) {
     var opts = options || {};
     opts.method = 'friends';
