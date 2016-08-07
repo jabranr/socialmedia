@@ -14,7 +14,7 @@ describe('Socialmedia', function()	{
 
 	describe('Socialmedia version', function()	{
 		it('should return current version', function() {
-			expect(Socialmedia.VERSION).to.equal('2.0.1');
+			expect(Socialmedia.VERSION).to.equal('2.0.2');
 		});
 	});
 
