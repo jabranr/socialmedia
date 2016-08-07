@@ -1,9 +1,9 @@
-/*! socialmedia | v2.0.1 | Jabran Rafique <hello@jabran.me> | MIT License |  */
+/*! socialmedia | v2.0.2 | Jabran Rafique <hello@jabran.me> | MIT License |  */
 (function(root) {
   'use strict';
 
   var doc = root.document;
-  var appVersion = '2.0.1';
+  var appVersion = '2.0.2';
   var graphApiVersion = 'v2.7';
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
   var sdkList = {
@@ -61,9 +61,9 @@
     ref = doc.getElementsByTagName('script')[0];
     ref.parentNode.insertBefore(sdk, ref);
 
-    if (id === 'facebook-jssdk' || 'gplus-jssdk') {
+    if (id === 'fb-jssdk' || 'gplus-jssdk') {
       div = doc.createElement('div');
-      div.id = id === 'facebook-jssdk' ? 'fb-root' : 'gplus-root';
+      div.id = (id === 'fb-jssdk' ? 'fb-root' : 'gplus-root');
       ref.parentNode.insertBefore(div, ref);
     }
   }
@@ -336,6 +336,10 @@
     }, function() {});
   };
 
+  /**
+   * @deprecated Facebook method. Only use for v2.4 and less SDK
+   * @todo remove method in next Facebook version upgrade
+   */
   Facebook.prototype.AddFriend = function(options) {
     var opts = options || {};
     opts.method = 'friends';
@@ -370,6 +374,37 @@
     if (!opts.product || !app.is(opts.product, 'string')) {
       throw new TypeError('product option is required.');
     }
+
+    return _fbCallback(opts);
+  };
+
+  /**
+   * @since v2.0.2
+   */
+  Facebook.prototype.GoLive = function(options) {
+    var opts = options || {};
+    var userCallback = opts.callback;
+
+    if (!app.is(userCallback, 'function')) {
+      userCallback = function() {};
+    }
+
+    opts.display = 'popup';
+    opts.method = 'live_broadcast';
+    opts.phase = 'create';
+    opts.callback = function(response) {
+      if (!response.id) {
+        return;
+      }
+
+      return _fbCallback({
+        display: 'popup',
+        method: 'live_broadcast',
+        phase: 'publish',
+        broadcast_data: response,
+        callback: userCallback
+      });
+    };
 
     return _fbCallback(opts);
   };

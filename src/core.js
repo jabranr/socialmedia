@@ -2,7 +2,7 @@
   'use strict';
 
   var doc = root.document;
-  var appVersion = '2.0.1';
+  var appVersion = '2.0.2';
   var graphApiVersion = 'v2.7';
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
   var sdkList = {
@@ -60,9 +60,9 @@
     ref = doc.getElementsByTagName('script')[0];
     ref.parentNode.insertBefore(sdk, ref);
 
-    if (id === 'facebook-jssdk' || 'gplus-jssdk') {
+    if (id === 'fb-jssdk' || 'gplus-jssdk') {
       div = doc.createElement('div');
-      div.id = id === 'facebook-jssdk' ? 'fb-root' : 'gplus-root';
+      div.id = (id === 'fb-jssdk' ? 'fb-root' : 'gplus-root');
       ref.parentNode.insertBefore(div, ref);
     }
   }
