@@ -336,6 +336,10 @@
     }, function() {});
   };
 
+  /**
+   * @deprecated Facebook method. Only use for v2.4 and less SDK
+   * @todo remove method in next Facebook version upgrade
+   */
   Facebook.prototype.AddFriend = function(options) {
     var opts = options || {};
     opts.method = 'friends';
@@ -370,6 +374,37 @@
     if (!opts.product || !app.is(opts.product, 'string')) {
       throw new TypeError('product option is required.');
     }
+
+    return _fbCallback(opts);
+  };
+
+  /**
+   * @since v2.0.2
+   */
+  Facebook.prototype.GoLive = function(options) {
+    var opts = options || {};
+    var userCallback = opts.callback;
+
+    if (!app.is(userCallback, 'function')) {
+      userCallback = function() {};
+    }
+
+    opts.display = 'popup';
+    opts.method = 'live_broadcast';
+    opts.phase = 'create';
+    opts.callback = function(response) {
+      if (!response.id) {
+        return;
+      }
+
+      return _fbCallback({
+        display: 'popup',
+        method: 'live_broadcast',
+        phase: 'publish',
+        broadcast_data: response,
+        callback: userCallback
+      });
+    };
 
     return _fbCallback(opts);
   };
