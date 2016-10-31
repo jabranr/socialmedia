@@ -1,9 +1,9 @@
-/*! socialmedia | v2.0.2 | Jabran Rafique <hello@jabran.me> | MIT License |  */
+/*! socialmedia | v2.0.3 | Jabran Rafique <hello@jabran.me> | MIT License |  */
 (function(root) {
   'use strict';
 
   var doc = root.document;
-  var appVersion = '2.0.2';
+  var appVersion = '2.0.3';
   var graphApiVersion = 'v2.8';
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
   var sdkList = {
@@ -95,6 +95,7 @@
   }
 
 })(this);
+
 (function(root) {
   'use strict';
 
