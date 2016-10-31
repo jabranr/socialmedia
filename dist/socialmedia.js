@@ -4,7 +4,7 @@
 
   var doc = root.document;
   var appVersion = '2.0.2';
-  var graphApiVersion = 'v2.7';
+  var graphApiVersion = 'v2.8';
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
   var sdkList = {
     facebook: defaultProtocol + '//connect.facebook.net/en_US/all.js',

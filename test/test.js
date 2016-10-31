@@ -20,7 +20,7 @@ describe('Socialmedia', function()	{
 
 	describe('Facebook Graph API version', function()	{
 		it('should return latest Facebook Graph API version', function() {
-			expect(Socialmedia.GRAPH_API_VERSION).to.equal('v2.7');
+			expect(Socialmedia.GRAPH_API_VERSION).to.equal('v2.8');
 		});
 	});
 
