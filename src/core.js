@@ -4,12 +4,11 @@
   var doc = root.document;
   var appVersion = '2.0.3';
   var graphApiVersion = 'v2.8';
+  var minimumGraphApiVersion = 2.5;
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
   var sdkList = {
-    facebook: defaultProtocol + '//connect.facebook.net/en_US/all.js',
-    facebook_debug: defaultProtocol + '//connect.facebook.net/en_US/all/debug.js',
-    facebookv2: defaultProtocol + '//connect.facebook.net/en_US/sdk.js',
-    facebook_debugv2: defaultProtocol + '//connect.facebook.net/en_US/sdk/debug.js',
+    facebook: defaultProtocol + '//connect.facebook.net/en_US/sdk.js',
+    facebook_debug: defaultProtocol + '//connect.facebook.net/en_US/sdk/debug.js',
     twitter: defaultProtocol + '//platform.twitter.com/widgets.js',
     googleplus: defaultProtocol + '//apis.google.com/js/client:platform.js',
     pinterest: defaultProtocol + '//assets.pinterest.com/js/pinit.js'
@@ -79,6 +78,7 @@
    */
   var app = {
     GRAPH_API_VERSION: graphApiVersion,
+    MIN_GRAPH_API_VERSION: minimumGraphApiVersion,
     VERSION: appVersion,
     SDK: sdkList,
     Popup: _makePopup,

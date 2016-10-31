@@ -18,9 +18,15 @@ describe('Socialmedia', function()	{
 		});
 	});
 
-	describe('Facebook Graph API version', function()	{
-		it('should return latest Facebook Graph API version', function() {
-			expect(Socialmedia.GRAPH_API_VERSION).to.equal('v2.8');
+  describe('Facebook Graph API version', function() {
+    it('should return latest Facebook Graph API version', function() {
+      expect(Socialmedia.GRAPH_API_VERSION).to.equal('v2.8');
+    });
+  });
+
+	describe('Minimum Facebook Graph API version', function()	{
+		it('should return minimum Facebook Graph API version', function() {
+			expect(Socialmedia.MIN_GRAPH_API_VERSION).to.equal(2.5);
 		});
 	});
 
@@ -34,32 +40,16 @@ describe('Socialmedia', function()	{
 				expect(Socialmedia.SDK).to.have.property('facebook');
 			});
 
-			it('should contain SDK v1 URL', function() {
-				expect(Socialmedia.SDK.facebook).to.contain('//connect.facebook.net/en_US/all.js');
+			it('should contain SDK URL', function() {
+				expect(Socialmedia.SDK.facebook).to.contain('//connect.facebook.net/en_US/sdk.js');
 			});
 
 			it('should have "facebook_debug" property', function() {
 				expect(Socialmedia.SDK).to.have.property('facebook_debug');
 			});
 
-			it('should contain SDK v1 debug URL', function() {
-				expect(Socialmedia.SDK.facebook_debug).to.contain('//connect.facebook.net/en_US/all/debug.js');
-			});
-
-			it('should have "facebookv2" property', function() {
-				expect(Socialmedia.SDK).to.have.property('facebookv2');
-			});
-
-			it('should contain SDK v2 URL', function() {
-				expect(Socialmedia.SDK.facebookv2).to.contain('//connect.facebook.net/en_US/sdk.js');
-			});
-
-			it('should have "facebook_debugv2" property', function() {
-				expect(Socialmedia.SDK).to.have.property('facebook_debugv2');
-			});
-
-			it('should contain SDK v2 URL', function() {
-				expect(Socialmedia.SDK.facebook_debugv2).to.contain('//connect.facebook.net/en_US/sdk/debug.js');
+			it('should contain SDK URL', function() {
+				expect(Socialmedia.SDK.facebook_debug).to.contain('//connect.facebook.net/en_US/sdk/debug.js');
 			});
 		});
 
@@ -155,16 +145,24 @@ describe('Socialmedia', function()	{
 	describe('Facebook', function()	{
 		describe('constructor', function()	{
 
-			it('should load latest Facebook SDK by default', function()	{
-				(new Socialmedia.Facebook({
-					appid: '1234567890'
-				}));
-				var fbsdk = document.getElementById('fb-jssdk');
-				expect(fbsdk.src).to.equal(Socialmedia.SDK.facebookv2);
+      it('should load latest Facebook SDK by default', function() {
+        (new Socialmedia.Facebook({
+          appid: '1234567890'
+        }));
+        var fbsdk = document.getElementById('fb-jssdk');
+        expect(fbsdk.src).to.equal(Socialmedia.SDK.facebook);
+      });
+
+			it('should throw error on outdated Facebook SDK version', function()	{
+				expect(function() {
+          new Socialmedia.Facebook({
+  					appid: '1234567890',
+            version: 'v1.0'
+  				});
+        }).to.throw(TypeError);
 			});
 
 			describe('App ID', function()	{
-
 				it('should throw error if no Facebook app ID', function()	{
 					expect(function()	{
 						(new Socialmedia.Facebook());
@@ -212,9 +210,9 @@ describe('Socialmedia', function()	{
 				it('should set Facebook SDK version if provided', function()	{
 					var fb = new Socialmedia.Facebook({
 						appid: '1234567890',
-						version: 'v1.0'
+						version: 'v2.6'
 					});
-					expect(fb.version).to.equal('v1.0');
+					expect(fb.version).to.equal('v2.6');
 				});
 
 			});
