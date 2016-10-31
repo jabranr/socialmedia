@@ -53,6 +53,10 @@
       throw new TypeError('Locale must be an ISO string i.e. en_US. More at https://developers.facebook.com/docs/plugins/like-button#language');
     }
 
+    if (parseFloat(this.version.slice(1)) < app.MIN_GRAPH_API_VERSION) {
+      throw new TypeError('Facebook Graph API requires a minimum version of v2.5');
+    }
+
     this.init();
     return this;
   }
@@ -96,24 +100,14 @@
     }
 
     if (self.locale !== 'en_US') {
-      app.SDK.facebook_debug = app.SDK.facebook_debug.replace('en_US', self.locale);
-      app.SDK.facebook_debugv2 = app.SDK.facebook_debugv2.replace('en_US', self.locale);
       app.SDK.facebook = app.SDK.facebook.replace('en_US', self.locale);
-      app.SDK.facebookv2 = app.SDK.facebookv2.replace('en_US', self.locale);
+      app.SDK.facebook_debug = app.SDK.facebook_debug.replace('en_US', self.locale);
     }
 
     if (self.debug) {
-      if (self.version === 'v1.0') {
-        src = app.SDK.facebook_debug;
-      } else {
-        src = app.SDK.facebook_debugv2;
-      }
+      src = app.SDK.facebook_debug;
     } else {
-      if (self.version === 'v1.0') {
-        src = app.SDK.facebook;
-      } else {
-        src = app.SDK.facebookv2;
-      }
+      src = app.SDK.facebook;
     }
 
     return app.LoadSDK('fb-jssdk', src);

@@ -1,16 +1,15 @@
-/*! socialmedia | v2.0.3 | Jabran Rafique <hello@jabran.me> | MIT License |  */
+/*! socialmedia | v2.1.3 | Jabran Rafique <hello@jabran.me> | MIT License |  */
 (function(root) {
   'use strict';
 
   var doc = root.document;
-  var appVersion = '2.0.3';
+  var appVersion = '2.1.3';
   var graphApiVersion = 'v2.8';
+  var minimumGraphApiVersion = 2.5;
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
   var sdkList = {
-    facebook: defaultProtocol + '//connect.facebook.net/en_US/all.js',
-    facebook_debug: defaultProtocol + '//connect.facebook.net/en_US/all/debug.js',
-    facebookv2: defaultProtocol + '//connect.facebook.net/en_US/sdk.js',
-    facebook_debugv2: defaultProtocol + '//connect.facebook.net/en_US/sdk/debug.js',
+    facebook: defaultProtocol + '//connect.facebook.net/en_US/sdk.js',
+    facebook_debug: defaultProtocol + '//connect.facebook.net/en_US/sdk/debug.js',
     twitter: defaultProtocol + '//platform.twitter.com/widgets.js',
     googleplus: defaultProtocol + '//apis.google.com/js/client:platform.js',
     pinterest: defaultProtocol + '//assets.pinterest.com/js/pinit.js'
@@ -80,6 +79,7 @@
    */
   var app = {
     GRAPH_API_VERSION: graphApiVersion,
+    MIN_GRAPH_API_VERSION: minimumGraphApiVersion,
     VERSION: appVersion,
     SDK: sdkList,
     Popup: _makePopup,
@@ -151,6 +151,10 @@
       throw new TypeError('Locale must be an ISO string i.e. en_US. More at https://developers.facebook.com/docs/plugins/like-button#language');
     }
 
+    if (parseFloat(this.version.slice(1)) < app.MIN_GRAPH_API_VERSION) {
+      throw new TypeError('Facebook Graph API requires a minimum version of v2.5');
+    }
+
     this.init();
     return this;
   }
@@ -194,24 +198,14 @@
     }
 
     if (self.locale !== 'en_US') {
-      app.SDK.facebook_debug = app.SDK.facebook_debug.replace('en_US', self.locale);
-      app.SDK.facebook_debugv2 = app.SDK.facebook_debugv2.replace('en_US', self.locale);
       app.SDK.facebook = app.SDK.facebook.replace('en_US', self.locale);
-      app.SDK.facebookv2 = app.SDK.facebookv2.replace('en_US', self.locale);
+      app.SDK.facebook_debug = app.SDK.facebook_debug.replace('en_US', self.locale);
     }
 
     if (self.debug) {
-      if (self.version === 'v1.0') {
-        src = app.SDK.facebook_debug;
-      } else {
-        src = app.SDK.facebook_debugv2;
-      }
+      src = app.SDK.facebook_debug;
     } else {
-      if (self.version === 'v1.0') {
-        src = app.SDK.facebook;
-      } else {
-        src = app.SDK.facebookv2;
-      }
+      src = app.SDK.facebook;
     }
 
     return app.LoadSDK('fb-jssdk', src);
@@ -420,6 +414,7 @@
   return app;
 
 })(this);
+
 (function(root) {
   'use strict';
 
