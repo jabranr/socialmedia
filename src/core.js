@@ -2,8 +2,8 @@
   'use strict';
 
   var doc = root.document;
-  var appVersion = '2.1.3';
-  var graphApiVersion = 'v2.8';
+  var appVersion = '2.2.3';
+  var graphApiVersion = 'v2.12';
   var minimumGraphApiVersion = 2.5;
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
   var sdkList = {
