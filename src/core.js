@@ -2,7 +2,7 @@
   'use strict';
 
   var doc = root.document;
-  var appVersion = '2.2.3';
+  var appVersion = '2.2';
   var graphApiVersion = 'v2.12';
   var minimumGraphApiVersion = 2.5;
   var defaultProtocol = (root.location && root.location.protocol === 'https:' ? 'https:' : 'http:');
