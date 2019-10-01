@@ -2,16 +2,13 @@ language: node_js
 sudo: false
 
 node_js:
- - "0.10"
+ - "7.0"
+ - "8.0"
+ - "9.0"
+ - "10.0"
 
 install:
  - npm install
 
-before_script:
- - phantomjs --version
- - mocha-phantomjs --version
- - grunt &
- - sleep 5
-
 script:
- - mocha-phantomjs test/index.html
+ - npm test
