@@ -1,4 +1,6 @@
-# `socialmedia.js` [![Build Status](https://travis-ci.org/jabranr/socialmedia.svg)](https://travis-ci.org/jabranr/socialmedia) [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/socialmedia)](https://github.com/igrigorik/ga-beacon) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# `socialmedia.js` (Deprecated) [![Build Status](https://travis-ci.org/jabranr/socialmedia.svg)](https://travis-ci.org/jabranr/socialmedia) [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/socialmedia)](https://github.com/igrigorik/ga-beacon) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+
+> This repository is not maintained anymore and the library is deprecated. Use it as your own risk.
 
 `socialmedia` is a small library that makes is easy to use the JavaScript based Software Development Kits (SDKs) for various social media platforms. It provides easy to use setup and additional helper methods built around SDKs' native methods. At the moment, `socialmedia` supports following social media platforms:
 
