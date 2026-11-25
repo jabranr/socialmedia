@@ -1,18 +1,24 @@
-# `socialmedia.js` (Deprecated) [![Build Status](https://travis-ci.org/jabranr/socialmedia.svg)](https://travis-ci.org/jabranr/socialmedia) [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/socialmedia)](https://github.com/igrigorik/ga-beacon) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# `socialmedia.js` (Deprecated)
 
-> This repository is not maintained anymore and the library is deprecated. Use it at your own risk.
+> [!WARNING]
+> This library is deprecated and no longer maintained. It will not receive fixes, including security fixes. Do not use it in new projects.
 
-`socialmedia` is a small library that makes is easy to use the JavaScript based Software Development Kits (SDKs) for various social media platforms. It provides easy to use setup and additional helper methods built around SDKs' native methods. At the moment, `socialmedia` supports following social media platforms:
+`socialmedia` wrapped the JavaScript SDKs of Facebook, Twitter, Google Plus and Pinterest. Those SDKs have moved on since it was last updated:
 
-* Facebook
-* Twitter
-* Google Plus
-* Pinterest
+- **Google+** shut down in 2019, so the Google Plus module no longer works.
+- **Facebook**: the library targets Graph API v2.8, which Facebook retired years ago, and several of the dialogs it wraps (`friends`, `pay`, `pagetab`) have been removed.
+- **Twitter / X** and **Pinterest** widgets have changed their APIs since 2016.
 
-## Documentation
-See [Wiki](https://github.com/jabranr/socialmedia/wiki) for information on [Installation](https://github.com/jabranr/socialmedia/wiki/Installation), [Setup](https://github.com/jabranr/socialmedia/wiki/Setup), [API reference](https://github.com/jabranr/socialmedia/wiki/API-Reference) and [contribution](https://github.com/jabranr/socialmedia/wiki/Contribute).
+## Alternatives
 
-## License:
+- Facebook in React: [`use-facebook`](https://github.com/jabranr/use-facebook)
+- Otherwise, load each platform's official SDK directly:
+  - [Facebook JavaScript SDK](https://developers.facebook.com/docs/javascript)
+  - [X for Websites](https://developer.x.com/en/docs/x-for-websites)
+  - [Pinterest widget builder](https://developers.pinterest.com/tools/widget-builder/)
+
+## License
+
 [MIT License](http://opensource.org/licenses/MIT)
 
 &copy; Jabran Rafique ([@jabranr](https://twitter.com/jabranr)) 2014-2015
